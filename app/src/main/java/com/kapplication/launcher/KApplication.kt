@@ -9,6 +9,6 @@ import android.util.Log
 class KApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        Log.i("kenshin", "KApplication, onCreate")
+        Log.i("kenshin", "KApplication, onCreate.")
     }
 }
