@@ -9,99 +9,21 @@ so manually move them:
 
 * apk_builder.xml
 * doc\
-* doc\XML UI Language.docx
-* doc\xul-language.xsd
-* ext_so\
-* ext_so\arm64-v8a\
-* ext_so\arm64-v8a\libpl_All_imgoTV_droidsonroids_gif.so
-* ext_so\armeabi-v7a\
-* ext_so\armeabi-v7a\libpl_All_imgoTV_droidsonroids_gif.so
-* ext_so\armeabi-v7a\libstarcor_xul.so
-* ext_so\armeabi\
-* ext_so\armeabi\libpl_All_imgoTV_droidsonroids_gif.so
-* ext_so\armeabi\libstarcor_xul-v8.so
-* ext_so\armeabi\libstarcor_xul.so
-* ext_so\x86\
-* ext_so\x86\libpl_All_imgoTV_droidsonroids_gif.so
-* ext_so\x86\libstarcor_xul-v8.so
-* ext_so\x86\libstarcor_xul.so
-* ext_so\x86_64\
-* ext_so\x86_64\libpl_All_imgoTV_droidsonroids_gif.so
-* native\
-* native\starcor_xul-v8\
-* native\starcor_xul-v8\build.cmd
-* native\starcor_xul-v8\jni\
-* native\starcor_xul-v8\jni\Android.mk
-* native\starcor_xul-v8\jni\Application.mk
-* native\starcor_xul-v8\jni\com_starcor_xul_Script_V8_V8Engine.cpp
-* native\starcor_xul-v8\jni\com_starcor_xul_Script_V8_V8Engine.h
-* native\starcor_xul-v8\jni\libs\
-* native\starcor_xul-v8\jni\libs\android\
-* native\starcor_xul-v8\jni\libs\android\armeabi\
-* native\starcor_xul-v8\jni\libs\android\armeabi\libv8.a
-* native\starcor_xul-v8\jni\libs\android\armeabi\libv8.so
-* native\starcor_xul-v8\jni\libs\android\armeabi\libv8_nosnapshot.a
-* native\starcor_xul-v8\jni\libs\android\armeabi\libv8_snapshot.a
-* native\starcor_xul-v8\jni\libs\android\x86\
-* native\starcor_xul-v8\jni\libs\android\x86\libv8.a
-* native\starcor_xul-v8\jni\libs\android\x86\libv8.so
-* native\starcor_xul-v8\jni\libs\android\x86\libv8_nosnapshot.a
-* native\starcor_xul-v8\jni\libs\android\x86\libv8_snapshot.a
-* native\starcor_xul-v8\jni\libs\win32\
-* native\starcor_xul-v8\jni\libs\win32\dbg\
-* native\starcor_xul-v8\jni\libs\win32\dbg\v8_base.lib
-* native\starcor_xul-v8\jni\libs\win32\dbg\v8_libbase.lib
-* native\starcor_xul-v8\jni\libs\win32\dbg\v8_libplatform.lib
-* native\starcor_xul-v8\jni\libs\win32\dbg\v8_nosnapshot.lib
-* native\starcor_xul-v8\jni\libs\win32\dbg\v8_snapshot.lib
-* native\starcor_xul-v8\jni\libs\win32\rel\
-* native\starcor_xul-v8\jni\libs\win32\rel\v8_base.lib
-* native\starcor_xul-v8\jni\libs\win32\rel\v8_libbase.lib
-* native\starcor_xul-v8\jni\libs\win32\rel\v8_libplatform.lib
-* native\starcor_xul-v8\jni\libs\win32\rel\v8_nosnapshot.lib
-* native\starcor_xul-v8\jni\libs\win32\rel\v8_snapshot.lib
-* native\starcor_xul-v8\jni\v8\
-* native\starcor_xul-v8\jni\v8\libplatform\
-* native\starcor_xul-v8\jni\v8\libplatform\libplatform.h
-* native\starcor_xul-v8\jni\v8\v8-debug.h
-* native\starcor_xul-v8\jni\v8\v8-platform.h
-* native\starcor_xul-v8\jni\v8\v8-profiler.h
-* native\starcor_xul-v8\jni\v8\v8-testing.h
-* native\starcor_xul-v8\jni\v8\v8-util.h
-* native\starcor_xul-v8\jni\v8\v8.h
-* native\starcor_xul-v8\jni\v8\v8config.h
-* native\starcor_xul-v8\update_jni.cmd
-* native\starcor_xul-v8\vs_proj\
-* native\starcor_xul-v8\vs_proj\v8_test.sln
-* native\starcor_xul-v8\vs_proj\v8_test.vcxproj
-* native\starcor_xul-v8\vs_proj\v8_test.vcxproj.filters
-* native\starcor_xul\
-* native\starcor_xul\jni\
-* native\starcor_xul\jni\Android.mk
-* native\starcor_xul\jni\Application.mk
-* native\starcor_xul\jni\XulUtils_doBlur.cpp
-* native\starcor_xul\jni\com_starcor_xul_Utils_XulPullParser.h
-* native\starcor_xul\jni\com_starcor_xul_XulUtils.h
-* native\starcor_xul\jni\common.h
-* native\starcor_xul\jni\memorypool.h
-* native\starcor_xul\jni\task_runner.h
-* native\starcor_xul\jni\xml_parser.cpp
-* native\starcor_xul\vs_proj\
-* native\starcor_xul\vs_proj\libxul.sln
-* native\starcor_xul\vs_proj\libxul.vcxproj
-* native\starcor_xul\vs_proj\libxul.vcxproj.filters
+* doc\debug instruction.txt
 
 Moved Files:
 ------------
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-* AndroidManifest.xml => xul\src\main\AndroidManifest.xml
-* assets\ => xul\src\main\assets
-* libs\gif.jar => xul\libs\gif.jar
-* res\ => xul\src\main\res
-* src\ => xul\src\main\java\
-* src\com\starcor\xul\XulDataNode.aidl => xul\src\main\aidl\com\starcor\xul\XulDataNode.aidl
+* AndroidManifest.xml => xulApp\src\main\AndroidManifest.xml
+* assets\ => xulApp\src\main\assets
+* res\ => xulApp\src\main\res
+* src\ => xulApp\src\main\java\
+* src\com\starcor\xulapp\model\IXulRemoteDataCallback.aidl => xulApp\src\main\aidl\com\starcor\xulapp\model\IXulRemoteDataCallback.aidl
+* src\com\starcor\xulapp\model\IXulRemoteDataOperation.aidl => xulApp\src\main\aidl\com\starcor\xulapp\model\IXulRemoteDataOperation.aidl
+* src\com\starcor\xulapp\model\IXulRemoteDataService.aidl => xulApp\src\main\aidl\com\starcor\xulapp\model\IXulRemoteDataService.aidl
+* src\com\starcor\xulapp\model\XulClauseInfo.aidl => xulApp\src\main\aidl\com\starcor\xulapp\model\XulClauseInfo.aidl
 
 Next Steps:
 -----------

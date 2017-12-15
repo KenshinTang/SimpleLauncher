@@ -1,2 +1,3 @@
 include ':app'
 include ':xul'
+include ':xulApp'
