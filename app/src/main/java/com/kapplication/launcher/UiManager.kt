@@ -1,6 +1,11 @@
 package com.kapplication.launcher
 
 import com.kapplication.launcher.behavior.MainBehavior
+import com.starcor.xulapp.XulPresenter
+import com.starcor.xulapp.message.XulMessageCenter
+import com.starcor.xulapp.message.XulSubscriber
+import com.starcor.xulapp.utils.XulLog
+import java.lang.ref.WeakReference
 import java.util.*
 import kotlin.reflect.KClass
 
@@ -24,6 +29,44 @@ class UiManager {
 
     fun addUiPage(pageId: String, xulFile: String, behavior: String, pageClass: KClass<*>) {
         _uiPages.add(UiPageInfo(pageId, xulFile, behavior, pageClass))
+    }
+
+    companion object {
+        var messageMonitor: Any? = null
+        var activities: ArrayList<WeakReference<XulPresenter>>? = null
+
+        fun initUiManager() {
+            activities = ArrayList<WeakReference<XulPresenter>>()
+            messageMonitor = object : Any() {
+                @XulSubscriber(tag = CommonMessage.EVENT_ACTIVITY_CREATED)
+                fun onActivityCreated(info: CommonActivity.PageEventInfo) {
+                    XulLog.i("EVENT/Activity/Created", info)
+                    activities!!.add(info.presenter)
+                }
+
+                @XulSubscriber(tag = CommonMessage.EVENT_ACTIVITY_DESTROYED)
+                fun onActivityDestroyed(info: CommonActivity.PageEventInfo) {
+                    XulLog.i("EVENT/Activity/Destroyed", info)
+                    for (activity in activities!!) {
+                        if (activity.get() === info.presenter.get()) {
+                            activities!!.remove(activity)
+                            break
+                        }
+                    }
+                }
+
+                @XulSubscriber(tag = CommonMessage.EVENT_ACTIVITY_RESUMED)
+                fun onActivityResumed(info: CommonActivity.PageEventInfo) {
+                    XulLog.i("EVENT/Activity/Resumed", info)
+                }
+
+                @XulSubscriber(tag = CommonMessage.EVENT_ACTIVITY_STOPPED)
+                fun onActivityStopped(info: CommonActivity.PageEventInfo) {
+                    XulLog.i("EVENT/Activity/Stopped", info)
+                }
+            }
+            XulMessageCenter.getDefault().register(messageMonitor)
+        }
     }
 
     internal class UiPageInfo {

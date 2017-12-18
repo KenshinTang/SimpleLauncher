@@ -19,7 +19,7 @@ class KApplication : XulApplication() {
 
     override fun onCreate() {
         XulLog.i("kenshin", "KApplication, onCreate.")
-        XulMessageCenter.getDefault().register(this)
+//        XulMessageCenter.getDefault().register(this)
         XulDebugServer.startUp()
         super.onCreate()
         startCommonMessage()
@@ -33,6 +33,7 @@ class KApplication : XulApplication() {
 
     override fun onRegisterXulBehaviors() {
         registerComponent()
+        UiManager.initUiManager()
     }
 
     override fun onRegisterXulServices() {
