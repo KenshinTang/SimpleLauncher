@@ -2,6 +2,7 @@ package com.kapplication.launcher
 
 import com.kapplication.launcher.behavior.MainBehavior
 import java.util.*
+import kotlin.reflect.KClass
 
 /**
  * Created by Kenshin on 2017/12/18.
@@ -10,7 +11,7 @@ class UiManager {
     private val _uiPages = ArrayList<UiPageInfo>()
 
     init {
-        addUiPage("TestMainPage", "xul_main_page.xml", MainBehavior.NAME)
+        addUiPage("MainPage", "xul_main_page.xml", MainBehavior.NAME, MainActivity::class)
     }
 
     fun addUiPage(pageId: String, xulFile: String, behavior: String) {
@@ -21,7 +22,7 @@ class UiManager {
         _uiPages.add(UiPageInfo(pageId, xulFile))
     }
 
-    fun addUiPage(pageId: String, xulFile: String, behavior: String, pageClass: Class<*>) {
+    fun addUiPage(pageId: String, xulFile: String, behavior: String, pageClass: KClass<*>) {
         _uiPages.add(UiPageInfo(pageId, xulFile, behavior, pageClass))
     }
 
@@ -29,7 +30,7 @@ class UiManager {
         var pageId: String
         var xulFile: String
         var behavior: String? = null
-        lateinit var pageClass: Class<*>
+        lateinit var pageClass: KClass<*>
 
         constructor(pageId: String, xulFile: String) {
             this.pageId = pageId
@@ -43,7 +44,7 @@ class UiManager {
             this.behavior = behavior
         }
 
-        constructor(pageId: String, xulFile: String, behavior: String, pageClass: Class<*>) {
+        constructor(pageId: String, xulFile: String, behavior: String, pageClass: KClass<*>) {
             this.pageId = pageId
             this.xulFile = xulFile
             this.behavior = behavior

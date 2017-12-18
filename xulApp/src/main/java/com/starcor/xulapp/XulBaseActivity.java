@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
+import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -84,7 +85,7 @@ public class XulBaseActivity extends Activity implements XulPresenter {
 
 				@Override
 				public int getOpacity() {
-					return 0;
+					return PixelFormat.UNKNOWN;
 				}
 			});
 		}
@@ -185,6 +186,12 @@ public class XulBaseActivity extends Activity implements XulPresenter {
 		_intentBehavior = intent.getStringExtra(XPARAM_PAGE_BEHAVIOR);
 
 		xulPreCreate();
+		if (_intentBehavior == null) {
+			_intentBehavior = "";
+		}
+        if (_intentPageId == null) {
+            _intentPageId = "";
+        }
 		xulOnInitXulBehavior(_intentBehavior);
 		xulOnLoadLayoutFile(_intentLayoutFile);
 		xulCreatePage(_intentPageId);

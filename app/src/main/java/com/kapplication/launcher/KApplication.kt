@@ -4,6 +4,7 @@ import android.text.TextUtils
 import android.util.Log
 import com.starcor.xulapp.XulApplication
 import com.starcor.xulapp.behavior.XulUiBehavior
+import com.starcor.xulapp.debug.XulDebugServer
 import com.starcor.xulapp.utils.XulLog
 import com.starcor.xulapp.utils.XulSystemUtil
 import java.lang.reflect.Method
@@ -17,6 +18,7 @@ class KApplication : XulApplication() {
     private val XUL_GLOBAL_SELECTORS = "xul_layouts/xul_global_selectors.xml"
 
     override fun onCreate() {
+        XulDebugServer.startUp()
         super.onCreate()
         Log.i("kenshin", "KApplication, onCreate.")
     }
@@ -42,7 +44,7 @@ class KApplication : XulApplication() {
     }
 
     private fun autoRegister(pkgName: String, baseClass: Class<*>?) {
-        XulLog.d(TAG, "autoRegister ", pkgName)
+        XulLog.d("kenshin", "autoRegister ", pkgName)
         if (TextUtils.isEmpty(pkgName) || baseClass == null) {
             return
         }
@@ -55,13 +57,13 @@ class KApplication : XulApplication() {
                 curClass = Class.forName(className)
                 if (baseClass.isAssignableFrom(curClass)) {
                     // 找到对应的子类，自动注册
-                    XulLog.d(TAG, "autoRegister ", className)
+                    XulLog.d("kenshin", "autoRegister ", className)
                     registerMethod = curClass.getMethod("register")
                     registerMethod.isAccessible = true
                     registerMethod.invoke(curClass)
                 }
             } catch (e: Exception) {
-                XulLog.e(TAG, e)
+                XulLog.e("kenshin", e)
             }
         }
     }

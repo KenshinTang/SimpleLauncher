@@ -15,10 +15,10 @@ import java.lang.ref.WeakReference
 /**
  * Created by hy on 2015/8/31.
  */
-class CommonActivity : XulBaseActivity() {
+open class CommonActivity : XulBaseActivity() {
 
     companion object {
-        val PAGE_MAIN = "SplashPage"
+        val PAGE_MAIN = "MainPage"
         val BEHAVIOR_MAIN = MainBehavior.NAME
     }
 
