@@ -3,23 +3,15 @@
 	<page id="MainPage">
 		<layout>
 			<style name="background-color">FF101010</style>
-			<item type="label">
-				<attr name="x">200</attr>
-				<attr name="y">200</attr>
-				<attr name="text">This is a sample xul project written in kotlin, built with gradle</attr>
-				<focus mode="focusable" focused="true"/>
-				<action event="click" type="usr_cmd">test message</action>
+			<item id="clock_label" type="label">
+				<focus mode="nofocus"/>
+				<attr name="x">1600</attr>
+				<attr name="y">80</attr>
+				<style name="font-size">48</style>
+				<style name="font-color">FFFFFFFF</style>
 			</item>
 		</layout>
 		<selector>
-			<select type="label">
-				<style name="font-color">FFFFFFFF</style>
-				<style name="font-size">42</style>
-			</select>
-
-			<select type="label" state="focused">
-				<style name="border">4,FF00FF00</style>
-			</select>
 		</selector>
 	</page>
 

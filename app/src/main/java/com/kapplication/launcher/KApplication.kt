@@ -1,10 +1,10 @@
 package com.kapplication.launcher
 
 import android.text.TextUtils
-import android.util.Log
 import com.starcor.xulapp.XulApplication
 import com.starcor.xulapp.behavior.XulUiBehavior
 import com.starcor.xulapp.debug.XulDebugServer
+import com.starcor.xulapp.message.XulMessageCenter
 import com.starcor.xulapp.utils.XulLog
 import com.starcor.xulapp.utils.XulSystemUtil
 import java.lang.reflect.Method
@@ -18,9 +18,11 @@ class KApplication : XulApplication() {
     private val XUL_GLOBAL_SELECTORS = "xul_layouts/xul_global_selectors.xml"
 
     override fun onCreate() {
+        XulLog.i("kenshin", "KApplication, onCreate.")
         XulDebugServer.startUp()
         super.onCreate()
-        Log.i("kenshin", "KApplication, onCreate.")
+
+        startCommonMessage()
     }
 
     override fun onLoadXul() {
@@ -66,5 +68,14 @@ class KApplication : XulApplication() {
                 XulLog.e("kenshin", e)
             }
         }
+    }
+
+    private fun startCommonMessage() {
+        XulMessageCenter.getDefault().register(this)
+        XulMessageCenter.buildMessage()
+                .setTag(CommonMessage.EVENT_HALF_SECOND)
+                .setInterval(500)
+                .setRepeat(Integer.MAX_VALUE)
+                .postSticky()
     }
 }
