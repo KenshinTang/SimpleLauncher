@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
+	<page id="TestMainPage">
+		<binding id="mainpage-recommendation"/>
+		<binding id="mainpage-tools"/>
+		<binding id="mainpage-functions"/>
+		<action event="ready" type="script/javascript">
+			var behavior = this.xulBehavior;
+			var result = behavior.testBehavior("arg1", 123.12);
+			logger.d("xulBehavior.testBehavior() = ", result);
+		</action>
+		<layout>
+			<style name="background-color">FF101010</style>
+			<item type="label">
+				<attr name="x">200</attr>
+				<attr name="y">50</attr>
+				<attr name="text">TestMainPage</attr>
+				<focus mode="focusable" focused="true"/>
+				<action event="click" type="usr_cmd">test message</action>
+			</item>
+
+			<item type="label">
+				<attr name="x">500</attr>
+				<attr name="y">50</attr>
+
+				<attr name="text">Open Video List</attr>
+				<focus mode="focusable"/>
+				<action event="click" type="usr_cmd">xACT:open video_list</action>
+			</item>
+
+			<area type="slider">
+				<attr name="y">150</attr>
+				<attr name="direction">vertical</attr>
+				<area type="slider">
+					<attr name="direction">horizontal</attr>
+					<attr name="width">match_parent</attr>
+					<template binding="#mainpage-recommendation/page/item">
+						<item type="label" class="recommendation">
+							<attr name="text" binding="name"/>
+							<style name="background-image" binding="images/image[type=normal]"/>
+						</item>
+					</template>
+				</area>
+				<area type="slider">
+					<attr name="direction">horizontal</attr>
+					<attr name="width">match_parent</attr>
+					<template binding="#mainpage-tools/item">
+						<item type="label" class="tools">
+							<attr name="text" binding="name"/>
+						</item>
+					</template>
+				</area>
+				<area type="slider">
+					<attr name="direction">horizontal</attr>
+					<attr name="width">match_parent</attr>
+					<template binding="#mainpage-functions/item">
+						<item type="label" class="functions">
+							<attr name="text" binding="name"/>
+						</item>
+					</template>
+				</area>
+				<area type="slider">
+					<attr name="direction">vertical</attr>
+					<attr name="width">match_parent</attr>
+					<attr name="height">match_parent</attr>
+					<area type="massive" id="massive-view">
+						<attr name="cache-pages">1</attr>
+						<attr name="minimum-item">24</attr>
+						<template id="@item-template">
+							<item type="label" class="massive-item">
+								<attr name="text" binding="text"/>
+							</item>
+						</template>
+					</area>
+				</area>
+			</area>
+
+
+		</layout>
+		<selector>
+			<select type="label">
+				<style name="font-color">FFFFFFFF</style>
+				<style name="font-size">42</style>
+			</select>
+
+			<select type="label" state="focused">
+				<style name="border">4,FF00FF00</style>
+			</select>
+
+			<select class="massive-item">
+				<focus mode="focusable"/>
+				<action event="focus" type="usr_cmd"/>
+				<attr name="width">320</attr>
+				<attr name="height">200</attr>
+				<style name="padding">20</style>
+				<style name="margin">5</style>
+				<style name="border">2,FF808080</style>
+			</select>
+			<select class="recommendation">
+				<focus mode="focusable"/>
+				<style name="padding">20</style>
+				<style name="margin">5</style>
+				<style name="border">2,FF808080</style>
+			</select>
+			<select class="functions">
+				<focus mode="focusable"/>
+				<style name="padding">20</style>
+				<style name="margin">5</style>
+				<style name="border">2,FF808080</style>
+			</select>
+			<select class="tools">
+				<focus mode="focusable"/>
+				<style name="padding">20</style>
+				<style name="margin">5</style>
+				<style name="border">2,FF808080</style>
+			</select>
+		</selector>
+	</page>
+
+</starcor.xul>

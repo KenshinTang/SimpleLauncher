@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
+    <selector>
+        <select class="match_parent_wh">
+            <attr name="width">match_parent</attr>
+            <attr name="height">match_parent</attr>
+        </select>
+        <select class="hide">
+            <style name="display">none</style>
+        </select>
+    </selector>
+</starcor.xul>
