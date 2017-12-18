@@ -24,6 +24,7 @@ abstract class BaseBehavior(xulPresenter: XulPresenter) : XulUiBehavior(xulPrese
                     }
 
                     override fun onError(clause: XulDataService.Clause, code: Int) {
+                        appOnStartUp(false)
                         XulLog.e("kenshin", "start up failed.")
                     }
                 })

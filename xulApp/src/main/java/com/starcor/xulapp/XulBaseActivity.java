@@ -186,12 +186,6 @@ public class XulBaseActivity extends Activity implements XulPresenter {
 		_intentBehavior = intent.getStringExtra(XPARAM_PAGE_BEHAVIOR);
 
 		xulPreCreate();
-		if (_intentBehavior == null) {
-			_intentBehavior = "";
-		}
-        if (_intentPageId == null) {
-            _intentPageId = "";
-        }
 		xulOnInitXulBehavior(_intentBehavior);
 		xulOnLoadLayoutFile(_intentLayoutFile);
 		xulCreatePage(_intentPageId);
