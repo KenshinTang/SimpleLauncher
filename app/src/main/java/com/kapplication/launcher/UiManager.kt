@@ -1,6 +1,12 @@
 package com.kapplication.launcher
 
+import android.content.Intent
+import android.os.Bundle
+import com.kapplication.launcher.behavior.ListBehavior
 import com.kapplication.launcher.behavior.MainBehavior
+import com.starcor.xul.XulDataNode
+import com.starcor.xulapp.XulApplication
+import com.starcor.xulapp.XulBaseActivity
 import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.message.XulMessageCenter
 import com.starcor.xulapp.message.XulSubscriber
@@ -12,68 +18,108 @@ import kotlin.reflect.KClass
 /**
  * Created by Kenshin on 2017/12/18.
  */
-class UiManager {
-    private val _uiPages = ArrayList<UiPageInfo>()
+object UiManager {
+    var messageMonitor: Any? = null
+    var activities: ArrayList<WeakReference<XulPresenter>>? = null
+    val uiPages = ArrayList<UiPageInfo>()
 
     init {
         addUiPage("MainPage", "xul_main_page.xml", MainBehavior.NAME, MainActivity::class)
+        addUiPage("ListPage", "xul_list_page.xml", ListBehavior.NAME)
     }
 
     fun addUiPage(pageId: String, xulFile: String, behavior: String) {
-        _uiPages.add(UiPageInfo(pageId, xulFile, behavior))
+        uiPages.add(UiPageInfo(pageId, xulFile, behavior))
     }
 
     fun addUiPage(pageId: String, xulFile: String) {
-        _uiPages.add(UiPageInfo(pageId, xulFile))
+        uiPages.add(UiPageInfo(pageId, xulFile))
     }
 
     fun addUiPage(pageId: String, xulFile: String, behavior: String, pageClass: KClass<*>) {
-        _uiPages.add(UiPageInfo(pageId, xulFile, behavior, pageClass))
+        uiPages.add(UiPageInfo(pageId, xulFile, behavior, pageClass))
     }
 
-    companion object {
-        var messageMonitor: Any? = null
-        var activities: ArrayList<WeakReference<XulPresenter>>? = null
+    fun initUiManager() {
+        activities = ArrayList<WeakReference<XulPresenter>>()
+        messageMonitor = object : Any() {
+            @XulSubscriber(tag = CommonMessage.EVENT_ACTIVITY_CREATED)
+            fun onActivityCreated(info: CommonActivity.PageEventInfo) {
+                XulLog.i("EVENT/Activity/Created", info)
+                activities!!.add(info.presenter)
+            }
 
-        fun initUiManager() {
-            activities = ArrayList<WeakReference<XulPresenter>>()
-            messageMonitor = object : Any() {
-                @XulSubscriber(tag = CommonMessage.EVENT_ACTIVITY_CREATED)
-                fun onActivityCreated(info: CommonActivity.PageEventInfo) {
-                    XulLog.i("EVENT/Activity/Created", info)
-                    activities!!.add(info.presenter)
+            @XulSubscriber(tag = CommonMessage.EVENT_ACTIVITY_DESTROYED)
+            fun onActivityDestroyed(info: CommonActivity.PageEventInfo) {
+                XulLog.i("EVENT/Activity/Destroyed", info)
+                for (activity in activities!!) {
+                    if (activity.get() === info.presenter.get()) {
+                        activities!!.remove(activity)
+                        break
+                    }
                 }
+            }
 
-                @XulSubscriber(tag = CommonMessage.EVENT_ACTIVITY_DESTROYED)
-                fun onActivityDestroyed(info: CommonActivity.PageEventInfo) {
-                    XulLog.i("EVENT/Activity/Destroyed", info)
-                    for (activity in activities!!) {
-                        if (activity.get() === info.presenter.get()) {
-                            activities!!.remove(activity)
-                            break
+            @XulSubscriber(tag = CommonMessage.EVENT_ACTIVITY_RESUMED)
+            fun onActivityResumed(info: CommonActivity.PageEventInfo) {
+                XulLog.i("EVENT/Activity/Resumed", info)
+            }
+
+            @XulSubscriber(tag = CommonMessage.EVENT_ACTIVITY_STOPPED)
+            fun onActivityStopped(info: CommonActivity.PageEventInfo) {
+                XulLog.i("EVENT/Activity/Stopped", info)
+            }
+        }
+        XulMessageCenter.getDefault().register(messageMonitor)
+    }
+
+    fun openUiPage(pageId: String) {
+        openUiPage(pageId, null)
+    }
+
+    fun openUiPage(pageId: String, extInfo: XulDataNode?) {
+        for (info in uiPages) {
+            if (info.pageId == pageId) {
+                val intentFlags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+                var pageClass: Class<*>? = info.pageClass?.java
+                if (pageClass == null) {
+                    pageClass = CommonActivity::class.java
+                }
+                val intent = Intent(XulApplication.getAppContext(), pageClass)
+                if (intentFlags >= 0) {
+                    intent.addFlags(intentFlags)
+                }
+                intent.putExtra(XulBaseActivity.XPARAM_PAGE_ID, info.pageId)
+                intent.putExtra(XulBaseActivity.XPARAM_LAYOUT_FILE, info.xulFile)
+                intent.putExtra(XulBaseActivity.XPARAM_PAGE_BEHAVIOR, info.behavior)
+
+                if (extInfo != null && extInfo.firstChild != null) {
+                    var behaviorParams: Bundle? = null
+                    var extInfoParam: XulDataNode? = extInfo.firstChild
+                    while (extInfoParam != null) {
+                        if (behaviorParams == null) {
+                            behaviorParams = Bundle()
                         }
+                        behaviorParams.putString(extInfoParam.name, extInfoParam.value)
+                        extInfoParam = extInfoParam.next
+                    }
+                    if (behaviorParams != null && !behaviorParams.isEmpty) {
+                        intent.putExtra(XulBaseActivity.XPARAM_BEHAVIOR_PARAMS, behaviorParams)
                     }
                 }
 
-                @XulSubscriber(tag = CommonMessage.EVENT_ACTIVITY_RESUMED)
-                fun onActivityResumed(info: CommonActivity.PageEventInfo) {
-                    XulLog.i("EVENT/Activity/Resumed", info)
-                }
-
-                @XulSubscriber(tag = CommonMessage.EVENT_ACTIVITY_STOPPED)
-                fun onActivityStopped(info: CommonActivity.PageEventInfo) {
-                    XulLog.i("EVENT/Activity/Stopped", info)
-                }
+                XulApplication.getAppContext().startActivity(intent)
+                return
             }
-            XulMessageCenter.getDefault().register(messageMonitor)
         }
     }
 
-    internal class UiPageInfo {
+    class UiPageInfo {
         var pageId: String
         var xulFile: String
         var behavior: String? = null
-        lateinit var pageClass: KClass<*>
+        var pageClass: KClass<*>? = null
 
         constructor(pageId: String, xulFile: String) {
             this.pageId = pageId

@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Intent
 import android.provider.Settings
 import com.kapplication.launcher.CommonMessage
+import com.kapplication.launcher.UiManager
 import com.starcor.xul.Prop.XulPropNameCache
 import com.starcor.xul.XulView
 import com.starcor.xulapp.XulPresenter
@@ -84,5 +85,6 @@ class MainBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
 
     private fun openListPage(packageId: String) {
         XulLog.i("MainBehavior", "openListPage($packageId)")
+        UiManager.openUiPage("ListPage")
     }
 }
