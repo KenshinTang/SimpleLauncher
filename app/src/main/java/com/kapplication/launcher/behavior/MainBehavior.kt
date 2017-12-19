@@ -1,5 +1,8 @@
 package com.kapplication.launcher.behavior
 
+import android.content.ComponentName
+import android.content.Intent
+import android.provider.Settings
 import com.kapplication.launcher.CommonMessage
 import com.starcor.xul.Prop.XulPropNameCache
 import com.starcor.xul.XulView
@@ -7,6 +10,7 @@ import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.behavior.XulBehaviorManager
 import com.starcor.xulapp.behavior.XulUiBehavior
 import com.starcor.xulapp.message.XulSubscriber
+import com.starcor.xulapp.utils.XulLog
 import com.starcor.xulapp.utils.XulTime
 import java.text.SimpleDateFormat
 import java.util.*
@@ -44,11 +48,6 @@ class MainBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
     override fun xulOnRenderIsReady() {
         super.xulOnRenderIsReady()
         clockLabel = xulGetRenderContext().findItemById("clock_label")
-//        XulMessageCenter.buildMessage()
-//                .setTag(CommonMessage.EVENT_HALF_SECOND)
-//                .setInterval(500)
-//                .setRepeat(Integer.MAX_VALUE)
-//                .post()
     }
 
     @XulSubscriber(tag = CommonMessage.EVENT_HALF_SECOND)
@@ -64,5 +63,26 @@ class MainBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
                 clockLabel?.resetRender()
             }
         }
+    }
+
+    override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
+        XulLog.i("MainBehavior", "action = $action, type = $type, command = $command, userdata = $userdata")
+        when (command) {
+            "openListPage" -> openListPage(userdata as String)
+            "openAppList"  -> openAppList()
+            "openSetting"  -> context.startActivity(Intent(Settings.ACTION_SETTINGS))
+        }
+        super.xulDoAction(view, action, type, command, userdata)
+    }
+
+    private fun openAppList() {
+        val intent = Intent()
+        intent.component = ComponentName("com.inphic.android.launcher", ".ShortcutActivity")
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        context.startActivity(intent)
+    }
+
+    private fun openListPage(packageId: String) {
+        XulLog.i("MainBehavior", "openListPage($packageId)")
     }
 }
