@@ -7,7 +7,6 @@ import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.behavior.XulBehaviorManager
 import com.starcor.xulapp.behavior.XulUiBehavior
 import com.starcor.xulapp.message.XulSubscriber
-import com.starcor.xulapp.utils.XulLog
 import com.starcor.xulapp.utils.XulTime
 import java.text.SimpleDateFormat
 import java.util.*
@@ -45,11 +44,15 @@ class MainBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
     override fun xulOnRenderIsReady() {
         super.xulOnRenderIsReady()
         clockLabel = xulGetRenderContext().findItemById("clock_label")
+//        XulMessageCenter.buildMessage()
+//                .setTag(CommonMessage.EVENT_HALF_SECOND)
+//                .setInterval(500)
+//                .setRepeat(Integer.MAX_VALUE)
+//                .post()
     }
 
     @XulSubscriber(tag = CommonMessage.EVENT_HALF_SECOND)
     private fun onHalfSecondPassed(dummy: Any) {
-        XulLog.e("kenshin", "onHalfSecondPassed")
         val currentTimeMillis = System.currentTimeMillis()
         if (currentTimeMillis / 1000 != currentDate.time / 1000) {
             currentDate.time = currentTimeMillis

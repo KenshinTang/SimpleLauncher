@@ -19,7 +19,6 @@ class KApplication : XulApplication() {
 
     override fun onCreate() {
         XulLog.i("kenshin", "KApplication, onCreate.")
-//        XulMessageCenter.getDefault().register(this)
         XulDebugServer.startUp()
         super.onCreate()
         startCommonMessage()
@@ -41,8 +40,8 @@ class KApplication : XulApplication() {
     }
 
     private fun registerComponent() {
-        val appPkgName = packageName
-        val behaviorPkgName = appPkgName + ".behavior"
+//        val appPkgName = packageName
+//        val behaviorPkgName = appPkgName + ".behavior"
 //        autoRegister(behaviorPkgName, XulUiBehavior::class.java)
         MainBehavior.register()
     }
@@ -77,6 +76,6 @@ class KApplication : XulApplication() {
                 .setTag(CommonMessage.EVENT_HALF_SECOND)
                 .setInterval(500)
                 .setRepeat(Integer.MAX_VALUE)
-                .post()
+                .postSticky()
     }
 }
