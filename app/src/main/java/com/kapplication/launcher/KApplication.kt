@@ -8,6 +8,7 @@ import com.starcor.xulapp.debug.XulDebugServer
 import com.starcor.xulapp.message.XulMessageCenter
 import com.starcor.xulapp.utils.XulLog
 import com.starcor.xulapp.utils.XulSystemUtil
+import com.starcor.xulapp.utils.XulTime
 import java.lang.reflect.Method
 
 /**
@@ -22,6 +23,7 @@ class KApplication : XulApplication() {
         XulLog.i("kenshin", "KApplication, onCreate.")
         XulDebugServer.startUp()
         super.onCreate()
+        XulTime.setTimeZoneOffset(8)
         startCommonMessage()
     }
 
