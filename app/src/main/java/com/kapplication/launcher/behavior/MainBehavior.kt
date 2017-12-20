@@ -85,6 +85,6 @@ class MainBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
 
     private fun openListPage(packageId: String) {
         XulLog.i("MainBehavior", "openListPage($packageId)")
-        UiManager.openUiPage("ListPage")
+        UiManager.openUiPage("VideoListPage")
     }
 }

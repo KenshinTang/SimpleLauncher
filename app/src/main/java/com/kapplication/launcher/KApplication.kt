@@ -1,8 +1,8 @@
 package com.kapplication.launcher
 
 import android.text.TextUtils
-import com.kapplication.launcher.behavior.ListBehavior
 import com.kapplication.launcher.behavior.MainBehavior
+import com.kapplication.launcher.behavior.VideoListBehavior
 import com.starcor.xulapp.XulApplication
 import com.starcor.xulapp.debug.XulDebugServer
 import com.starcor.xulapp.message.XulMessageCenter
@@ -47,7 +47,7 @@ class KApplication : XulApplication() {
 //        val behaviorPkgName = appPkgName + ".behavior"
 //        autoRegister(behaviorPkgName, XulUiBehavior::class.java)
         MainBehavior.register()
-        ListBehavior.register()
+        VideoListBehavior.register()
     }
 
     private fun autoRegister(pkgName: String, baseClass: Class<*>?) {

@@ -10,21 +10,21 @@ import com.starcor.xulapp.utils.XulLog
 /**
  * Created by hy on 2015/11/16.
  */
-class ListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
+class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
 
     companion object {
-        val NAME = "ListBehavior"
+        val NAME = "VideoListBehavior"
 
         fun register() {
             XulBehaviorManager.registerBehavior(NAME,
                     object : XulBehaviorManager.IBehaviorFactory {
                         override fun createBehavior(
                                 xulPresenter: XulPresenter): XulUiBehavior {
-                            return ListBehavior(xulPresenter)
+                            return VideoListBehavior(xulPresenter)
                         }
 
                         override fun getBehaviorClass(): Class<*> {
-                            return ListBehavior::class.java
+                            return VideoListBehavior::class.java
                         }
                     })
         }
@@ -38,7 +38,7 @@ class ListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
     }
 
     override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
-        XulLog.i("ListBehavior", "action = $action, type = $type, command = $command, userdata = $userdata")
+        XulLog.i("VideoListBehavior", "action = $action, type = $type, command = $command, userdata = $userdata")
         when (command) {
             "openListPage" -> openListPage(userdata as String)
         }
@@ -46,7 +46,7 @@ class ListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
     }
 
     private fun openListPage(packageId: String) {
-        XulLog.i("ListBehavior", "openListPage($packageId)")
+        XulLog.i("VideoListBehavior", "openListPage($packageId)")
         UiManager.openUiPage("ListPage")
     }
 }

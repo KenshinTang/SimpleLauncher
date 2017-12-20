@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
 
-    <page id="ListPage">
+    <page id="VideoListPage">
         <binding id="category-data"/>
         <binding id="bind_label"/>
         <layout>
-            <style name="background-image">file:///.app/skins/background</style>
+            <style name="background-image">file:///.assets/images/background.jpg</style>
 
             <area id="area_page_title" type="component">
                 <attr name="component">component_media_title</attr>
@@ -22,7 +22,7 @@
                     <item id="item_search" type="image" class="category_item">
                         <attr name="y">69</attr>
                         <attr name="width">320</attr>
-                        <attr name="text" binding="#lang/videolist/search"/>
+                        <attr name="text">搜索</attr>
                         <attr name="img.1">file:///.assets/images/video_list/icon_search.png</attr>
                         <attr name="img.1.width">40</attr>
                         <attr name="img.1.height">40</attr>
