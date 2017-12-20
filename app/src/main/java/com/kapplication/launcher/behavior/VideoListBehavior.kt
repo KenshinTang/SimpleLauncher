@@ -31,6 +31,16 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
     }
 
     override fun appOnStartUp(success: Boolean) {
+        val extInfo = _presenter.xulGetBehaviorParams()
+        if (extInfo != null) {
+            val packageId = extInfo.getString("packageId")
+            val title = extInfo.getString("title")
+            XulLog.i("VideoListBehavior", "VideoListBehavior packageId = $packageId")
+
+            val titleView = _xulRenderContext.findItemById("title")
+            titleView?.setAttr("text", title)
+            titleView?.resetRender()
+        }
     }
 
     override fun xulOnRenderIsReady() {

@@ -6,6 +6,7 @@ import android.provider.Settings
 import com.kapplication.launcher.CommonMessage
 import com.kapplication.launcher.UiManager
 import com.starcor.xul.Prop.XulPropNameCache
+import com.starcor.xul.XulDataNode
 import com.starcor.xul.XulView
 import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.behavior.XulBehaviorManager
@@ -69,7 +70,7 @@ class MainBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
     override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
         XulLog.i("MainBehavior", "action = $action, type = $type, command = $command, userdata = $userdata")
         when (command) {
-            "openListPage" -> openListPage(userdata as String)
+            "openListPage" -> openListPage(userdata as String, view?.getAttrString("text"))
             "openAppList"  -> openAppList()
             "openSetting"  -> context.startActivity(Intent(Settings.ACTION_SETTINGS))
         }
@@ -83,8 +84,11 @@ class MainBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
         context.startActivity(intent)
     }
 
-    private fun openListPage(packageId: String) {
+    private fun openListPage(packageId: String, title: String?) {
         XulLog.i("MainBehavior", "openListPage($packageId)")
-        UiManager.openUiPage("VideoListPage")
+        val extInfo = XulDataNode.obtainDataNode("extInfo")
+        extInfo.appendChild("packageId", packageId)
+        extInfo.appendChild("title", title)
+        UiManager.openUiPage("VideoListPage", extInfo)
     }
 }

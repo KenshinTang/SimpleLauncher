@@ -2,69 +2,174 @@
 <starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
 
     <page id="VideoListPage">
-        <binding id="category-data"/>
+        <binding id="category-data">
+            <epg>
+                <type>asset</type>
+                <id>movie</id>
+                <name>电影</name>
+                <subname>电影</subname>
+                <img0>http://3img.imgo.tv/preview/internettv/prev/starcor/asset/movie/8611d8639f49fea5ce53e12c86b180c5.png</img0>
+                <img1>http://0img.imgo.tv/preview/internettv/prev/starcor/asset/movie/043b4c6c56c0360312a97103526af060.png</img1>
+                <img2>http://2img.imgo.tv/preview/internettv/prev/starcor/asset/movie/1000120/6c9df6a1f74719d6b6dad11c0504aa3c.png</img2>
+                <img_icon>栏目图标</img_icon>
+                <img_content_background>栏目背景图</img_content_background>
+                <img_default_img>默认图标</img_default_img>
+                <img_focus_img>焦点图标</img_focus_img>
+                <img_select_img>选中图标</img_select_img>
+                <language>
+                    <en_us>
+                        <name>媒资包美式英文名称</name>
+                    </en_us>
+                </language>
+
+                <arg_list>
+                    <category_list>
+                        <i>
+                            <id>1000031</id>
+                            <name>院线热播</name>
+                            <type>0</type>
+                            <special_poster_width>专题占用海报位个数</special_poster_width>
+                            <language>
+                                <en_us>
+                                    <name>媒资包栏目美式英文名称</name>
+                                </en_us>
+                            </language>
+                        </i>
+                        <i>
+                            <id>1000120</id>
+                            <name>VIP电影</name>
+                            <subname>VIP电影</subname>
+                            <img0>http://1img.imgo.tv/preview/internettv/prev/starcor/asset/movie/1000120/a9a698dbb8ce75747d56a0d566739b11.png</img0>
+                            <img1>http://0img.imgo.tv/preview/internettv/prev/starcor/asset/movie/1000120/9f8b91dc83ab4248c8d31b3ae4558cfd.png</img1>
+                            <img2>http://2img.imgo.tv/preview/internettv/prev/starcor/asset/movie/1000120/6c9df6a1f74719d6b6dad11c0504aa3c.png</img2>
+                            <img_icon>栏目图标</img_icon>
+                            <img_content_background>栏目背景图</img_content_background>
+                            <img_default_img>默认图标</img_default_img>
+                            <img_focus_img>焦点图标</img_focus_img>
+                            <img_select_img>选中图标</img_select_img>
+                            <type>0</type>
+                            <special_poster_width>专题占用海报位个数</special_poster_width>
+                            <ad_info>
+                                <i>
+                                    <ad_pos_id>ttmgtvgg-pic</ad_pos_id>//广告位ID
+                                    <ad_pos_name>ttmgtvgg-pic</ad_pos_name>//广告位名称
+                                    <ad_pos_width>50</ad_pos_width>//广告位宽
+                                    <ad_pos_height>50</ad_pos_height>//广告位高
+                                    <ad_pos_device_type>stb</ad_pos_device_type>//终端类型
+                                    <ad_pos_content_type>image</ad_pos_content_type>//广告位内容类型
+                                    <ad_pos_priority>0</ad_pos_priority>//优先级
+                                    <ad_pos_is_vip_closed>0</ad_pos_is_vip_closed>//VIP是否可以跳过
+                                    <ad_pos_is_force_play>0</ad_pos_is_force_play>//该广告位为是否强制播出
+                                    <ad_pos_is_product_closed>0</ad_pos_is_product_closed>//已购买产品是否跳过广告
+                                </i>
+                            </ad_info>
+                        </i>
+                        <i>
+                            <id>1000666</id>
+                            <name>每周排行</name>
+                            <type>0</type>
+                        </i>
+                        <i>
+                            <id>1000002</id>
+                            <name>华语电影</name>
+                            <type>0</type>
+                        </i>
+                        <i>
+                            <id>1000222</id>
+                            <name>日韩电影</name>
+                            <type>0</type>
+                        </i>
+                        <i>
+                            <id>1000038</id>
+                            <name>动作冒险</name>
+                            <third_id>3333</third_id>
+                            <type>1</type>
+                        </i>
+                        <i>
+                            <id>1000039</id>
+                            <name>爱情喜剧</name>
+                            <type>1</type>
+                        </i>
+                        <i>
+                            <id>1000901</id>
+                            <name>测试排行榜</name>
+                            <type>6</type>
+                            <child_category_list>
+                                <i>
+                                    <id>1000901001</id>
+                                    <name>日</name>
+                                    <type>6</type>
+                                </i>
+                                <i>
+                                    <id>1000901002</id>
+                                    <name>月</name>
+                                    <type>6</type>
+                                </i>
+                                <i>
+                                    <id>1000901003</id>
+                                    <name>周</name>
+                                    <type>6</type>
+                                </i>
+                            </child_category_list>
+                        </i>
+                    </category_list>
+                    <metadata_list>
+                        <i>
+                            <key>test</key>
+                            <value>热热</value>
+                        </i>
+                        <i>
+                            <key>test3</key>
+                            <value>热人</value>
+                        </i>
+                    </metadata_list>
+                </arg_list>
+                <result>
+                    <state>200</state>
+                    <reason>ok</reason>
+                </result>
+            </epg>
+        </binding>
         <binding id="bind_label"/>
         <layout>
             <style name="background-image">file:///.assets/images/background.jpg</style>
 
-            <area id="area_page_title" type="component">
-                <attr name="component">component_media_title</attr>
-            </area>
             <area id="area_video_list_page" class="match_parent_wh">
-
                 <area id="area_category" type="radio">
-                    <style name="background-image">file:///.assets/images/video_list/vertical_bg.png</style>
+                    <style name="background-image">file:///.assets/images/video_list_category_bg.png</style>
                     <attr name="checked-class">category_checked</attr>
                     <attr name="width">323</attr>
                     <attr name="height">match_parent</attr>
                     <focus mode="dynamic"/>
 
-                    <item id="item_search" type="image" class="category_item">
+                    <item id="title" type="label">
+                        <attr name="x">50</attr>
                         <attr name="y">69</attr>
                         <attr name="width">320</attr>
                         <attr name="text">搜索</attr>
-                        <attr name="img.1">file:///.assets/images/video_list/icon_search.png</attr>
-                        <attr name="img.1.width">40</attr>
-                        <attr name="img.1.height">40</attr>
-                        <attr name="img.1.mode">center</attr>
-                        <attr name="img.1.align">0.3,0.5</attr>
-                        <style name="padding-left">55</style>
-                        <action event="click" type="usr_cmd">open_search_page</action>
-                    </item>
-
-
-
-                    <item id="item_filter" type="image" class="category_item" desc="筛选按钮">
-                        <attr name="y">168</attr>
-                        <attr name="width">320</attr>
-                        <attr name="text" binding="#lang/videolist/filter"/>
-                        <attr name="img.1">file:///.assets/images/video_list/icon_filter.png</attr>
-                        <attr name="img.1.width">40</attr>
-                        <attr name="img.1.height">40</attr>
-                        <attr name="img.1.mode">center</attr>
-                        <attr name="img.1.align">0.3,0.5</attr>
-                        <style name="padding-left">55</style>
-                        <action event="click" type="usr_cmd">open_filter_area</action>
+                        <style name="font-size">60</style>
+                        <style name="font-color">D0ffffff</style>
                     </item>
 
                     <item type="label" desc="分割线">
                         <attr name="x">39</attr>
-                        <attr name="y">290</attr>
+                        <attr name="y">190</attr>
                         <style name="background-color">40ffffff</style>
                         <attr name="width">255</attr>
                         <attr name="height">3</attr>
                     </item>
 
                     <area id="area_category_list" type="slider">
+                        <style name="border">2, FFFF0000</style>
                         <action event="bindingUpdated" type="usr_cmd">categoryBindingUpdated</action>
-                        <attr name="y">313</attr>
+                        <attr name="y">213</attr>
                         <attr name="direction">vertical</attr>
                         <style name="padding-bottom">43</style>
                         <attr name="indicator">true</attr>
-                        <attr name="height">742</attr>
-                        <attr name="indicator.down">47,19,0.5,1,file:///.assets/images/video_list/icon_indicator_down.png</attr>
+                        <attr name="height">842</attr>
+                        <attr name="indicator.down">47,19,0.5,1,file:///.assets/images/icon_indicator_down.png</attr>
 
-                        <template binding="#category-data/sub_items/item">
+                        <template binding="#category-data/arg_list/category_list/i">
                             <item filter="[0]" type="label" class="category_item">
                                 <focus mode="focusable" focused="true"/>
                                 <attr name="text" binding="name"/>
@@ -222,141 +327,6 @@
                         </area>
                     </area>
                 </area>
-
-                <area desc="筛选列表区域" id="area_filter_list">
-                    <focus mode="nearby,priority,dynamic"/>
-                    
-                    <attr name="x">0</attr>
-                    <attr name="y">1080</attr>
-
-                    <attr name="width">1920</attr>
-                    <attr name="height">484</attr>
-                    <style name="background-color">f2141717</style>
-                    <attr name="animation">enabled</attr>
-                    <attr name="animation-moving">true</attr>
-                    <attr name="animation-mode">linear</attr>
-                    <attr name="enabled">false</attr>
-                    <attr name="animation-duration">600</attr>
-                    <attr name="enabled">false</attr>
-                    <style name="z-index">3</style>
-
-                    <style name="padding">59,52,50,40</style>
-
-                    <area desc="筛选列表纵向slider" id="slider_tag_lines" type="slider">
-                        <attr name="direction">vertical</attr>
-
-                        <style name="clip-focus">true</style>
-                        <style name="clip-children">true</style>
-                        <attr name="auto-scroll">true</attr>
-
-                        <attr name="width">1818</attr>
-                        <attr name="height">385</attr>
-
-                        <template binding="#bind_label/sub_items/item">
-                            <area desc="筛选标签行" filter="[0]" type="slider" id="slider_filter_tags_line" >
-                                <style name="margin-bottom">17</style>
-                                <attr name="width">1818</attr>
-                                <attr name="height">64</attr>
-                                <attr name="direction">horizontal</attr>
-
-                                <item desc="标题" id="label_title" type="label">
-                                    <focus mode="nofocus"/>
-                                    <attr name="width">154</attr>
-                                    <attr name="height">64</attr>
-                                    <attr name="text" binding="name"/>
-                                    <style name="padding">0,40,40,0</style>
-                                    <style name="font-color">a6ffffff</style>
-                                    <style name="font-size">35</style>
-                                    <style name="font-align">0.5,0.5</style>
-                                </item>
-
-                                <area desc="标签radio区域" type="radio" class="filter_radio_area">
-                                    <attr name="checked-class">filter_tag_label_radio_checked</attr>
-                                    <attr name="direction">horizontal</attr>
-                                    <attr name="width">match_parent</attr>
-                                    <attr name="height">64</attr>
-                                    <area desc="标签slider" type="slider">
-                                        <attr name="width">match_parent</attr>
-                                        <attr name="height">match_parent</attr>
-                                        <attr name="direction">horizontal</attr>
-                                        <focus mode="priority,nearby,dynamic"/>
-                                        <style name="clip-focus">false</style>
-                                        <style name="preferred-focus-padding">0,18,18,0</style>
-                                        <template binding="label_list/item">
-                                            <item desc="标签" filter="[0]" id="label_filter_tag" class="filter_tag_style" type="image">
-                                                <focus mode="focusable" priority="1"/>
-                                                <attr name="align">0.5,0.5</attr>
-                                                <attr name="text" binding="name"/>
-                                                <attr name="id" binding="id"/>
-                                                <attr name="type" binding="type"/>
-                                                <attr name="pos" binding="pos"/>
-                                                <action event="click" type="usr_cmd">on_sub_filter_label_click</action>
-                                                <action event="blur" type="script/javascript">onFilterLabelBlur</action>
-                                            </item>
-                                            <item desc="标签" class="filter_tag_style" type="image">
-                                                <focus mode="focusable"/>
-                                                <attr name="align">0.5,0.5</attr>
-                                                <attr name="text" binding="name"/>
-                                                <attr name="id" binding="id"/>
-                                                <attr name="type" binding="type"/>
-                                                <attr name="pos" binding="pos"/>
-                                                <action event="click" type="usr_cmd">on_sub_filter_label_click</action>
-                                                <action event="blur" type="script/javascript">onFilterLabelBlur</action>
-                                            </item>
-                                        </template>
-                                    </area>
-                                </area>
-                            </area>
-
-                            <area desc="筛选标签行" type="slider" id="slider_filter_tags_line" >
-                                <style name="margin-bottom">17</style>
-                                <attr name="width">1818</attr>
-                                <attr name="height">64</attr>
-                                <attr name="direction">horizontal</attr>
-                                <item desc="标题" id="label_title" type="label">
-                                    <focus mode="nofocus"/>
-                                    <attr name="width">154</attr>
-                                    <attr name="height">64</attr>
-                                    <style name="padding">0,40,40,0</style>
-                                    <attr name="text" binding="name"/>
-                                    <style name="font-color">a6ffffff</style>
-                                    <style name="font-size">35</style>
-                                    <style name="font-align">0.5,0.5</style>
-                                </item>
-
-                                <area desc="标签radio区域" type="radio" class="filter_radio_area">
-                                    <attr name="checked-class">filter_tag_label_radio_checked</attr>
-                                    <attr name="direction">horizontal</attr>
-                                    <attr name="width">match_parent</attr>
-                                    <attr name="height">64</attr>
-                                    <area desc="标签slider" type="slider">
-                                        <attr name="width">match_parent</attr>
-                                        <attr name="height">match_parent</attr>
-                                        <attr name="direction">horizontal</attr>
-                                        <focus mode="nearby,priority,dynamic"/>
-                                        <style name="clip-focus">false</style>
-                                        <style name="preferred-focus-padding">0,18,18,0</style>
-                                        <template binding="label_list/item">
-                                            <item desc="标签" class="filter_tag_style" type="image">
-                                                <focus mode="focusable"/>
-                                                <attr name="align">0.5,0.5</attr>
-                                                <attr name="text" binding="name"/>
-                                                <attr name="id" binding="id"/>
-                                                <attr name="type" binding="type"/>
-                                                <attr name="pos" binding="pos"/>
-                                                <action event="click" type="usr_cmd">on_sub_filter_label_click</action>
-                                                <action event="blur" type="script/javascript">onFilterLabelBlur</action>
-                                            </item>
-                                        </template>
-                                    </area>
-                                </area>
-                            </area>
-                        </template>
-
-                    </area>
-                </area>
-
-
             </area>
 
 
@@ -451,141 +421,4 @@
             </select>
         </selector>
     </page>
-
-    <component id="component_selection">
-        <area>
-            <item id="item_selection_category" type="label" class="selection_item">
-                <focus mode="nofocus"/>
-                <attr name="x">0</attr>
-                <attr name="y">69</attr>
-                <attr name="text" binding="category_name"/>
-                <style name="font-color">B38F8F8F</style>
-                <style name="background-color">08FFFFFF</style>
-            </item>
-
-            <area id="area_selection" type="slider">
-                <attr name="x">171</attr>
-                <attr name="width">171</attr>
-                <attr name="height">207</attr>
-                <attr name="direction">vertical</attr>
-                <attr name="lock-focus">0.5</attr>
-
-                <item id="item_up_space" class="selection_space_holder"/>
-
-                <template binding="items/item">
-                    <item filter="[0]" type="label" class="selection_item">
-                        <attr name="text" binding="/"/>
-                    </item>
-                    <item type="label" class="selection_item,hide_selection_item">
-                        <attr name="text" binding="/"/>
-                    </item>
-                </template>
-
-                <item id="item_down_space" class="selection_space_holder"/>
-            </area>
-        </area>
-        <selector>
-            <select class="selection_item">
-                <focus mode="focusable"/>
-                <attr name="width">171</attr>
-                <attr name="height">69</attr>
-                <style name="font-color">88FFFFFF</style>
-                <style name="font-size">36</style>
-                <style name="font-align">0.5,0.5</style>
-                <style name="border">1,35FFFFFF</style>
-                <action event="focus" type="script/javascript">
-                    // 显示slider内所有元素
-                    var childrenViews = this.parent.children;
-                    this.parent.addClass("focused_border");
-                    for (var i=1; i &lt; childrenViews.length-1; i++) {
-                    childrenViews[i].removeClass("hide_selection_item");
-                    }
-                </action>
-                <action event="blur" type="script/javascript">
-                    // 焦点在分组内切换
-                    if(this.ownerPage.currentFocus.isChildOf(this.parent)) {
-                    return;
-                    }
-
-                    // 隐藏slider内非选中元素
-                    var childrenViews = this.parent.children;
-                    for (var i=1; i &lt; childrenViews.length-1; i++) {
-                    childrenViews[i].addClass("hide_selection_item");
-                    }
-                    this.removeClass("hide_selection_item");
-                    this.parent.removeClass("focused_border");
-                </action>
-            </select>
-            <select class="selection_item" state="focused">
-                <style name="background-color">FF1a5c84</style>
-                <style name="font-color">FFFFFFFF</style>
-            </select>
-            <select class="focused_border">
-                <style name="border">2,FF25C9FF</style>
-            </select>
-            <select class="selection_space_holder">
-                <focus mode="nofocus"/>
-                <attr name="height">69</attr>
-            </select>
-            <select class="hide_selection_item">
-                <style name="font-color">0</style>
-                <style name="border">0,0</style>
-                <attr name="enabled">false</attr>
-            </select>
-        </selector>
-    </component>
-
-    <component id="component_media_title">
-        <area id="area_media_page_title" class="media_page_title_area">
-            <!-- 1/4 UI要求电影一览左上方不要箭头和title_separator_line -->
-            <!--设置产品title-->
-            <!--<item id="item_media_page_title" type="image" class="font_media_page_title,title_separator_line">-->
-            <item id="item_media_page_title" type="image" class="font_media_page_title" desc="天天影院">
-                <attr name="text"></attr>
-            </item>
-
-            <!--设置产品订购信息-->
-            <item id="item_order_info" type="image" class="font_order_info,title_separator_line,hide">
-                <attr name="text" binding="#lang/videolist/orderedItem"/>
-            </item>
-        </area>
-        <selector>
-            <select class="media_page_title_area">
-                <focus mode="nofocus"/>
-                <attr name="x">382</attr>
-                <attr name="y">41</attr>
-                <attr name="width">match_parent</attr>
-            </select>
-            <select class="back_btn">
-                <focus mode="nofocus"/>
-                <focus priority="1"/>
-                <attr name="width">52</attr>
-                <attr name="height">52</attr>
-                <attr name="img.1">file:///.assets/images/media/back_icon.png</attr>
-            </select>
-            <select class="font_media_page_title">
-                <focus mode="nofocus"/>
-                <style name="font-color">FFFFFFFF</style>
-                <style name="font-size">45</style>
-            </select>
-            <select class="font_order_info">
-                <attr name="y">52</attr>
-                <style name="font-color">FF00FF00</style>
-                <style name="font-size">32</style>
-            </select>
-            <select class="title_separator_line">
-                <focus mode="nofocus"/>
-                <attr name="x">76</attr>
-                <attr name="height">52</attr>
-                <style name="font-align">0,0.5</style>
-                <style name="padding-left">24</style>
-                <attr name="img.1">@color:22FFFFFF</attr>
-                <attr name="img.1.width">1</attr>
-                <attr name="img.1.height">52</attr>
-                <attr name="img.1.mode">center</attr>
-                <attr name="img.1.align">0,0.5</attr>
-            </select>
-        </selector>
-    </component>
-
 </starcor.xul>
