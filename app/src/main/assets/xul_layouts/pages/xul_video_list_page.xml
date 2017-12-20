@@ -33,7 +33,7 @@
                     </item>
 
                     <area id="area_category_list" type="slider">
-                        <!--<action event="bindingUpdated" type="usr_cmd">categoryBindingUpdated</action>-->
+                        <action event="bindingUpdated" type="usr_cmd">categoryBindingUpdated</action>
                         <attr name="y">213</attr>
                         <attr name="direction">vertical</attr>
                         <style name="padding-bottom">43</style>
@@ -45,23 +45,28 @@
                             <item filter="[0]" type="label" class="category_item">
                                 <focus mode="focusable" focused="true"/>
                                 <attr name="text" binding="name"/>
+                                <data name="userdata" binding="id"/>
                                 <action event="focus" type="script/javascript">
                                     //判断item是否已经是点击过的状态了
                                     if(!this.hasClass("category_checked")){
                                         this.fireEvent("click");
                                     }
                                 </action>
-                                <action event="checked" type="usr_cmd">switchVideoList</action>
+                                <action event="bindingUpdated" type="script/javascript">
+                                    this.requestFocus()
+                                </action>
+                                <action event="checked" type="usr_cmd">switchCategory</action>
                             </item>
                             <item type="label" class="category_item">
                                 <attr name="text" binding="name"/>
+                                <data name="userdata" binding="id"/>
                                 <action event="focus" type="script/javascript">
                                     //判断item是否已经是点击过的状态了
                                     if(!this.hasClass("category_checked")){
                                         this.fireEvent("click");
                                     }
                                 </action>
-                                <action event="checked" type="usr_cmd">switchVideoList</action>
+                                <action event="checked" type="usr_cmd">switchCategory</action>
                             </item>
                         </template>
                     </area>
@@ -82,7 +87,7 @@
                     </item>
                 </area>
 
-                <area id="area_video_list" class="match_parent_wh">
+                <area class="match_parent_wh">
                     <attr name="x">324</attr>
 
                     <area id="poster_no_data">
@@ -119,7 +124,7 @@
                             <attr name="y">131</attr>
                             <attr name="height">900</attr>
                             <style name="preferred-focus-padding">30,0,0,60</style>
-                            <area id="area_film_list" type="massive">
+                            <area id="area_video_list" type="massive">
                                 <attr name="width">match_parent</attr>
                                 <attr name="arrangement">grid-fixed</attr>
                                 <attr name="direction">horizontal</attr>
@@ -130,13 +135,13 @@
                                     <item type="image" class="poster_default_bkg,focus_scale,focus_border,poster_item,marquee_animation,rigth_top_mark_style">
                                         <attr name="max-layers">8</attr>
                                         <attr name="text" binding="name"/>
-                                        <attr name="img.2" binding="=scale:{posters/image[type=main]}"/>
+                                        <attr name="img.2" binding="img_v"/>
                                         <!--<attr name="img.3" binding="posters/image[type=corner-mark]"/>-->
 
-                                        <attr name="img.4" binding="marks/tag[id=1]"/>
-                                        <attr name="img.5" binding="marks/tag[id=2]"/>
-                                        <attr name="img.6" binding="marks/tag[id=3]"/>
-                                        <attr name="img.7" binding="marks/tag[id=4]"/>
+                                        <attr name="img.4" binding="corner_mark_img_1"/>
+                                        <attr name="img.5" binding="corner_mark_img_2"/>
+                                        <attr name="img.6" binding="corner_mark_img_3"/>
+                                        <attr name="img.7" binding="corner_mark_img_4"/>
                                     </item>
                                 </template>
                             </area>
