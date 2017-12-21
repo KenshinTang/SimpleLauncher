@@ -19,7 +19,7 @@
                         <attr name="x">50</attr>
                         <attr name="y">69</attr>
                         <attr name="width">320</attr>
-                        <attr name="text">搜索</attr>
+                        <attr name="text" binding="#category-data/name"/>
                         <style name="font-size">60</style>
                         <style name="font-color">D0ffffff</style>
                     </item>
@@ -82,7 +82,6 @@
                     <item type="label" id="filmsNumber" class="Number_of_films_style" desc="影片数量">
                         <attr name="width">wrap_content</attr>
                         <attr name="height">32</attr>
-                        <attr name="text">32部</attr>
                         <style name="font-align">0.5,0.5</style>
                     </item>
                 </area>
@@ -135,6 +134,7 @@
                                     <item type="image" class="poster_default_bkg,focus_border,poster_item">
                                         <attr name="text" binding="name"/>
                                         <attr name="img.2" binding="img_v"/>
+                                        <data name="userdata" binding="datasource"/>
                                         <action event="click" type="usr_cmd">openPlayer</action>
                                     </item>
                                 </template>

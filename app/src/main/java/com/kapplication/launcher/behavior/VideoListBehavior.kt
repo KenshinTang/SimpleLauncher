@@ -3,7 +3,6 @@ package com.kapplication.launcher.behavior
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Environment
 import com.starcor.xul.Wrapper.XulMassiveAreaWrapper
 import com.starcor.xul.Wrapper.XulSliderAreaWrapper
 import com.starcor.xul.XulDataNode
@@ -44,16 +43,12 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
     private var mPackageId: String = ""
     private var mOkHttpClient: OkHttpClient = OkHttpClient()
     private var mVideoListView: XulView? = null
+    private var mNoDataHintView: XulView? = null
     private var mVideoListWrapper: XulMassiveAreaWrapper? = null
+    private var mVideoCountView: XulView? = null
 
     override fun appOnStartUp(success: Boolean) {
 
-    }
-
-    private fun setTitle(title: String) {
-        val titleView = _xulRenderContext.findItemById("title")
-        titleView?.setAttr("text", title)
-        titleView?.resetRender()
     }
 
     override fun xulOnRenderIsReady() {
@@ -62,8 +57,6 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
         if (extInfo != null) {
             mPackageId = extInfo.getString("packageId")
             XulLog.i("VideoListBehavior", "VideoListBehavior packageId = $mPackageId")
-
-            setTitle(extInfo.getString("title"))
         }
 
         requestCategory(mPackageId)
@@ -72,6 +65,8 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
     private fun initView() {
         mVideoListView = _xulRenderContext.findItemById("area_video_list")
         mVideoListWrapper =  XulMassiveAreaWrapper.fromXulView(mVideoListView)
+        mNoDataHintView = _xulRenderContext.findItemById("poster_no_data")
+        mVideoCountView = _xulRenderContext.findItemById("filmsNumber")
     }
 
     private fun requestCategory(packageId: String) {
@@ -104,7 +99,7 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
         XulLog.i("VideoListBehavior", "action = $action, type = $type, command = $command, userdata = $userdata")
         when (command) {
             "switchCategory" -> switchCategory(userdata as String)
-            "openPlayer" -> openPlayer()
+            "openPlayer" -> openPlayer(userdata as String)
         }
         super.xulDoAction(view, action, type, command, userdata)
     }
@@ -112,32 +107,56 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
     private fun switchCategory(categoryId: String) {
         var fakeStream: InputStream? = null
         when (mPackageId) {
-            "movie" -> fakeStream = xulGetAssets("fakeData/videolist_movie1.xml")
-//            "tvplay" -> fakeStream = xulGetAssets("fakeData/category_tvplay.xml")
-//            "variety" -> fakeStream = xulGetAssets("fakeData/category_variety.xml")
-//            "animation" -> fakeStream = xulGetAssets("fakeData/category_animation.xml")
+            "movie" -> fakeStream = xulGetAssets("fakeData/videolist_movie_$categoryId.xml")
+            "tvplay" -> fakeStream = xulGetAssets("fakeData/category_tvplay_$categoryId.xml")
+            "variety" -> fakeStream = xulGetAssets("fakeData/category_variety_$categoryId.xml")
+            "animation" -> fakeStream = xulGetAssets("fakeData/category_animation_$categoryId.xml")
         }
-        val dataNode: XulDataNode = XulDataNode.build(fakeStream)
-        val ownerSlider = mVideoListView?.findParentByType("slider")
-        val ownerLayer = mVideoListView?.findParentByType("layer")
 
-        XulSliderAreaWrapper.fromXulView(ownerSlider).scrollTo(0, false)
-        ownerLayer?.dynamicFocus = null
-        ownerLayer?.resetRender()
-        mVideoListWrapper?.clear()
+        if (fakeStream == null) {
+            val ownerLayer = mVideoListView?.findParentByType("layer")
+            val ownerSlider = mVideoListView?.findParentByType("slider")
 
-        var videoNode: XulDataNode? = dataNode.getChildNode("l","il").firstChild
-        while (videoNode != null) {
-            mVideoListWrapper?.addItem(videoNode)
-            videoNode = videoNode.next
+            ownerLayer?.dynamicFocus = null
+            XulSliderAreaWrapper.fromXulView(ownerSlider).scrollTo(0, false)
+            mVideoListWrapper?.clear()
+
+            mVideoListView?.setStyle("display", "none")
+            mVideoListView?.resetRender()
+            mNoDataHintView?.setStyle("display", "block")
+            mNoDataHintView?.resetRender()
+
+            mVideoCountView?.setAttr("text", "0 部")
+            mVideoCountView?.resetRender()
+        } else {
+            val ownerSlider = mVideoListView?.findParentByType("slider")
+            val ownerLayer = mVideoListView?.findParentByType("layer")
+
+            ownerLayer?.dynamicFocus = null
+            XulSliderAreaWrapper.fromXulView(ownerSlider).scrollTo(0, false)
+            mVideoListWrapper?.clear()
+
+            mVideoListView?.setStyle("display", "block")
+            mVideoListView?.resetRender()
+            mNoDataHintView?.setStyle("display", "none")
+            mNoDataHintView?.resetRender()
+
+            val dataNode: XulDataNode = XulDataNode.build(fakeStream)
+            var videoNode: XulDataNode? = dataNode.getChildNode("l", "il").firstChild
+            while (videoNode != null) {
+                mVideoListWrapper?.addItem(videoNode)
+                videoNode = videoNode.next
+            }
+            mVideoListWrapper?.syncContentView()
+
+            mVideoCountView?.setAttr("text", dataNode.getChildNode("l", "page_ctrl", "total_rows").value + " 部")
+            mVideoCountView?.resetRender()
         }
-        mVideoListWrapper?.syncContentView()
     }
 
-    private fun openPlayer() {
-        XulLog.i("VideoListBehavior", "openPlayer()")
-        val uri = Uri.parse(Environment.getExternalStorageDirectory().path + "/kenshin/ad.mp4")
-//        val uri = Uri.parse("http://192.168.94.88:5101/nv.mp4?id=30bc9b575684c343128df522d7716a85")
+    private fun openPlayer(dataSource: String) {
+        XulLog.i("VideoListBehavior", "openPlayer($dataSource)")
+        val uri = Uri.parse(dataSource)
         val intent = Intent(Intent.ACTION_VIEW)
         intent.setDataAndType(uri, "video/mp4")
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK

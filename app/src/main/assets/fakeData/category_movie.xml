@@ -1,67 +1,36 @@
 <epg>
-    <type>asset</type>
-    <id>10002</id>
-    <name><![CDATA[点播免费]]></name>
+    <name><![CDATA[电影]]></name>
     <arg_list>
         <category_list>
             <i>
-                <id>1000001001</id>
+                <id>1</id>
                 <name><![CDATA[动作电影]]></name>
-                <is_enable_area_channel_feature>0</is_enable_area_channel_feature>
-                <type>0</type>
             </i>
             <i>
-                <id>1000001002</id>
+                <id>2</id>
                 <name><![CDATA[爱情电影]]></name>
-                <is_enable_area_channel_feature>0</is_enable_area_channel_feature>
-                <type>0</type>
             </i>
             <i>
-                <id>1000001003</id>
+                <id>3</id>
                 <name><![CDATA[喜剧电影]]></name>
-                <is_enable_area_channel_feature>0</is_enable_area_channel_feature>
-                <type>0</type>
             </i>
             <i>
-                <id>1000001004</id>
+                <id>4</id>
                 <name><![CDATA[动漫电影]]></name>
-                <is_enable_area_channel_feature>0</is_enable_area_channel_feature>
-                <type>0</type>
-                <special_poster_width>2</special_poster_width>
             </i>
             <i>
-                <id>1000001005</id>
+                <id>5</id>
                 <name><![CDATA[经典电影]]></name>
-                <is_enable_area_channel_feature>0</is_enable_area_channel_feature>
-                <type>0</type>
-                <special_poster_width>2</special_poster_width>
             </i>
             <i>
-                <id>1000001006</id>
+                <id>6</id>
                 <name><![CDATA[大陆电影]]></name>
-                <is_enable_area_channel_feature>0</is_enable_area_channel_feature>
-                <type>0</type>
             </i>
             <i>
-                <id>1000001007</id>
-                <name><![CDATA[台湾电影]]></name>
-                <is_enable_area_channel_feature>0</is_enable_area_channel_feature>
-                <type>0</type>
-            </i>
-            <i>
-                <id>1000001008</id>
-                <name><![CDATA[内地电影]]></name>
-                <is_enable_area_channel_feature>0</is_enable_area_channel_feature>
-                <type>0</type>
-            </i>
-            <i>
-                <id>1000001009</id>
+                <id>7</id>
                 <name><![CDATA[欧美电影]]></name>
-                <is_enable_area_channel_feature>0</is_enable_area_channel_feature>
-                <type>0</type>
             </i>
         </category_list>
-        <metadata_list />
     </arg_list>
     <result>
         <state>200</state>
