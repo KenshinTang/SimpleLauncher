@@ -1,53 +1,36 @@
 <epg>
-    <type>asset</type>
-    <id>10002</id>
-    <name><![CDATA[点播免费]]></name>
+    <name><![CDATA[电视剧]]></name>
     <arg_list>
         <category_list>
             <i>
-                <id>1000003002</id>
+                <id>1</id>
                 <name><![CDATA[古装言情]]></name>
-                <is_enable_area_channel_feature>0</is_enable_area_channel_feature>
-                <type>0</type>
             </i>
             <i>
-                <id>1000003003</id>
+                <id>2</id>
                 <name><![CDATA[港台专区]]></name>
-                <is_enable_area_channel_feature>0</is_enable_area_channel_feature>
-                <type>0</type>
             </i>
             <i>
-                <id>1000003004</id>
+                <id>3</id>
                 <name><![CDATA[青春偶像]]></name>
-                <is_enable_area_channel_feature>0</is_enable_area_channel_feature>
-                <type>0</type>
             </i>
             <i>
-                <id>1000003005</id>
+                <id>4</id>
                 <name><![CDATA[情怀经典]]></name>
-                <is_enable_area_channel_feature>0</is_enable_area_channel_feature>
-                <type>0</type>
             </i>
             <i>
-                <id>1000003006</id>
+                <id>5</id>
                 <name><![CDATA[日韩热剧]]></name>
-                <is_enable_area_channel_feature>0</is_enable_area_channel_feature>
-                <type>0</type>
             </i>
             <i>
-                <id>1000003007</id>
+                <id>6</id>
                 <name><![CDATA[VIP电视剧]]></name>
-                <is_enable_area_channel_feature>0</is_enable_area_channel_feature>
-                <type>0</type>
             </i>
             <i>
-                <id>1000003008</id>
+                <id>7</id>
                 <name><![CDATA[欧美强档]]></name>
-                <is_enable_area_channel_feature>0</is_enable_area_channel_feature>
-                <type>0</type>
             </i>
         </category_list>
-        <metadata_list />
     </arg_list>
     <result>
         <state>200</state>
