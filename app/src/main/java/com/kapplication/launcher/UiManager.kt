@@ -3,6 +3,7 @@ package com.kapplication.launcher
 import android.content.Intent
 import android.os.Bundle
 import com.kapplication.launcher.behavior.MainBehavior
+import com.kapplication.launcher.behavior.MediaPlayerBehavior
 import com.kapplication.launcher.behavior.VideoListBehavior
 import com.starcor.xul.XulDataNode
 import com.starcor.xulapp.XulApplication
@@ -26,6 +27,7 @@ object UiManager {
     init {
         addUiPage("MainPage", "xul_layouts/pages/xul_main_page.xml", MainBehavior.NAME, MainActivity::class)
         addUiPage("VideoListPage", "xul_layouts/pages/xul_video_list_page.xml", VideoListBehavior.NAME, VideoListActivity::class)
+        addUiPage("MediaPlayerPage", "xul_layouts/pages/xul_media_player_page.xml", MediaPlayerBehavior.NAME, MediaPlayerActivity::class)
     }
 
     fun addUiPage(pageId: String, xulFile: String, behavior: String) {

@@ -1,6 +1,9 @@
 package com.kapplication.launcher.behavior
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.os.Environment
 import com.starcor.xul.Wrapper.XulMassiveAreaWrapper
 import com.starcor.xul.Wrapper.XulSliderAreaWrapper
 import com.starcor.xul.XulDataNode
@@ -8,10 +11,12 @@ import com.starcor.xul.XulView
 import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.behavior.XulBehaviorManager
 import com.starcor.xulapp.behavior.XulUiBehavior
+import com.starcor.xulapp.debug.XulDebugAdapter.startActivity
 import com.starcor.xulapp.utils.XulLog
 import okhttp3.OkHttpClient
 import java.io.IOException
 import java.io.InputStream
+
 
 /**
  * Created by hy on 2015/11/16.
@@ -131,11 +136,17 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
 
     private fun openPlayer() {
         XulLog.i("VideoListBehavior", "openPlayer()")
+        val uri = Uri.parse(Environment.getExternalStorageDirectory().path + "/kenshin/ad.mp4")
+//        val uri = Uri.parse("http://192.168.94.88:5101/nv.mp4?id=30bc9b575684c343128df522d7716a85")
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.setDataAndType(uri, "video/mp4")
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
     }
 
     private fun xulGetAssets(path: String): InputStream? {
         try {
-            return _presenter.xulGetContext().getAssets().open(path, Context.MODE_PRIVATE)
+            return _presenter.xulGetContext().assets.open(path, Context.MODE_PRIVATE)
         } catch (e: IOException) {
         }
         return null

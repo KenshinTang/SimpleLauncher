@@ -42,6 +42,16 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MediaPlayerActivity"
+            android:screenOrientation="landscape"
+            android:clearTaskOnLaunch="true"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

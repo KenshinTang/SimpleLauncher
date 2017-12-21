@@ -2,6 +2,7 @@ package com.kapplication.launcher
 
 import android.text.TextUtils
 import com.kapplication.launcher.behavior.MainBehavior
+import com.kapplication.launcher.behavior.MediaPlayerBehavior
 import com.kapplication.launcher.behavior.VideoListBehavior
 import com.starcor.xulapp.XulApplication
 import com.starcor.xulapp.debug.XulDebugServer
@@ -48,6 +49,7 @@ class KApplication : XulApplication() {
 //        autoRegister(behaviorPkgName, XulUiBehavior::class.java)
         MainBehavior.register()
         VideoListBehavior.register()
+        MediaPlayerBehavior.register()
     }
 
     private fun autoRegister(pkgName: String, baseClass: Class<*>?) {
