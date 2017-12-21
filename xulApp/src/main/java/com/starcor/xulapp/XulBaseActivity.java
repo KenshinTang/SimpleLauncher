@@ -377,6 +377,11 @@ public class XulBaseActivity extends Activity implements XulPresenter {
 			}
 
 			@Override
+			public InputStream getSdcardData(XulWorker.DownloadItem item, String path) {
+				return xulGetSdcardData(item, path);
+			}
+
+			@Override
 			public void onRenderIsReady() {
 				xulOnRenderIsReady();
 			}
@@ -661,6 +666,13 @@ public class XulBaseActivity extends Activity implements XulPresenter {
 	public InputStream xulGetAppData(XulWorker.DownloadItem item, String path) {
 		if (_xulBehavior != null) {
 			return _xulBehavior.xulGetAppData(item, path);
+		}
+		return null;
+	}
+
+	public InputStream xulGetSdcardData(XulWorker.DownloadItem item, String path) {
+		if (_xulBehavior != null) {
+			return _xulBehavior.xulGetSdcardData(item, path);
 		}
 		return null;
 	}
