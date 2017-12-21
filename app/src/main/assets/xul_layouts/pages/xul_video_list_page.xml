@@ -132,16 +132,10 @@
                                 <attr name="cache-pages">1</attr>
 
                                 <template id="@item-template">
-                                    <item type="image" class="poster_default_bkg,focus_scale,focus_border,poster_item,marquee_animation,rigth_top_mark_style">
+                                    <item type="image" class="poster_default_bkg,focus_scale,focus_border,poster_item,marquee_animation">
                                         <attr name="max-layers">8</attr>
                                         <attr name="text" binding="name"/>
                                         <attr name="img.2" binding="img_v"/>
-                                        <!--<attr name="img.3" binding="posters/image[type=corner-mark]"/>-->
-
-                                        <attr name="img.4" binding="corner_mark_img_1"/>
-                                        <attr name="img.5" binding="corner_mark_img_2"/>
-                                        <attr name="img.6" binding="corner_mark_img_3"/>
-                                        <attr name="img.7" binding="corner_mark_img_4"/>
                                     </item>
                                 </template>
                             </area>
@@ -216,29 +210,14 @@
                 <action event="focus" type="usr_cmd">poster_focus</action>
                 <action event="click" type="usr_cmd">open_detail_page</action>
             </select>
-            <select class="poster_item" state="focused">
-                <style name="font-color">FFFFFFFF</style>
-                <style name="font-size">32</style>
-            </select>
-            <select class="special_poster_item">
-                <focus priority="1"/>
-                <attr name="width">470</attr>
-                <attr name="height">280</attr>
-                <style name="font-color">D9FFFFFF</style>
-                <style name="font-size">30</style>
-                <style name="font-align">0,1</style>
-                <style name="padding-bottom">-56</style>
-                <style name="margin">40,15,30,111</style>
-                <action event="focus" type="usr_cmd">poster_focus</action>
-                <action event="click" type="usr_cmd">open_special_page</action>
-            </select>
-            <select class="special_poster_item" state="focused">
-                <style name="font-color">FFFFFFFF</style>
-                <style name="font-size">32</style>
-            </select>
-
             <select class="content-layer" state="disabled">
                 <style name="lighting-color-filter">FF808080</style>
+            </select>
+
+            <select class="focus_border" state="focused">
+                <attr name="img.0.padding">-24,-28</attr>
+                <attr name="img.0">file:///.assets/images/poster_shadow.9.png</attr>
+                <style name="border">4,d82cbdd7</style>
             </select>
         </selector>
     </page>
