@@ -132,10 +132,10 @@
                                 <attr name="cache-pages">1</attr>
 
                                 <template id="@item-template">
-                                    <item type="image" class="poster_default_bkg,focus_scale,focus_border,poster_item,marquee_animation">
-                                        <attr name="max-layers">8</attr>
+                                    <item type="image" class="poster_default_bkg,focus_border,poster_item">
                                         <attr name="text" binding="name"/>
                                         <attr name="img.2" binding="img_v"/>
+                                        <action event="click" type="usr_cmd">openPlayer</action>
                                     </item>
                                 </template>
                             </area>
@@ -207,8 +207,6 @@
                 <style name="font-align">0,1</style>
                 <style name="padding-bottom">-60</style>
                 <style name="margin">40,64,64,104</style>
-                <action event="focus" type="usr_cmd">poster_focus</action>
-                <action event="click" type="usr_cmd">open_detail_page</action>
             </select>
             <select class="content-layer" state="disabled">
                 <style name="lighting-color-filter">FF808080</style>
@@ -218,6 +216,12 @@
                 <attr name="img.0.padding">-24,-28</attr>
                 <attr name="img.0">file:///.assets/images/poster_shadow.9.png</attr>
                 <style name="border">4,d82cbdd7</style>
+                <attr name="marquee">500,1000,3000,50%</attr>
+            </select>
+            <select class="poster_default_bkg">
+                <attr name="img.0">nine_patch://res/drawable/poster_default.9.png</attr>
+                <!--<attr name="img.1.mode">center</attr>-->
+                <attr name="img.0.align">0.5,0.5</attr>
             </select>
         </selector>
     </page>

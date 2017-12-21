@@ -114,10 +114,13 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
         }
         val dataNode: XulDataNode = XulDataNode.build(fakeStream)
         val ownerSlider = mVideoListView?.findParentByType("slider")
+        val ownerLayer = mVideoListView?.findParentByType("layer")
+
         XulSliderAreaWrapper.fromXulView(ownerSlider).scrollTo(0, false)
+        ownerLayer?.dynamicFocus = null
+        ownerLayer?.resetRender()
         mVideoListWrapper?.clear()
-        mVideoListView?.setStyle("display", "block")
-        mVideoListView?.resetRender()
+
         var videoNode: XulDataNode? = dataNode.getChildNode("l","il").firstChild
         while (videoNode != null) {
             mVideoListWrapper?.addItem(videoNode)
