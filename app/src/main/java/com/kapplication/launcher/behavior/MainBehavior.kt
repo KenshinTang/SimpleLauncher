@@ -52,6 +52,10 @@ class MainBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
         clockLabel = xulGetRenderContext().findItemById("clock_label")
     }
 
+    override fun xulOnBackPressed(): Boolean {
+        return true
+    }
+
     @XulSubscriber(tag = CommonMessage.EVENT_HALF_SECOND)
     private fun onHalfSecondPassed(dummy: Any) {
         val currentTimeMillis = System.currentTimeMillis()
