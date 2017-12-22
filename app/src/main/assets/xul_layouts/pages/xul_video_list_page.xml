@@ -131,7 +131,7 @@
                                 <attr name="cache-pages">1</attr>
 
                                 <template id="@item-template">
-                                    <item type="image" class="poster_default_bkg,focus_border,poster_item">
+                                    <item type="image" class="focus_border,poster_item">
                                         <attr name="text" binding="name"/>
                                         <attr name="img.2" binding="img_v"/>
                                         <data name="userdata" binding="datasource"/>
@@ -217,11 +217,6 @@
                 <attr name="img.0">file:///.assets/images/poster_shadow.9.png</attr>
                 <style name="border">4,d82cbdd7</style>
                 <attr name="marquee">500,1000,3000,50%</attr>
-            </select>
-            <select class="poster_default_bkg">
-                <attr name="img.0">nine_patch://res/drawable/poster_default.9.png</attr>
-                <!--<attr name="img.1.mode">center</attr>-->
-                <attr name="img.0.align">0.5,0.5</attr>
             </select>
         </selector>
     </page>
