@@ -1,6 +1,6 @@
 package com.kapplication.launcher.behavior
 
-import android.content.ComponentName
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.provider.Settings
 import com.kapplication.launcher.CommonMessage
@@ -78,10 +78,11 @@ class MainBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
     }
 
     private fun openAppList() {
-        val intent = Intent()
-        intent.component = ComponentName("com.inphic.android.launcher", ".ShortcutActivity")
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        context.startActivity(intent)
+        try {
+            val intent = Intent(Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS)
+            context.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+        }
     }
 
     private fun openListPage(packageId: String, title: String?) {
