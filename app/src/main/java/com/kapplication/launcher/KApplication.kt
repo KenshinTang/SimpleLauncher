@@ -10,6 +10,9 @@ import com.starcor.xulapp.message.XulMessageCenter
 import com.starcor.xulapp.utils.XulLog
 import com.starcor.xulapp.utils.XulSystemUtil
 import com.starcor.xulapp.utils.XulTime
+import java.io.File
+import java.io.FileInputStream
+import java.io.InputStream
 import java.lang.reflect.Method
 
 /**
@@ -50,6 +53,14 @@ class KApplication : XulApplication() {
         MainBehavior.register()
         VideoListBehavior.register()
         MediaPlayerBehavior.register()
+    }
+
+    override fun xulGetSdcardData(path: String): InputStream? {
+        try {
+            return FileInputStream("/mnt/usbhost/Storage01" + File.separator + path)
+        } catch (e: Exception) {
+        }
+        return null
     }
 
     private fun autoRegister(pkgName: String, baseClass: Class<*>?) {

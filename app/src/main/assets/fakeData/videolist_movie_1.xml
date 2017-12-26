@@ -6,33 +6,33 @@
         <il>
             <i>
                 <name><![CDATA[少年派的奇幻漂流]]></name>
-                <img_v>file:///.sdcard/kenshin/movie/1/snp/1.png</img_v>
-                <datasource>/sdcard/kenshin/movie/1/snp/1.mp4</datasource>
+                <img_v>file:///.sdcard/SL/movie/1/snp/1.png</img_v>
+                <datasource>/mnt/usbhost/Storage01/SL/movie/1/snp/1.mp4</datasource>
             </i>
             <i>
                 <name><![CDATA[指环王]]></name>
-                <img_v>file:///.sdcard/kenshin/movie/1/zhw/1.png</img_v>
-                <datasource>/sdcard/kenshin/movie/1/zhw/1.mp4</datasource>
+                <img_v>file:///.sdcard/SL/movie/1/zhw/1.png</img_v>
+                <datasource>/mnt/usbhost/Storage01/SL/movie/1/zhw/1.mp4</datasource>
             </i>
             <i>
                 <name><![CDATA[特工小子]]></name>
-                <img_v>file:///.sdcard/kenshin/movie/1/tgxz/1.png</img_v>
-                <datasource>/sdcard/kenshin/movie/1/tgxz/1.mp4</datasource>
+                <img_v>file:///.sdcard/SL/movie/1/tgxz/1.png</img_v>
+                <datasource>/mnt/usbhost/Storage01/SL/movie/1/tgxz/1.mp4</datasource>
             </i>
             <i>
                 <name><![CDATA[不可思异]]></name>
-                <img_v>file:///.sdcard/kenshin/movie/1/bksy/1.png</img_v>
-                <datasource>/sdcard/kenshin/movie/1/bksy/1.mp4</datasource>
+                <img_v>file:///.sdcard/SL/movie/1/bksy/1.png</img_v>
+                <datasource>/mnt/usbhost/Storage01/SL/movie/1/bksy/1.mp4</datasource>
             </i>
             <i>
                 <name><![CDATA[暴力街区]]></name>
-                <img_v>file:///.sdcard/kenshin/movie/1/bljq/1.png</img_v>
-                <datasource>/sdcard/kenshin/movie/1/bljq/1.mp4</datasource>
+                <img_v>file:///.sdcard/SL/movie/1/bljq/1.png</img_v>
+                <datasource>/mnt/usbhost/Storage01/SL/movie/1/bljq/1.mp4</datasource>
             </i>
             <i>
                 <name><![CDATA[圣诞惊魂夜]]></name>
-                <img_v>file:///.sdcard/kenshin/movie/1/sdjhy/1.png</img_v>
-                <datasource>/sdcard/kenshin/movie/1/sdjhy/1.mp4</datasource>
+                <img_v>file:///.sdcard/SL/movie/1/sdjhy/1.png</img_v>
+                <datasource>/mnt/usbhost/Storage01/SL/movie/1/sdjhy/1.mp4</datasource>
             </i>
         </il>
     </l>
