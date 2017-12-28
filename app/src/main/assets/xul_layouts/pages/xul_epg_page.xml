@@ -55,19 +55,19 @@
             <item class="epg_item, focus_border" type="image">
                 <attr name="x">370</attr>
                 <attr name="img.1" binding="[=img_default]" />
-                <data name="userdata">movie</data>
+                <data name="userdata">tvplay</data>
                 <action event="click" type="usr_cmd">openListPage</action>
             </item>
             <item class="epg_item, focus_border" type="image">
                 <attr name="x">670</attr>
                 <attr name="img.1" binding="[=img_default]" />
-                <data name="userdata">movie</data>
+                <data name="userdata">variety</data>
                 <action event="click" type="usr_cmd">openListPage</action>
             </item>
             <item class="epg_item, focus_border" type="image">
                 <attr name="x">970</attr>
                 <attr name="img.1" binding="[=img_default]" />
-                <data name="userdata">movie</data>
+                <data name="userdata">animation</data>
                 <action event="click" type="usr_cmd">openListPage</action>
             </item>
             <item class="epg_item, focus_border" type="image">
