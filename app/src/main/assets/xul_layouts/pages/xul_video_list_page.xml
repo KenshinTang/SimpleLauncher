@@ -211,13 +211,6 @@
             <select class="content-layer" state="disabled">
                 <style name="lighting-color-filter">FF808080</style>
             </select>
-
-            <select class="focus_border" state="focused">
-                <attr name="img.0.padding">-24,-28</attr>
-                <attr name="img.0">file:///.assets/images/poster_shadow.9.png</attr>
-                <style name="border">4,d82cbdd7</style>
-                <attr name="marquee">500,1000,3000,50%</attr>
-            </select>
         </selector>
     </page>
 </starcor.xul>

@@ -2,14 +2,12 @@ package com.kapplication.launcher
 
 import android.os.Bundle
 import android.text.TextUtils
-import com.kapplication.launcher.behavior.MainBehavior
-
+import com.kapplication.launcher.behavior.EpgBehavior
 import com.starcor.xul.IXulExternalView
 import com.starcor.xul.XulView
 import com.starcor.xulapp.XulBaseActivity
 import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.message.XulMessageCenter
-
 import java.lang.ref.WeakReference
 
 /**
@@ -18,8 +16,8 @@ import java.lang.ref.WeakReference
 open class CommonActivity : XulBaseActivity() {
 
     companion object {
-        val PAGE_MAIN = "MainPage"
-        val BEHAVIOR_MAIN = MainBehavior.NAME
+        val PAGE_MAIN = "EpgPage"
+        val BEHAVIOR_MAIN = EpgBehavior.NAME
     }
 
     override fun xulOnInitXulBehavior(behavior: String) {

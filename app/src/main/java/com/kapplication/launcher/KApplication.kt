@@ -1,7 +1,7 @@
 package com.kapplication.launcher
 
 import android.text.TextUtils
-import com.kapplication.launcher.behavior.MainBehavior
+import com.kapplication.launcher.behavior.EpgBehavior
 import com.kapplication.launcher.behavior.MediaPlayerBehavior
 import com.kapplication.launcher.behavior.VideoListBehavior
 import com.starcor.xulapp.XulApplication
@@ -19,7 +19,8 @@ import java.lang.reflect.Method
  * Created by Kenshin on 2017/12/14.
  */
 class KApplication : XulApplication() {
-    private val XUL_FIRST_PAGE = "xul_layouts/pages/xul_main_page.xml"
+//    private val XUL_FIRST_PAGE = "xul_layouts/pages/xul_main_page.xml"
+    private val XUL_FIRST_PAGE = "xul_layouts/pages/xul_epg_page.xml"
     private val XUL_GLOBAL_BINDINGS = "xul_layouts/xul_global_bindings.xml"
     private val XUL_GLOBAL_SELECTORS = "xul_layouts/xul_global_selectors.xml"
 
@@ -50,7 +51,9 @@ class KApplication : XulApplication() {
 //        val appPkgName = packageName
 //        val behaviorPkgName = appPkgName + ".behavior"
 //        autoRegister(behaviorPkgName, XulUiBehavior::class.java)
-        MainBehavior.register()
+
+//        MainBehavior.register()
+        EpgBehavior.register()
         VideoListBehavior.register()
         MediaPlayerBehavior.register()
     }

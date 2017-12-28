@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
+	<page id="EpgPage">
+		<layout>
+            <style name="background-image">file:///.assets/images/background.jpg</style>
+			<item id="clock_label" type="label" desc="时间">
+				<focus mode="nofocus"/>
+				<attr name="x">1700</attr>
+				<attr name="y">50</attr>
+				<style name="font-size">60</style>
+				<style name="font-color">FFFFFFFF</style>
+			</item>
+
+            <!--推荐海报-->
+            <item class="poster_item, focus_border" id="poster_1" type="image">
+                <focus focused="true" />
+                <attr name="x">70</attr>
+                <attr name="y">160</attr>
+                <attr name="width">768</attr>
+                <attr name="height">552</attr>
+                <attr name="img.1"></attr>
+            </item>
+            <item class="poster_item, focus_border" id="poster_2" type="image">
+                <attr name="x">860</attr>
+                <attr name="y">160</attr>
+            </item>
+            <item class="poster_item, focus_border" id="poster_3" type="image">
+                <attr name="x">1200</attr>
+                <attr name="y">160</attr>
+            </item>
+            <item class="poster_item, focus_border" id="poster_4" type="image">
+                <attr name="x">1540</attr>
+                <attr name="y">160</attr>
+            </item>
+            <item class="poster_item, focus_border" id="poster_5" type="image">
+                <attr name="x">860</attr>
+                <attr name="y">450</attr>
+            </item>
+            <item class="poster_item, focus_border" id="poster_6" type="image">
+                <attr name="x">1200</attr>
+                <attr name="y">450</attr>
+            </item>
+            <item class="poster_item, focus_border" id="poster_7" type="image">
+                <attr name="x">1540</attr>
+                <attr name="y">450</attr>
+            </item>
+
+            <!--epg菜单-->
+            <item class="epg_item, focus_border" type="image">
+                <attr name="x">70</attr>
+                <attr name="img.1" binding="[=img_default]" />
+                <data name="userdata">movie</data>
+                <action event="click" type="usr_cmd">openListPage</action>
+            </item>
+            <item class="epg_item, focus_border" type="image">
+                <attr name="x">370</attr>
+                <attr name="img.1" binding="[=img_default]" />
+                <data name="userdata">movie</data>
+                <action event="click" type="usr_cmd">openListPage</action>
+            </item>
+            <item class="epg_item, focus_border" type="image">
+                <attr name="x">670</attr>
+                <attr name="img.1" binding="[=img_default]" />
+                <data name="userdata">movie</data>
+                <action event="click" type="usr_cmd">openListPage</action>
+            </item>
+            <item class="epg_item, focus_border" type="image">
+                <attr name="x">970</attr>
+                <attr name="img.1" binding="[=img_default]" />
+                <data name="userdata">movie</data>
+                <action event="click" type="usr_cmd">openListPage</action>
+            </item>
+            <item class="epg_item, focus_border" type="image">
+                <attr name="x">1270</attr>
+                <attr name="img.1" binding="[=img_default]" />
+                <action event="click" type="usr_cmd">openAppList</action>
+            </item>
+            <item class="epg_item, focus_border" type="image">
+                <attr name="x">1570</attr>
+                <attr name="img.1" binding="[=img_default]" />
+                <action event="click" type="usr_cmd">openSetting</action>
+            </item>
+		</layout>
+		<selector>
+			<select class="epg_item">
+                <attr name="y">770</attr>
+                <attr name="width">280</attr>
+                <attr name="height">280</attr>
+                <style name="border">4,ffff0000</style>
+			</select>
+            <select class="poster_item" state="focused">
+                <style name="scale">1.1</style>
+            </select>
+            <select class="poster_item">
+                <attr name="width">324</attr>
+                <attr name="height">262</attr>
+                <style name="border">4,ffff0000</style>
+            </select>
+		</selector>
+	</page>
+
+</starcor.xul>
