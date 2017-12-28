@@ -73,11 +73,14 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
     private fun requestCategory(packageId: String) {
         var fakeStream: InputStream? = null
         when (packageId) {
-//            "movie" -> fakeStream = xulGetAssets("fakeData/category_movie.xml")
-            "movie" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/category_movie.xml")
-            "tvplay" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/category_tvplay.xml")
-            "variety" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/category_variety.xml")
-            "animation" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/category_animation.xml")
+            "movie" -> fakeStream = xulGetAssets("fakeData/category_movie.xml")
+            "tvplay" -> fakeStream = xulGetAssets("fakeData/category_tvplay.xml")
+            "variety" -> fakeStream = xulGetAssets("fakeData/category_variety.xml")
+            "animation" -> fakeStream = xulGetAssets("fakeData/category_animation.xml")
+//            "movie" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/category_movie.xml")
+//            "tvplay" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/category_tvplay.xml")
+//            "variety" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/category_variety.xml")
+//            "animation" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/category_animation.xml")
         }
         if (fakeStream == null) {
             mVideoListView?.setStyle("display", "none")
@@ -119,11 +122,14 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
     private fun switchCategory(categoryId: String) {
         var fakeStream: InputStream? = null
         when (mPackageId) {
-//            "movie" -> fakeStream = xulGetAssets("fakeData/videolist_movie_$categoryId.xml")
-            "movie" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/videolist_movie_$categoryId.xml")
-            "tvplay" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/videolist_tvplay_$categoryId.xml")
-            "variety" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/videolist_variety_$categoryId.xml")
-            "animation" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/videolist_animation_$categoryId.xml")
+            "movie" -> fakeStream = xulGetAssets("fakeData/videolist_movie_$categoryId.xml")
+            "tvplay" -> fakeStream = xulGetAssets("fakeData/videolist_tvplay_$categoryId.xml")
+            "variety" -> fakeStream = xulGetAssets("fakeData/videolist_variety_$categoryId.xml")
+            "animation" -> fakeStream = xulGetAssets("fakeData/videolist_animation_$categoryId.xml")
+//            "movie" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/videolist_movie_$categoryId.xml")
+//            "tvplay" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/videolist_tvplay_$categoryId.xml")
+//            "variety" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/videolist_variety_$categoryId.xml")
+//            "animation" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/videolist_animation_$categoryId.xml")
         }
 
         if (fakeStream == null) {
