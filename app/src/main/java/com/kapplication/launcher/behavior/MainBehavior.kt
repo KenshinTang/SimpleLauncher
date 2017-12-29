@@ -17,9 +17,6 @@ import com.starcor.xulapp.utils.XulTime
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * Created by hy on 2015/11/16.
- */
 class MainBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
 
     private var clockLabel: XulView? = null

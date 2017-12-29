@@ -18,9 +18,6 @@ import java.io.IOException
 import java.io.InputStream
 
 
-/**
- * Created by hy on 2015/11/16.
- */
 class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
 
     companion object {
@@ -115,6 +112,7 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
         when (command) {
             "switchCategory" -> switchCategory(userdata as String)
             "openPlayer" -> openPlayer(userdata as String)
+            "openDetail" -> openDetail(userdata as String)
         }
         super.xulDoAction(view, action, type, command, userdata)
     }
@@ -171,6 +169,10 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
             mVideoCountView?.setAttr("text", dataNode.getChildNode("l", "page_ctrl", "total_rows").value + " 部")
             mVideoCountView?.resetRender()
         }
+    }
+
+    private fun openDetail(dataSource: String) {
+        XulLog.i("VideoListBehavior", "openDetail($dataSource)")
     }
 
     private fun openPlayer(dataSource: String) {

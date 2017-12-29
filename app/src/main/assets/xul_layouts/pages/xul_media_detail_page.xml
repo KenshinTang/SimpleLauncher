@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
+
+    <page id="page_media_detail">
+        <binding id="media_detail_info"/>
+        <binding id="recommendation"/>
+        <binding id="media_index"/>
+        <layout>
+            <attr name="check-standard">pfm-txt-cls,pfm-temp-clsA</attr>
+            <style name="background-image">file:///.app/skins/background</style>
+            <area id="area_media_detail" class="match_parent_wh">
+
+                <!--<area id="area_page_title">-->
+                    <!--<attr name="x">32</attr>-->
+                    <!--<attr name="y">38</attr>-->
+                    <!--<item id="item_media_page_title" type="image">-->
+                        <!--<attr name="x">66</attr>-->
+                        <!--<attr name="text" binding="#lang/detail/title"/>-->
+                        <!--<style name="font-color">C0FFFFFF</style>-->
+                        <!--<style name="font-size">45</style>-->
+                    <!--</item>-->
+                <!--</area>-->
+
+                <area id="area_media_info" binding="#media_detail_info">
+
+                    <item id="item_media_poster" type="image" class="rigth_top_mark_style,poster_default_bkg">
+                        <focus mode="nofocus"/>
+                        <attr name="max-layers">8</attr>
+                        <attr name="x">98</attr>
+                        <attr name="y">117</attr>
+                        <attr name="width">396</attr>
+                        <attr name="height">512</attr>
+                        <attr name="img.2" binding="posters/image[type=main]"/>
+
+                        <attr name="img.4" binding="marks/tag[id=1]"/>
+                        <attr name="img.5" binding="marks/tag[id=2]"/>
+                        <attr name="img.6" binding="marks/tag[id=3]"/>
+                        <attr name="img.7" binding="marks/tag[id=4]"/>
+                    </item>
+
+                    <area id="area_media_detail_info">
+                        <attr name="x">558</attr>
+                        <attr name="y">80</attr>
+                        <attr name="width">1268</attr>
+                        <attr name="height">553</attr>
+
+                        <area type="slider" desc="标题行">
+                            <attr name="direction">horizontal</attr>
+                            <attr name="width">warp_content</attr>
+                            <attr name="height">62</attr>
+                            <attr name="align">0,1</attr>
+                            <item id="item_media_title" type="label" class="pfm-txt-cls">
+                                <attr name="width">warp_content</attr>
+                                <attr name="height">match_parent</attr>
+                                <attr name="text" binding="name"/>
+                                <style name="font-size">46</style>
+                                <style name="font-color">FFFFFFFF</style>
+                                <style name="padding">0,5,0,0</style>
+                                <style name="font-align">0,1</style>
+                            </item>
+                            <item id="vedio_count" type="label">
+                                <attr name="width">wrap_content</attr>
+                                <attr name="height">match_parent</attr>
+                                <style name="font-size">30</style>
+                                <style name="font-color">ffffffff</style>
+                                <style name="margin-left">40</style>
+                                <attr name="text" binding="tags/tag[type=renewal]"/>
+                                <style name="font-align">0,0.82</style>
+                            </item>
+
+                        </area>
+
+
+                        <item class="separator_line">
+                            <attr name="y">75</attr>
+                            <attr name="height">2</attr>
+                        </item>
+
+
+                        <area type="slider" desc="导演、演员、简介的描述区域">
+                            <attr name="direction">vertical</attr>
+                            <attr name="y">98</attr>
+                            <attr name="width">1266</attr>
+                            <attr name="height">276</attr>
+                            <style name="padding-left">2</style>
+                            <area type="slider" desc="导演描述" binding="related_persons">
+                                <attr name="direction">horizontal</attr>
+                                <attr name="width">wrap_content</attr>
+                                <attr name="height">wrap_content</attr>
+                                <item type="label" class="label_item">
+                                    <attr name="text" binding="={#lang/detail/director}:"/>
+                                    <style name="font-color">FFFFFFFF</style>
+                                    <style name="margin-right">5</style>
+                                </item>
+                                <template binding="item[role=director]" >
+                                    <item type="label" class="label_item" filter="[-1]">
+                                        <attr name="text" binding="name"/>
+                                        <style name="font-color">ffcbcbcb</style>
+                                    </item>
+                                    <item type="label" class="label_item" >
+                                        <attr name="text" binding="={/name}/"/>
+                                        <style name="font-color">ffcbcbcb</style>
+                                    </item>
+                                </template>
+                            </area>
+                            <area type="slider" desc="演员描述" binding="related_persons">
+                                <attr name="direction">horizontal</attr>
+                                <attr name="width">wrap_content</attr>
+                                <attr name="height">wrap_content</attr>
+                                <item type="label" class="label_item">
+                                    <attr name="text" binding="={#lang/detail/actor}:"/>
+                                    <style name="font-color">FFFFFFFF</style>
+                                    <style name="margin-right">5</style>
+                                </item>
+                                <template binding="item[role=actor]" >
+                                    <item type="label" class="label_item" filter="[-1]">
+                                        <attr name="text" binding="name"/>
+                                        <style name="font-color">ffcbcbcb</style>
+                                    </item>
+                                    <item type="label" class="label_item" >
+                                        <attr name="text" binding="={/name}/"/>
+                                        <style name="font-color">ffcbcbcb</style>
+                                    </item>
+                                </template>
+                            </area>
+                            <area type="layer" desc="简介描述" >
+                                <attr name="width">match_partent</attr>
+                                <attr name="height">match_parent</attr>
+
+                                <item type="spanned_label" class="label_item">
+                                    <attr name="width">wrap_content</attr>
+                                    <attr name="height">55</attr>
+                                    <attr name="text" binding="={#lang/detail/briefIntroduction}:"/>
+                                    <style name="font-color">ffffffff</style>
+                                    <style name="padding-top">9</style>
+                                </item>
+                                <item type="label" class="label_item">
+                                    <attr name="width">match_parent</attr>
+                                    <attr name="height">match_parent</attr>
+                                    <attr name="text" binding="desc"/>
+                                    <attr name="ellipsis">true</attr>
+                                    <attr name="multi-line">true</attr>
+                                    <attr name="auto-wrap">true</attr>
+                                    <style name="font-color">ffcbcbcb</style>
+                                    <style name="start-indent">66</style>
+                                </item>
+                            </area>
+                        </area>
+
+                        <item class="separator_line">
+                            <attr name="y">400</attr>
+                            <attr name="height">2</attr>
+                        </item>
+
+
+                        <area id="area_media_btns" type="slider">
+                            <focus mode="dynamic,priority"/>
+                            <attr name="y">304</attr>
+                            <attr name="width">1344</attr>
+
+                            <item id="item_play_btn" type="image" class="media_btn,hide" binding="#media_detail_info">
+                                <attr name="text" binding="#lang/detail/play"/>
+                                <attr name="img.1">file:///.assets/images/media/icon_play.png</attr>
+                                <action event="click" type="usr_cmd">onPlayButtonClick</action>
+                            </item>
+
+                            <item id="item_buy_btn" type="image" class="media_btn,hide">
+                                <attr name="text" binding="#lang/detail/buy"/>
+                                <attr name="img.1">file:///.assets/images/media/icon_buy.png</attr>
+                                <action event="click" type="usr_cmd">onBuyButtonClick</action>
+                            </item>
+
+                            <item id="item_preview_btn" type="image" class="media_btn,hide" binding="#media_detail_info">
+                                <attr name="text">试看</attr>
+                                <style name="margin-left">27</style>
+                                <attr name="img.1">file:///.assets/images/media/icon_play.png</attr>
+                                <action event="click" type="usr_cmd">onPreviewButtonClick</action>
+                            </item>
+
+                            <item id="item_exchange_btn" type="image" class="media_btn,hide" binding="#media_detail_info">
+                                <attr name="text" binding="#lang/detail/exchange"/>
+                                <style name="margin-left">27</style>
+                                <style name="padding-left">0</style>
+                                <style name="font-align">0.5,0.5</style>
+                                <!--<attr name="img.1">file:///.assets/images/media/icon_buy.png</attr>-->
+                                <action event="click" type="usr_cmd">onExchangeButtonClick</action>
+                            </item>
+
+                            <item id="item_episode_btn" type="image" class="media_btn,hide">
+                                <attr name="text" binding="#lang/detail/choiceEpisod"/>
+                                <style name="margin-left">27</style>
+                                <attr name="img.1">file:///.assets/images/media/icon_select.png</attr>
+                                <action event="click" type="usr_cmd">onEpisodeButtonClick</action>
+                            </item>
+
+                            <item id="item_collect_btn" type="image" class="media_btn,collect_btn,hide">
+                                <style name="margin-left">27</style>
+                                <action event="click" type="usr_cmd">onCollectButtonClick</action>
+                            </item>
+
+                            <area id="item_collect_success" type="layer" class="collect_success_item">
+                                <item type="label" id="collect_success_label">
+                                    <attr name="x">21</attr>
+                                    <attr name="y">21</attr>
+                                    <attr name="width">258</attr>
+                                    <attr name="height">93</attr>
+                                    <attr name="text"></attr>
+                                    <style name="font-size">42</style>
+                                    <style name="font-align">0.5,0.5</style>
+                                    <style name="font-color">FFFFFFFF</style>
+                                </item>
+                            </area>
+
+                        </area>
+                    </area>
+                </area>
+
+                <area id="area_relative_media">
+                    <attr name="y">655</attr>
+                    <style name="padding">0,95,97,0</style>
+
+                    <item type="label">
+                        <attr name="text" binding="#lang/detail/associationRecommendation"/>
+                        <style name="font-size">33</style>
+                        <style name="font-color">B3FFFFFF</style>
+                    </item>
+
+                    <item class="separator_line">
+                        <attr name="x">155</attr>
+                        <attr name="y">30</attr>
+                        <attr name="height">2</attr>
+                    </item>
+
+                    <area id="area_relative_media_list" type="slider">
+                        <focus mode="dynamic,priority"/>
+                        <attr name="y">55</attr>
+                        <attr name="auto-scroll">false</attr>
+
+                        <template binding="#recommendation/item[0~6]">
+                            <item type="image"
+                                  class="poster_default_bkg,focus_scale,focus_border,poster_item,marquee_animation,rigth_top_mark_style,pfm-temp-clsA">
+                                <attr name="max-layers">8</attr>
+                                <attr name="text" binding="name"/>
+                                <attr name="img.2" binding="=scale:{posters/image[type=main]}"/>
+                                <!--<attr name="img.3" binding="posters/image[type=corner-mark]"/>-->
+
+                                <attr name="img.4" binding="marks/tag[id=1]"/>
+                                <attr name="img.5" binding="marks/tag[id=2]"/>
+                                <attr name="img.6" binding="marks/tag[id=3]"/>
+                                <attr name="img.7" binding="marks/tag[id=4]"/>
+                            </item>
+                        </template>
+                    </area>
+                </area>
+            </area>
+
+            <area id="area_media_select_episode" type="component" >
+                <attr name="x">0</attr>
+                <attr name="y">-525</attr>
+                <attr name="width">1920</attr>
+                <attr name="height">525</attr>
+                <style name="background-color">f2181b1b</style>
+                <style name="z-index">20</style>
+                <attr name="animation">enabled</attr>
+                <attr name="animation-moving">true</attr>
+                <attr name="animation-mode">linear</attr>
+                <attr name="enabled">false</attr>
+                <attr name="animation-duration">600</attr>
+                <attr name="component">component_select_episode</attr>
+            </area>
+
+        </layout>
+        <selector>
+            <select class="media_btn">
+                <focus priority="2"></focus>
+                <attr name="y">150</attr>
+                <attr name="width">225</attr>
+                <attr name="height">91</attr>
+                <attr name="img.1.width">55</attr>
+                <attr name="img.1.height">55</attr>
+                <attr name="img.1.mode">center</attr>
+                <attr name="img.1.align">0.18,0.5</attr>
+                <style name="padding-left">97</style>
+                <style name="font-size">42</style>
+                <style name="font-color">FFFFFFFF</style>
+                <style name="font-align">0,0.5</style>
+                <style name="background-color">33FFFFFF</style>
+            </select>
+            <select class="media_btn" state="focused">
+                <style name="background-color">d82cbdd7</style>
+            </select>
+            <select class="collect_btn">
+                <attr name="text" binding="#lang/detail/collection"/>
+                <attr name="img.1">file:///.assets/images/media/icon_collect.png</attr>
+            </select>
+            <select class="already_collect">
+                <attr name="y">150</attr>
+                <attr name="width">225</attr>
+                <attr name="height">91</attr>
+                <attr name="img.1">file:///.assets/images/media/icon_already_collect.png</attr>
+                <attr name="img.1.width">55</attr>
+                <attr name="img.1.height">55</attr>
+                <attr name="img.1.mode">center</attr>
+                <attr name="img.1.align">0.11,0.5</attr>
+                <attr name="img.2">file:///.assets/images/media/icon_collect.png</attr>
+                <attr name="img.2.width">55</attr>
+                <attr name="img.2.height">55</attr>
+                <attr name="img.2.mode">center</attr>
+                <attr name="img.2.align">0.11,0.5</attr>
+                <attr name="img.1.visible">true</attr>
+                <attr name="img.2.visible">false</attr>
+                <style name="padding-left">80</style>
+                <style name="font-size">42</style>
+                <style name="font-color">FFFFFFFF</style>
+                <style name="font-align">0,0.5</style>
+                <style name="background-color">33FFFFFF</style>
+            </select>
+            <select class="already_collect" state="focused">
+                <attr name="img.1.visible">false</attr>
+                <attr name="img.2.visible">true</attr>
+                <style name="background-color">d82cbdd7</style>
+            </select>
+            <select class="poster_item">
+                <focus priority="1"/>
+                <attr name="width">193</attr>
+                <attr name="height">277</attr>
+                <style name="font-color">88FFFFFF</style>
+                <style name="font-size">28</style>
+                <style name="font-align">0.5,1</style>
+                <style name="padding-bottom">-48</style>
+                <style name="margin">0,0,64,48</style>
+                <action event="click" type="usr_cmd">open_detail_page</action>
+            </select>
+            <select class="poster_item" state="focused">
+                <style name="font-color">FFFFFFFF</style>
+            </select>
+            <select class="collect_success_item">
+                <focus mode="nofocus"/>
+                <attr name="x">-265</attr>
+                <attr name="y">0</attr>
+                <attr name="width">0</attr>
+                <attr name="height">150</attr>
+                <style name="opacity">0.95</style>
+                <style name="z-index">10</style>
+                <style name="background-image">file:///.assets/images/media/collect_success.png</style>
+            </select>
+            <select class="collect_success">
+                <attr name="width">305</attr>
+                <attr name="animation-duration">1500</attr>
+                <style name="opacity">1.0</style>
+            </select>
+            <select class="label_item">
+                <style name="font-size">26</style>
+                <style name="line-height">1.29</style>
+            </select>
+            <select class="actor_item">
+                <focus priority="1"></focus>
+                <attr name="img.0">file:///.assets/images/detail/actor_under_line.9.png</attr>
+                <attr name="img.0.height">3</attr>
+                <attr name="img.0.width">match_parent</attr>
+                <attr name="img.0.align">0,1</attr>
+                <attr name="img.0.padding">0,0,0,-6</attr>
+                <attr name="img.0.visible">false</attr>
+                <attr name="img.0.mode">center</attr>
+            </select>
+            <select class="actor_item" state="focused">
+                <style name="font-color">FF5EB2EA</style>
+                <attr name="img.0.visible">true</attr>
+            </select>
+        </selector>
+    </page>
+
+    <component id="component_select_episode">
+        <area desc="剧集数字型选集页面" id="area_select_episode">
+            <attr name="width">1920</attr>
+            <attr name="height">525</attr>
+            <attr name="direction">vertical</attr>
+            <focus mode="dynamic,priority"/>
+
+            <action event="bindingUpdated" type="usr_cmd">episode_data_binding_updated</action>
+
+            <area id="area_groups" type="radio" binding="#media_index/">
+                <attr name="checked-class">episode_group_item_checked</attr>
+                <area id="area_group" type="slider" desc="剧集分组">
+                    <focus mode="dynamic,priority"></focus>
+                    <attr name="x" binding="[=x]"/>
+                    <attr name="y">54</attr>
+                    <attr name="width">1520</attr>
+                    <attr name="height">65</attr>
+                    <template binding="group">
+                        <item type="label" class="episode_group_item">
+                            <attr name="text" binding="[=text]"></attr>
+                            <data name="index" binding="[=index]"></data>
+                        </item>
+                    </template>
+                </area>
+            </area>
+
+            <area id="area_episode_slider" type="page_slider" binding="#media_index/">
+                <attr name="direction">horizontal</attr>
+                <attr name="width" binding="[=width]"/>
+                <attr name="height">330</attr>
+                <attr name="x" binding="[=x]"/>
+                <attr name="y">154</attr>
+                <style name="padding">10,4,140,10</style>
+                <attr name="loop">false</attr>
+                <attr name="animation-speed">-1</attr>
+                <action event="pageChanged" type="usr_cmd">onEpisodePageChanged</action>
+                <!--<action event="bindingUpdated" type="usr_cmd">onEpisodeBingingFinished</action>-->
+<!--                <action event="bindingFinished" type="usr_cmd">onEpisodeBingingFinished</action>-->
+
+                <template binding="group">
+                    <area id="area_episode" type="grid">
+                        <attr name="width">match_parent</attr>
+                        <attr name="height">match_parent</attr>
+                        <focus mode="dynamic,priority,nearby"></focus>
+                        <template binding="item">
+                            <item  filter="[0]" type="image" class="episode_item">
+                                <focus mode="focusable" priority="2"/>
+                                <attr name="width" binding="[=width]"/>
+                                <attr name="text" binding="[=text]"/>
+                                <style name="font-align" binding="[=font-align]"/>
+                                <data name="index" binding="[=index]"/>
+                                <data name="item_index" binding="item_index"/>
+                                <data name="belong_group_index" binding="belong_group_index"/>
+                            </item>
+                            <item type="image" class="episode_item">
+                                <attr name="width" binding="[=width]"/>
+                                <attr name="text" binding="[=text]"/>
+                                <style name="font-align" binding="[=font-align]"/>
+                                <data name="index" binding="[=index]"/>
+                                <data name="item_index" binding="item_index"/>
+                                <data name="belong_group_index" binding="belong_group_index"/>
+                            </item>
+                        </template>
+                    </area>
+
+                </template>
+            </area>
+        </area>
+        <selector>
+            <select class="episode_item">
+                <action event="click" type="usr_cmd">onPlayEpisodeButtonClick</action>
+                <action event="focus" type="usr_cmd">onPlayEpisodeButtonFocus</action>
+                <focus mode="focusable" priority="2"></focus>
+                <style name="font-color">FFFFFFFF</style>
+                <style name="background-color">ff707070</style>
+                <attr name="height">83</attr>
+                <style name="font-size">42</style>
+                <style name="font-align">0.5,0.5</style>
+                <style name="margin">0,0,30,30</style>
+                <style name="padding">0,20,20,0</style>
+            </select>
+            <select class="episode_item" state="focused">
+                <attr name="marquee">500,1000,3000,50%</attr>
+                <style name="background-color">ff37bed6</style>
+                <style name="font-color">FFFFFFFF</style>
+            </select>
+            <select class="episode_item_history">
+                <style name="font-color">7037bed6</style>
+                <style name="background-color">8c707070</style>
+            </select>
+            <!--<select class="episode_item_history" state="focused">-->
+                <!--<style name="font-color">FFFFFFFF</style>-->
+                <!--<style name="background-color">FF298CE6</style>-->
+            <!--</select>-->
+            <select class="episode_group_item">
+                <action event="focus" type="script/javascript">
+                    this.fireEvent("click");
+                    logger.d("onEpisodeGroupClick!!!!!!");
+                </action>
+                <action event="click" type="usr_cmd">onEpisodeGroupClick</action>
+                <focus mode="focusable" priority="1"></focus>
+                <attr name="width">164</attr>
+                <attr name="height">64</attr>
+                <style name="font-color">5e9d9d9d</style>
+                <style name="font-size">32</style>
+                <style name="font-weight">1</style>
+                <style name="font-align">0.5,0.5</style>
+                <style name="margin-right">29</style>
+            </select>
+            <select class="episode_group_item_checked">
+                <style name="background-color">00000000</style>
+                <style name="font-color">ff37bed6</style>
+            </select>
+            <select class="episode_group_item" state="focused">
+                <style name="background-color">ff37bed6</style>
+                <style name="font-color">ffffffff</style>
+            </select>
+        </selector>
+    </component>
+
+
+
+</starcor.xul>

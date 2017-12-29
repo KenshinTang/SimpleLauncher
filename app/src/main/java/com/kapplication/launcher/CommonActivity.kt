@@ -10,9 +10,6 @@ import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.message.XulMessageCenter
 import java.lang.ref.WeakReference
 
-/**
- * Created by hy on 2015/8/31.
- */
 open class CommonActivity : XulBaseActivity() {
 
     companion object {

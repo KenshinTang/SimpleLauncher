@@ -1,8 +1,5 @@
 package com.kapplication.launcher
 
-/**
- * Created by hy on 2015/10/14.
- */
 object CommonMessage {
     private const val EVENT_ID_BASE = 0x4000
     private const val EVENT_CAT_BASE = 0x100000

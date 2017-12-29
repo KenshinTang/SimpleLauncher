@@ -8,9 +8,6 @@ import com.starcor.xulapp.model.XulDataCallback
 import com.starcor.xulapp.model.XulDataService
 import com.starcor.xulapp.utils.XulLog
 
-/**
- * Created by hy on 2015/11/16.
- */
 abstract class BaseBehavior(xulPresenter: XulPresenter) : XulUiBehavior(xulPresenter) {
 
     override fun xulOnRenderIsReady() {
