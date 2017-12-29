@@ -1,41 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
 
-    <page id="page_media_detail">
+    <page id="MediaDetailPage">
         <binding id="media_detail_info"/>
         <binding id="recommendation"/>
         <binding id="media_index"/>
         <layout>
-            <attr name="check-standard">pfm-txt-cls,pfm-temp-clsA</attr>
-            <style name="background-image">file:///.app/skins/background</style>
+            <style name="background-image">file:///.assets/images/background.jpg</style>
             <area id="area_media_detail" class="match_parent_wh">
-
-                <!--<area id="area_page_title">-->
-                    <!--<attr name="x">32</attr>-->
-                    <!--<attr name="y">38</attr>-->
-                    <!--<item id="item_media_page_title" type="image">-->
-                        <!--<attr name="x">66</attr>-->
-                        <!--<attr name="text" binding="#lang/detail/title"/>-->
-                        <!--<style name="font-color">C0FFFFFF</style>-->
-                        <!--<style name="font-size">45</style>-->
-                    <!--</item>-->
-                <!--</area>-->
-
                 <area id="area_media_info" binding="#media_detail_info">
-
-                    <item id="item_media_poster" type="image" class="rigth_top_mark_style,poster_default_bkg">
+                    <item id="item_media_poster" type="image" class="right_top_mark_style,poster_default_bkg">
                         <focus mode="nofocus"/>
-                        <attr name="max-layers">8</attr>
                         <attr name="x">98</attr>
                         <attr name="y">117</attr>
                         <attr name="width">396</attr>
                         <attr name="height">512</attr>
                         <attr name="img.2" binding="posters/image[type=main]"/>
-
-                        <attr name="img.4" binding="marks/tag[id=1]"/>
-                        <attr name="img.5" binding="marks/tag[id=2]"/>
-                        <attr name="img.6" binding="marks/tag[id=3]"/>
-                        <attr name="img.7" binding="marks/tag[id=4]"/>
                     </item>
 
                     <area id="area_media_detail_info">
@@ -52,22 +32,13 @@
                             <item id="item_media_title" type="label" class="pfm-txt-cls">
                                 <attr name="width">warp_content</attr>
                                 <attr name="height">match_parent</attr>
-                                <attr name="text" binding="name"/>
+                                <!--<attr name="text" binding="name"/>-->
+                                <attr name="text">详情</attr>
                                 <style name="font-size">46</style>
                                 <style name="font-color">FFFFFFFF</style>
                                 <style name="padding">0,5,0,0</style>
                                 <style name="font-align">0,1</style>
                             </item>
-                            <item id="vedio_count" type="label">
-                                <attr name="width">wrap_content</attr>
-                                <attr name="height">match_parent</attr>
-                                <style name="font-size">30</style>
-                                <style name="font-color">ffffffff</style>
-                                <style name="margin-left">40</style>
-                                <attr name="text" binding="tags/tag[type=renewal]"/>
-                                <style name="font-align">0,0.82</style>
-                            </item>
-
                         </area>
 
 
@@ -88,7 +59,7 @@
                                 <attr name="width">wrap_content</attr>
                                 <attr name="height">wrap_content</attr>
                                 <item type="label" class="label_item">
-                                    <attr name="text" binding="={#lang/detail/director}:"/>
+                                    <attr name="text">导演:</attr>
                                     <style name="font-color">FFFFFFFF</style>
                                     <style name="margin-right">5</style>
                                 </item>
@@ -108,7 +79,7 @@
                                 <attr name="width">wrap_content</attr>
                                 <attr name="height">wrap_content</attr>
                                 <item type="label" class="label_item">
-                                    <attr name="text" binding="={#lang/detail/actor}:"/>
+                                    <attr name="text">演员</attr>
                                     <style name="font-color">FFFFFFFF</style>
                                     <style name="margin-right">5</style>
                                 </item>
@@ -130,7 +101,7 @@
                                 <item type="spanned_label" class="label_item">
                                     <attr name="width">wrap_content</attr>
                                     <attr name="height">55</attr>
-                                    <attr name="text" binding="={#lang/detail/briefIntroduction}:"/>
+                                    <attr name="text">简介</attr>
                                     <style name="font-color">ffffffff</style>
                                     <style name="padding-top">9</style>
                                 </item>
@@ -159,58 +130,17 @@
                             <attr name="width">1344</attr>
 
                             <item id="item_play_btn" type="image" class="media_btn,hide" binding="#media_detail_info">
-                                <attr name="text" binding="#lang/detail/play"/>
+                                <attr name="text">播放</attr>
                                 <attr name="img.1">file:///.assets/images/media/icon_play.png</attr>
                                 <action event="click" type="usr_cmd">onPlayButtonClick</action>
                             </item>
 
-                            <item id="item_buy_btn" type="image" class="media_btn,hide">
-                                <attr name="text" binding="#lang/detail/buy"/>
-                                <attr name="img.1">file:///.assets/images/media/icon_buy.png</attr>
-                                <action event="click" type="usr_cmd">onBuyButtonClick</action>
-                            </item>
-
-                            <item id="item_preview_btn" type="image" class="media_btn,hide" binding="#media_detail_info">
-                                <attr name="text">试看</attr>
-                                <style name="margin-left">27</style>
-                                <attr name="img.1">file:///.assets/images/media/icon_play.png</attr>
-                                <action event="click" type="usr_cmd">onPreviewButtonClick</action>
-                            </item>
-
-                            <item id="item_exchange_btn" type="image" class="media_btn,hide" binding="#media_detail_info">
-                                <attr name="text" binding="#lang/detail/exchange"/>
-                                <style name="margin-left">27</style>
-                                <style name="padding-left">0</style>
-                                <style name="font-align">0.5,0.5</style>
-                                <!--<attr name="img.1">file:///.assets/images/media/icon_buy.png</attr>-->
-                                <action event="click" type="usr_cmd">onExchangeButtonClick</action>
-                            </item>
-
                             <item id="item_episode_btn" type="image" class="media_btn,hide">
-                                <attr name="text" binding="#lang/detail/choiceEpisod"/>
+                                <attr name="text">选集</attr>
                                 <style name="margin-left">27</style>
                                 <attr name="img.1">file:///.assets/images/media/icon_select.png</attr>
                                 <action event="click" type="usr_cmd">onEpisodeButtonClick</action>
                             </item>
-
-                            <item id="item_collect_btn" type="image" class="media_btn,collect_btn,hide">
-                                <style name="margin-left">27</style>
-                                <action event="click" type="usr_cmd">onCollectButtonClick</action>
-                            </item>
-
-                            <area id="item_collect_success" type="layer" class="collect_success_item">
-                                <item type="label" id="collect_success_label">
-                                    <attr name="x">21</attr>
-                                    <attr name="y">21</attr>
-                                    <attr name="width">258</attr>
-                                    <attr name="height">93</attr>
-                                    <attr name="text"></attr>
-                                    <style name="font-size">42</style>
-                                    <style name="font-align">0.5,0.5</style>
-                                    <style name="font-color">FFFFFFFF</style>
-                                </item>
-                            </area>
-
                         </area>
                     </area>
                 </area>
@@ -220,7 +150,7 @@
                     <style name="padding">0,95,97,0</style>
 
                     <item type="label">
-                        <attr name="text" binding="#lang/detail/associationRecommendation"/>
+                        <attr name="text">相关推荐</attr>
                         <style name="font-size">33</style>
                         <style name="font-color">B3FFFFFF</style>
                     </item>
@@ -238,16 +168,10 @@
 
                         <template binding="#recommendation/item[0~6]">
                             <item type="image"
-                                  class="poster_default_bkg,focus_scale,focus_border,poster_item,marquee_animation,rigth_top_mark_style,pfm-temp-clsA">
-                                <attr name="max-layers">8</attr>
+                                  class="poster_default_bkg,focus_scale,focus_border,poster_item,marquee_animation,right_top_mark_style,pfm-temp-clsA">
                                 <attr name="text" binding="name"/>
                                 <attr name="img.2" binding="=scale:{posters/image[type=main]}"/>
                                 <!--<attr name="img.3" binding="posters/image[type=corner-mark]"/>-->
-
-                                <attr name="img.4" binding="marks/tag[id=1]"/>
-                                <attr name="img.5" binding="marks/tag[id=2]"/>
-                                <attr name="img.6" binding="marks/tag[id=3]"/>
-                                <attr name="img.7" binding="marks/tag[id=4]"/>
                             </item>
                         </template>
                     </area>
@@ -289,37 +213,6 @@
             <select class="media_btn" state="focused">
                 <style name="background-color">d82cbdd7</style>
             </select>
-            <select class="collect_btn">
-                <attr name="text" binding="#lang/detail/collection"/>
-                <attr name="img.1">file:///.assets/images/media/icon_collect.png</attr>
-            </select>
-            <select class="already_collect">
-                <attr name="y">150</attr>
-                <attr name="width">225</attr>
-                <attr name="height">91</attr>
-                <attr name="img.1">file:///.assets/images/media/icon_already_collect.png</attr>
-                <attr name="img.1.width">55</attr>
-                <attr name="img.1.height">55</attr>
-                <attr name="img.1.mode">center</attr>
-                <attr name="img.1.align">0.11,0.5</attr>
-                <attr name="img.2">file:///.assets/images/media/icon_collect.png</attr>
-                <attr name="img.2.width">55</attr>
-                <attr name="img.2.height">55</attr>
-                <attr name="img.2.mode">center</attr>
-                <attr name="img.2.align">0.11,0.5</attr>
-                <attr name="img.1.visible">true</attr>
-                <attr name="img.2.visible">false</attr>
-                <style name="padding-left">80</style>
-                <style name="font-size">42</style>
-                <style name="font-color">FFFFFFFF</style>
-                <style name="font-align">0,0.5</style>
-                <style name="background-color">33FFFFFF</style>
-            </select>
-            <select class="already_collect" state="focused">
-                <attr name="img.1.visible">false</attr>
-                <attr name="img.2.visible">true</attr>
-                <style name="background-color">d82cbdd7</style>
-            </select>
             <select class="poster_item">
                 <focus priority="1"/>
                 <attr name="width">193</attr>
@@ -333,21 +226,6 @@
             </select>
             <select class="poster_item" state="focused">
                 <style name="font-color">FFFFFFFF</style>
-            </select>
-            <select class="collect_success_item">
-                <focus mode="nofocus"/>
-                <attr name="x">-265</attr>
-                <attr name="y">0</attr>
-                <attr name="width">0</attr>
-                <attr name="height">150</attr>
-                <style name="opacity">0.95</style>
-                <style name="z-index">10</style>
-                <style name="background-image">file:///.assets/images/media/collect_success.png</style>
-            </select>
-            <select class="collect_success">
-                <attr name="width">305</attr>
-                <attr name="animation-duration">1500</attr>
-                <style name="opacity">1.0</style>
             </select>
             <select class="label_item">
                 <style name="font-size">26</style>

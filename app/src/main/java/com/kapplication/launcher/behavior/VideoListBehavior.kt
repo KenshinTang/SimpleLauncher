@@ -3,6 +3,7 @@ package com.kapplication.launcher.behavior
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import com.kapplication.launcher.UiManager
 import com.starcor.xul.Wrapper.XulMassiveAreaWrapper
 import com.starcor.xul.Wrapper.XulSliderAreaWrapper
 import com.starcor.xul.XulDataNode
@@ -173,6 +174,7 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
 
     private fun openDetail(dataSource: String) {
         XulLog.i("VideoListBehavior", "openDetail($dataSource)")
+        UiManager.openUiPage("MediaDetailPage")
     }
 
     private fun openPlayer(dataSource: String) {

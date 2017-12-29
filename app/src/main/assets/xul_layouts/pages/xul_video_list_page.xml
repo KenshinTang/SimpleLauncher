@@ -135,7 +135,7 @@
                                         <attr name="text" binding="name"/>
                                         <attr name="img.2" binding="img_v"/>
                                         <data name="userdata" binding="datasource"/>
-                                        <action event="click" type="usr_cmd">openPlayer</action>
+                                        <action event="click" type="usr_cmd">openDetail</action>
                                     </item>
                                 </template>
                             </area>
