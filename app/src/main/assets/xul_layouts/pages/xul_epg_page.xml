@@ -19,30 +19,37 @@
                 <attr name="width">768</attr>
                 <attr name="height">552</attr>
                 <attr name="img.1"></attr>
+                <action event="click" type="usr_cmd">openDetail</action>
             </item>
             <item class="poster_item, focus_border" id="poster_2" type="image">
                 <attr name="x">860</attr>
                 <attr name="y">160</attr>
+                <action event="click" type="usr_cmd">openDetail</action>
             </item>
             <item class="poster_item, focus_border" id="poster_3" type="image">
                 <attr name="x">1200</attr>
                 <attr name="y">160</attr>
+                <action event="click" type="usr_cmd">openDetail</action>
             </item>
             <item class="poster_item, focus_border" id="poster_4" type="image">
                 <attr name="x">1540</attr>
                 <attr name="y">160</attr>
+                <action event="click" type="usr_cmd">openDetail</action>
             </item>
             <item class="poster_item, focus_border" id="poster_5" type="image">
                 <attr name="x">860</attr>
                 <attr name="y">450</attr>
+                <action event="click" type="usr_cmd">openDetail</action>
             </item>
             <item class="poster_item, focus_border" id="poster_6" type="image">
                 <attr name="x">1200</attr>
                 <attr name="y">450</attr>
+                <action event="click" type="usr_cmd">openDetail</action>
             </item>
             <item class="poster_item, focus_border" id="poster_7" type="image">
                 <attr name="x">1540</attr>
                 <attr name="y">450</attr>
+                <action event="click" type="usr_cmd">openDetail</action>
             </item>
 
             <!--epg菜单-->

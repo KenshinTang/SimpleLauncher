@@ -34,7 +34,7 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
                     object : XulBehaviorManager.IBehaviorFactory {
                         override fun createBehavior(
                                 xulPresenter: XulPresenter): XulUiBehavior {
-                            return MainBehavior(xulPresenter)
+                            return EpgBehavior(xulPresenter)
                         }
 
                         override fun getBehaviorClass(): Class<*> {
@@ -75,6 +75,7 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
         XulLog.i("EpgBehavior", "action = $action, type = $type, command = $command, userdata = $userdata")
         when (command) {
             "openListPage" -> openListPage(userdata as String, view?.getAttrString("text"))
+            "openDetail" -> openDetail(userdata as String)
             "openAppList"  -> openAppList()
             "openSetting"  -> context.startActivity(Intent(Settings.ACTION_SETTINGS))
         }
@@ -96,4 +97,10 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
         extInfo.appendChild("title", title)
         UiManager.openUiPage("VideoListPage", extInfo)
     }
+
+    private fun openDetail(dataSource: String?) {
+        XulLog.i("EpgBehavior", "openDetail($dataSource)")
+        UiManager.openUiPage("MediaDetailPage")
+    }
+
 }
