@@ -16,6 +16,7 @@ object CommonMessage {
 
     const val EVENT_PLAYER_UPDATE_TIMER = 0x2000
     const val EVENT_PLAYER_PLAYLIST_FINISHED = 0x2001
+    const val EVENT_PLAYER_NEXT_MEDIA = 0x2002
 
     @Synchronized
     fun GENERAGE_UNIQUE_MSG_ID(): Int {

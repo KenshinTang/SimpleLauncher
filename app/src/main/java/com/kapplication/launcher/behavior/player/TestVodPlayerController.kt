@@ -9,8 +9,6 @@ import com.starcor.xul.XulArea
 import com.starcor.xul.XulDataNode
 import com.starcor.xul.XulView
 import com.starcor.xulapp.message.XulSubscriber
-import com.starcor.xulapp.model.XulDataCallback
-import com.starcor.xulapp.model.XulDataService
 import com.starcor.xulapp.utils.XulLog
 import java.util.*
 
@@ -18,6 +16,9 @@ import java.util.*
  * Created by hy on 2015/11/4.
  */
 class TestVodPlayerController(mp: Player) : TestBasePlayerController(mp) {
+    override val currentMediaId: String
+        get() = ""
+
     internal var _mediaInfo: XulDataNode? = null
     internal var _mediaId: String? = null
     internal var _playlist = HashMap<String, VideoItem>()
@@ -25,39 +26,12 @@ class TestVodPlayerController(mp: Player) : TestBasePlayerController(mp) {
     override val uiComponents: Array<PlayerController.UiComponentInfo>
         get() = defaultUiComponents
 
-    protected override val currentMediaId: String
-        get() {
-            val mediaInfo = _mediaInfo
-            if (mediaInfo == null) {
-                val mediaId = DataModelUtils.parseMediaId(_mediaId)
-                return DataModelUtils.buildMediaId(mediaId.videoId, mediaId.videoType)
-            }
-            return mediaInfo.getChildNodeValue("id")
-        }
-
     override fun init(behaviorParameters: Bundle) {
         val xulDataService = dataService
         val mediaId = behaviorParameters.getString("mediaId")
         doPlay(mediaId)
 
-        xulDataService.query(TestProvider.DP_MEDIAINFO)
-                .where(TestProvider.DK_MEDIA_ID).`is`(mediaId)
-                .pull(object : XulDataCallback() {
-                    override fun onResult(clause: XulDataService.Clause, code: Int, data: XulDataNode) {
-                        _mediaInfo = data
-
-                        xulDataService.insert(TestProvider.DP_USER_PRIVATE_DATA)
-                                .where(TestProvider.DK_TYPE).`is`(TestProvider.DKV_TYPE_HISTORY)
-                                .where("id").`is`(currentMediaId)
-                                .value(_mediaInfo)
-                                .exec(null)
-
-                        syncPlayList(mediaId)
-                        syncMediaTitle()
-                        syncMediaSubTitle(mediaId)
-                        super.onResult(clause, code, data)
-                    }
-                })
+        syncMediaTitle()
     }
 
     override fun doAction(view: XulView, action: String, type: String, command: String, userdata: Any): Boolean {
@@ -71,46 +45,18 @@ class TestVodPlayerController(mp: Player) : TestBasePlayerController(mp) {
         return super.doAction(view, action, type, command, userdata)
     }
 
-    override fun doPlay(mediaId: String?) {
+    override fun doPlay(mediaId: String) {
         val mediaPlayer = mediaPlayer
         mediaPlayer!!.stop()
         _mediaId = mediaId
         _mp.isMediaRunning = false
 
         fireEventPrePlay(mediaId, "vod")
-        val xulDataService = dataService
-        xulDataService.query(TestProvider.DP_PURCHASE)
-                .where(TestProvider.DK_ACTION).`is`(TestProvider.DKV_ACT_AUTH_PLAY)
-                .where(TestProvider.DK_MEDIA_ID).`is`(mediaId)
-                .exec(object : XulDataCallback() {
-                    override fun onResult(clause: XulDataService.Clause, code: Int, data: XulDataNode) {
-                        if (_mediaId != mediaId) {
-                            // cancelled result
-                            return
-                        }
-                        val errCode = data.getChildNodeValue("code")
-
-                        if ("0" != errCode) {
-                            _mp.showErrorDialog("error", data.getChildNodeValue("info") + " - " + errCode)
-                            return
-                        }
-
-                        val playUrl = data.getChildNodeValue("url")
-
-                        _mp.setProgress(0f)
-                        mediaPlayer.open(playUrl)
-                        mediaPlayer.play()
-                        fireEventPostPlay(playUrl)
-                    }
-
-                    override fun onError(clause: XulDataService.Clause, code: Int) {
-                        if (_mediaId != mediaId) {
-                            // cancelled result
-                            return
-                        }
-                        _mp.showErrorDialog("error", clause.message + " - " + code)
-                    }
-                })
+        _mp.setProgress(0f)
+        var playUrl = "http://"
+        mediaPlayer.open(playUrl)
+        mediaPlayer.play()
+        fireEventPostPlay(playUrl)
     }
 
     override fun onComplete(xmp: XulMediaPlayer): Boolean {
@@ -210,6 +156,10 @@ class TestVodPlayerController(mp: Player) : TestBasePlayerController(mp) {
 
     companion object {
         private val TAG = TestVodPlayerController::class.java.simpleName
-        private val defaultUiComponents = arrayOf(PlayerController.UiComponentInfo(Player.UI_TITLE_FRAME, "media-player-title-frame", "media_player_default_ui.xml"), PlayerController.UiComponentInfo(Player.UI_CONTROL_BAR, "media-player-control-bar", "media_player_default_ui.xml"), PlayerController.UiComponentInfo(Player.UI_MENU, "media-player-menu", "media_player_default_ui.xml"), PlayerController.UiComponentInfo(Player.UI_PLAY_LIST, "media-player-playlist", "media_player_default_ui.xml"))
+        private val defaultUiComponents = arrayOf(
+                PlayerController.UiComponentInfo(Player.UI_TITLE_FRAME, "media-player-title-frame", "media_player_default_ui.xml"),
+                PlayerController.UiComponentInfo(Player.UI_CONTROL_BAR, "media-player-control-bar", "media_player_default_ui.xml"),
+                PlayerController.UiComponentInfo(Player.UI_MENU, "media-player-menu", "media_player_default_ui.xml"),
+                PlayerController.UiComponentInfo(Player.UI_PLAY_LIST, "media-player-playlist", "media_player_default_ui.xml"))
     }
 }
