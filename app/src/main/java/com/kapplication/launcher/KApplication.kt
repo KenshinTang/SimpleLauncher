@@ -2,8 +2,10 @@ package com.kapplication.launcher
 
 import android.text.TextUtils
 import com.kapplication.launcher.behavior.EpgBehavior
+import com.kapplication.launcher.behavior.MediaDetailBehavior
 import com.kapplication.launcher.behavior.MediaPlayerBehavior
 import com.kapplication.launcher.behavior.VideoListBehavior
+import com.kapplication.launcher.render.PlayerSeekBarRender
 import com.starcor.xulapp.XulApplication
 import com.starcor.xulapp.debug.XulDebugServer
 import com.starcor.xulapp.message.XulMessageCenter
@@ -55,7 +57,10 @@ class KApplication : XulApplication() {
 //        MainBehavior.register()
         EpgBehavior.register()
         VideoListBehavior.register()
+        MediaDetailBehavior.register()
         MediaPlayerBehavior.register()
+
+        PlayerSeekBarRender.register()
     }
 
     override fun xulGetSdcardData(path: String): InputStream? {

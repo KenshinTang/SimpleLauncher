@@ -14,6 +14,9 @@ object CommonMessage {
 
     const val EVENT_HALF_SECOND = 0x1001
 
+    const val EVENT_PLAYER_UPDATE_TIMER = 0x2000
+    const val EVENT_PLAYER_PLAYLIST_FINISHED = 0x2001
+
     @Synchronized
     fun GENERAGE_UNIQUE_MSG_ID(): Int {
         return ++currentBaseMsgId
