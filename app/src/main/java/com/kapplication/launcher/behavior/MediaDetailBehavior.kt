@@ -33,11 +33,6 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
         super.xulOnRenderIsReady()
     }
 
-    override fun xulOnBackPressed(): Boolean {
-        return true
-    }
-
-
     override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
         XulLog.i("MediaDetailBehavior", "action = $action, type = $type, command = $command, userdata = $userdata")
         super.xulDoAction(view, action, type, command, userdata)

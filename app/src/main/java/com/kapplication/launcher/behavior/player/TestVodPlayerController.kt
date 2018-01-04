@@ -157,9 +157,7 @@ class TestVodPlayerController(mp: Player) : TestBasePlayerController(mp) {
     companion object {
         private val TAG = TestVodPlayerController::class.java.simpleName
         private val defaultUiComponents = arrayOf(
-                PlayerController.UiComponentInfo(Player.UI_TITLE_FRAME, "media-player-title-frame", "media_player_default_ui.xml"),
-                PlayerController.UiComponentInfo(Player.UI_CONTROL_BAR, "media-player-control-bar", "media_player_default_ui.xml"),
-                PlayerController.UiComponentInfo(Player.UI_MENU, "media-player-menu", "media_player_default_ui.xml"),
-                PlayerController.UiComponentInfo(Player.UI_PLAY_LIST, "media-player-playlist", "media_player_default_ui.xml"))
+                PlayerController.UiComponentInfo(Player.UI_TITLE_FRAME, "media-player-title-frame", "xul_layouts/components/media_player_component.xml"),
+                PlayerController.UiComponentInfo(Player.UI_CONTROL_BAR, "media-player-control-bar", "xul_layouts/components/media_player_component.xml"))
     }
 }
