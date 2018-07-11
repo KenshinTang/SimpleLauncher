@@ -14,8 +14,11 @@ import com.starcor.xulapp.behavior.XulUiBehavior
 import com.starcor.xulapp.message.XulSubscriber
 import com.starcor.xulapp.utils.XulLog
 import com.starcor.xulapp.utils.XulTime
+import okhttp3.*
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 /**
  * Created by hy on 2015/11/16.
@@ -50,6 +53,20 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
     override fun xulOnRenderIsReady() {
         super.xulOnRenderIsReady()
         clockLabel = xulGetRenderContext().findItemById("clock_label")
+        val urlBuilder = HttpUrl.parse("http://192.168.1.3/epgapi.php")!!.newBuilder()
+                .addQueryParameter("m", "Epg")
+                .addQueryParameter("c", "HomePage")
+                .addQueryParameter("a", "getHomeData")
+
+        val request: Request = Request.Builder().url(urlBuilder.build()).build()
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onResponse(call: Call?, response: Response?) {
+                response!!.body()
+            }
+
+            override fun onFailure(call: Call?, e: IOException?) {
+            }
+        })
     }
 
     override fun xulOnBackPressed(): Boolean {

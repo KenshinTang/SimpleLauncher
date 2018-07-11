@@ -7,8 +7,10 @@ import com.starcor.xulapp.behavior.XulUiBehavior
 import com.starcor.xulapp.model.XulDataCallback
 import com.starcor.xulapp.model.XulDataService
 import com.starcor.xulapp.utils.XulLog
+import okhttp3.OkHttpClient
 
 abstract class BaseBehavior(xulPresenter: XulPresenter) : XulUiBehavior(xulPresenter) {
+    protected val okHttpClient: OkHttpClient = OkHttpClient()
 
     override fun xulOnRenderIsReady() {
         super.xulOnRenderIsReady()
