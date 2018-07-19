@@ -13,7 +13,7 @@ import java.lang.ref.WeakReference
 open class CommonActivity : XulBaseActivity() {
 
     companion object {
-        val PAGE_MAIN = "EpgPage"
+        const val PAGE_MAIN = "EpgPage"
         val BEHAVIOR_MAIN = EpgBehavior.NAME
     }
 

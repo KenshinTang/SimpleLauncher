@@ -14,8 +14,6 @@ import com.starcor.xulapp.behavior.XulUiBehavior
 import com.starcor.xulapp.message.XulSubscriber
 import com.starcor.xulapp.utils.XulLog
 import com.starcor.xulapp.utils.XulTime
-import okhttp3.*
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,7 +28,7 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
     private val dateFormat = SimpleDateFormat("HH:mm")
 
     companion object {
-        val NAME = "EpgBehavior"
+        const val NAME = "EpgBehavior"
 
         fun register() {
             XulBehaviorManager.registerBehavior(NAME,
@@ -53,20 +51,35 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
     override fun xulOnRenderIsReady() {
         super.xulOnRenderIsReady()
         clockLabel = xulGetRenderContext().findItemById("clock_label")
-        val urlBuilder = HttpUrl.parse("http://192.168.1.3/epgapi.php")!!.newBuilder()
-                .addQueryParameter("m", "Epg")
-                .addQueryParameter("c", "HomePage")
-                .addQueryParameter("a", "getHomeData")
-
-        val request: Request = Request.Builder().url(urlBuilder.build()).build()
-        okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onResponse(call: Call?, response: Response?) {
-                response!!.body()
-            }
-
-            override fun onFailure(call: Call?, e: IOException?) {
-            }
-        })
+//        val urlBuilder = HttpUrl.parse(Utils.HOST)!!.newBuilder()
+//                .addQueryParameter("m", "Epg")
+//                .addQueryParameter("c", "HomePage")
+//                .addQueryParameter("a", "getHomeData")
+//
+//        XulLog.i("kenshin", "Request url: ${urlBuilder.build()}")
+//        val request: Request = Request.Builder().url(urlBuilder.build()).build()
+//        okHttpClient.newCall(request).enqueue(object : Callback {
+//            override fun onResponse(call: Call?, response: Response?) {
+//                response!!.body().use { responseBody ->
+//                    if (!response.isSuccessful) {
+//                        XulLog.e("kenshin", "getHomeData onResponse, but is not Successful")
+//                        throw IOException("Unexpected code $response")
+//                    }
+//
+//                    XulLog.i("kenshin", "getHomeData onResponse")
+//
+//                    val result : String = responseBody!!.string()
+//                    XulLog.json("kenshin", result)
+//
+//                    val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
+//                    xulGetRenderContext().refreshBinding("epg-data", dataNode)
+//                }
+//            }
+//
+//            override fun onFailure(call: Call?, e: IOException?) {
+//                XulLog.e("kenshin", "getHomeData onFailure")
+//            }
+//        })
     }
 
     override fun xulOnBackPressed(): Boolean {

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
 	<page id="EpgPage">
+        <binding id="epg-data">http://dev.yusihuo.com/assetsapi.php?m=Epg&c=HomePage&a=getHomeData</binding>
+
 		<layout>
             <style name="background-image">file:///.assets/images/background.jpg</style>
 			<item id="clock_label" type="label" desc="时间">
@@ -18,37 +20,51 @@
                 <attr name="y">160</attr>
                 <attr name="width">768</attr>
                 <attr name="height">552</attr>
-                <attr name="img.1"></attr>
+                <style name="font-size">50</style>
+                <attr name="text" binding="#epg-data/data/recom_list/[0]/video_name"></attr>
+                <attr name="img.1" binding="#epg-data/data/recom_list/[0]/video_img_h"></attr>
                 <action event="click" type="usr_cmd">openDetail</action>
             </item>
             <item class="poster_item, focus_border" id="poster_2" type="image">
                 <attr name="x">860</attr>
                 <attr name="y">160</attr>
+                <attr name="text" binding="#epg-data/data/recom_list/[1]/video_name"></attr>
+                <attr name="img.1" binding="#epg-data/data/recom_list/[1]/video_img_h"></attr>
                 <action event="click" type="usr_cmd">openDetail</action>
             </item>
             <item class="poster_item, focus_border" id="poster_3" type="image">
                 <attr name="x">1200</attr>
                 <attr name="y">160</attr>
+                <attr name="text" binding="#epg-data/data/recom_list/[2]/video_name"></attr>
+                <attr name="img.1" binding="#epg-data/data/recom_list/[2]/video_img_h"></attr>
                 <action event="click" type="usr_cmd">openDetail</action>
             </item>
             <item class="poster_item, focus_border" id="poster_4" type="image">
                 <attr name="x">1540</attr>
                 <attr name="y">160</attr>
+                <attr name="text" binding="#epg-data/data/recom_list/[3]/video_name"></attr>
+                <attr name="img.1" binding="#epg-data/data/recom_list/[3]/video_img_h"></attr>
                 <action event="click" type="usr_cmd">openDetail</action>
             </item>
             <item class="poster_item, focus_border" id="poster_5" type="image">
                 <attr name="x">860</attr>
                 <attr name="y">450</attr>
+                <attr name="text" binding="#epg-data/data/recom_list/[4]/video_name"></attr>
+                <attr name="img.1" binding="#epg-data/data/recom_list/[4]/video_img_h"></attr>
                 <action event="click" type="usr_cmd">openDetail</action>
             </item>
             <item class="poster_item, focus_border" id="poster_6" type="image">
                 <attr name="x">1200</attr>
                 <attr name="y">450</attr>
+                <attr name="text" binding="#epg-data/data/recom_list/[5]/video_name"></attr>
+                <attr name="img.1" binding="#epg-data/data/recom_list/[5]/video_img_h"></attr>
                 <action event="click" type="usr_cmd">openDetail</action>
             </item>
             <item class="poster_item, focus_border" id="poster_7" type="image">
                 <attr name="x">1540</attr>
                 <attr name="y">450</attr>
+                <attr name="text" binding="#epg-data/data/recom_list/[6]/video_name"></attr>
+                <attr name="img.1" binding="#epg-data/data/recom_list/[6]/video_img_h"></attr>
                 <action event="click" type="usr_cmd">openDetail</action>
             </item>
 
@@ -101,7 +117,12 @@
             <select class="poster_item">
                 <attr name="width">324</attr>
                 <attr name="height">262</attr>
-                <style name="border">4,ffff0000</style>
+                <style name="padding">0,10,10,0</style>
+                <style name="font-align">0,1</style>
+                <style name="font-size">35</style>
+                <style name="font-color">ccffffff</style>
+                <attr name="img.3">file:///.assets/images/text_shadow.png</attr>
+                <!--<style name="border">4,ffff0000</style>-->
             </select>
 		</selector>
 	</page>
