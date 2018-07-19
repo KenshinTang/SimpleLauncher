@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
 	<page id="EpgPage">
-        <binding id="epg-data">http://dev.yusihuo.com/assetsapi.php?m=Epg&c=HomePage&a=getHomeData</binding>
+
 
 		<layout>
             <style name="background-image">file:///.assets/images/background.jpg</style>
