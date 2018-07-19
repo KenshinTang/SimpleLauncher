@@ -2,20 +2,18 @@
 <starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
 
     <page id="MediaDetailPage">
-        <binding id="media_detail_info"/>
-        <binding id="recommendation"/>
-        <binding id="media_index"/>
+        <binding id="media-detail"/>
         <layout>
             <style name="background-image">file:///.assets/images/background.jpg</style>
             <area id="area_media_detail" class="match_parent_wh">
-                <area id="area_media_info" binding="#media_detail_info">
+                <area id="area_media_info" binding="#media-detail/data/video_info">
                     <item id="item_media_poster" type="image" class="right_top_mark_style,poster_default_bkg">
                         <focus mode="nofocus"/>
                         <attr name="x">98</attr>
                         <attr name="y">117</attr>
                         <attr name="width">396</attr>
                         <attr name="height">512</attr>
-                        <attr name="img.2" binding="posters/image[type=main]"/>
+                        <attr name="img.2" binding="video_img_v"/>
                     </item>
 
                     <area id="area_media_detail_info">
@@ -32,8 +30,7 @@
                             <item id="item_media_title" type="label" class="pfm-txt-cls">
                                 <attr name="width">warp_content</attr>
                                 <attr name="height">match_parent</attr>
-                                <!--<attr name="text" binding="name"/>-->
-                                <attr name="text">详情</attr>
+                                <attr name="text" binding="video_name"/>
                                 <style name="font-size">46</style>
                                 <style name="font-color">FFFFFFFF</style>
                                 <style name="padding">0,5,0,0</style>
@@ -63,16 +60,10 @@
                                     <style name="font-color">FFFFFFFF</style>
                                     <style name="margin-right">5</style>
                                 </item>
-                                <template binding="item[role=director]" >
-                                    <item type="label" class="label_item" filter="[-1]">
-                                        <attr name="text" binding="name"/>
-                                        <style name="font-color">ffcbcbcb</style>
-                                    </item>
-                                    <item type="label" class="label_item" >
-                                        <attr name="text" binding="={/name}/"/>
-                                        <style name="font-color">ffcbcbcb</style>
-                                    </item>
-                                </template>
+                                <item type="label" class="label_item" >
+                                    <attr name="text" binding="video_director"/>
+                                    <style name="font-color">ffcbcbcb</style>
+                                </item>
                             </area>
                             <area type="slider" desc="演员描述" binding="related_persons">
                                 <attr name="direction">horizontal</attr>
@@ -83,16 +74,10 @@
                                     <style name="font-color">FFFFFFFF</style>
                                     <style name="margin-right">5</style>
                                 </item>
-                                <template binding="item[role=actor]" >
-                                    <item type="label" class="label_item" filter="[-1]">
-                                        <attr name="text" binding="name"/>
-                                        <style name="font-color">ffcbcbcb</style>
-                                    </item>
-                                    <item type="label" class="label_item" >
-                                        <attr name="text" binding="={/name}/"/>
-                                        <style name="font-color">ffcbcbcb</style>
-                                    </item>
-                                </template>
+                                <item type="label" class="label_item">
+                                    <attr name="text" binding="video_actor"/>
+                                    <style name="font-color">ffcbcbcb</style>
+                                </item>
                             </area>
                             <area type="layer" desc="简介描述" >
                                 <attr name="width">match_partent</attr>
@@ -108,7 +93,7 @@
                                 <item type="label" class="label_item">
                                     <attr name="width">match_parent</attr>
                                     <attr name="height">match_parent</attr>
-                                    <attr name="text" binding="desc"/>
+                                    <attr name="text" binding="summary"/>
                                     <attr name="ellipsis">true</attr>
                                     <attr name="multi-line">true</attr>
                                     <attr name="auto-wrap">true</attr>
@@ -129,7 +114,7 @@
                             <attr name="y">304</attr>
                             <attr name="width">1344</attr>
 
-                            <item id="item_play_btn" type="image" class="media_btn,hide" binding="#media_detail_info">
+                            <item id="item_play_btn" type="image" class="media_btn,hide">
                                 <attr name="text">播放</attr>
                                 <attr name="img.1">file:///.assets/images/media/icon_play.png</attr>
                                 <action event="click" type="usr_cmd">onPlayButtonClick</action>
@@ -145,7 +130,7 @@
                     </area>
                 </area>
 
-                <area id="area_relative_media">
+                <area id="area_relative_media" binding="#media-detail/data/recom_video">
                     <attr name="y">655</attr>
                     <style name="padding">0,95,97,0</style>
 

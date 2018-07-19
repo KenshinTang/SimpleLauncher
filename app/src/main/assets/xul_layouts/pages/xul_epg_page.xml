@@ -79,7 +79,7 @@
             <item class="epg_item, focus_border" type="image">
                 <attr name="x">70</attr>
                 <attr name="text" binding="#epg-data/data/menu_list/[0]/menu_name"></attr>
-                <attr name="img.1" binding="#epg-data/data/menu_list/[0]/img_v"></attr>
+                <attr name="img.1" binding="#epg-data/data/menu_list/[0]/img_get_focus_url"></attr>
                 <data name="userdata" binding="#epg-data/data/menu_list/[0]/content_id"></data>
                 <action event="click" type="usr_cmd" binding="#epg-data/data/menu_list/[0]/action"></action>
             </item>
@@ -122,7 +122,7 @@
                 <attr name="y">770</attr>
                 <attr name="width">280</attr>
                 <attr name="height">280</attr>
-                <style name="border">4,ffff0000</style>
+                <!--<style name="border">4,ffff0000</style>-->
 			</select>
             <select class="poster_item" state="focused">
                 <style name="scale">1.1</style>

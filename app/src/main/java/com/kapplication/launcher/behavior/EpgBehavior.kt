@@ -104,8 +104,11 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
     override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
         XulLog.i("EpgBehavior", "action = $action, type = $type, command = $command, userdata = $userdata")
         when (command) {
-            "openListPage" -> openListPage(userdata as String, view?.getAttrString("text"))
+            "open_vod_list_page" -> openListPage(userdata as String, view?.getAttrString("text"))
             "open_vod_detail_page" -> openDetail(userdata as String)
+            "open_vod_player" -> XulLog.d("EpgBehavior", "open vod player")
+            "open_live_player" -> XulLog.d("EpgBehavior", "open live player")
+            "open_special_list_page" -> XulLog.d("EpgBehavior", "open special list page")
             "openAppList"  -> openAppList()
             "openSetting"  -> context.startActivity(Intent(Settings.ACTION_SETTINGS))
         }
@@ -130,7 +133,9 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
 
     private fun openDetail(dataSource: String?) {
         XulLog.i("EpgBehavior", "openDetail($dataSource)")
-        UiManager.openUiPage("MediaDetailPage")
+        val extInfoNode = XulDataNode.obtainDataNode("ext_info")
+        extInfoNode.appendChild("mediaId", dataSource)
+        UiManager.openUiPage("MediaDetailPage", extInfoNode)
     }
 
 }
