@@ -8,7 +8,7 @@
 			<item id="clock_label" type="label" desc="时间">
 				<focus mode="nofocus"/>
 				<attr name="x">1700</attr>
-				<attr name="y">50</attr>
+				<attr name="y">40</attr>
 				<style name="font-size">60</style>
 				<style name="font-color">FFFFFFFF</style>
 			</item>
@@ -23,80 +23,93 @@
                 <style name="font-size">50</style>
                 <attr name="text" binding="#epg-data/data/recom_list/[0]/video_name"></attr>
                 <attr name="img.1" binding="#epg-data/data/recom_list/[0]/video_img_h"></attr>
-                <action event="click" type="usr_cmd">openDetail</action>
+                <data name="userdata" binding="#epg-data/data/recom_list/[0]/video_id"></data>
+                <action event="click" type="usr_cmd" binding="#epg-data/data/recom_list/[0]/action"></action>
             </item>
             <item class="poster_item, focus_border" id="poster_2" type="image">
                 <attr name="x">860</attr>
                 <attr name="y">160</attr>
                 <attr name="text" binding="#epg-data/data/recom_list/[1]/video_name"></attr>
                 <attr name="img.1" binding="#epg-data/data/recom_list/[1]/video_img_h"></attr>
-                <action event="click" type="usr_cmd">openDetail</action>
+                <data name="userdata" binding="#epg-data/data/recom_list/[1]/video_id"></data>
+                <action event="click" type="usr_cmd" binding="#epg-data/data/recom_list/[1]/action"></action>
             </item>
             <item class="poster_item, focus_border" id="poster_3" type="image">
                 <attr name="x">1200</attr>
                 <attr name="y">160</attr>
                 <attr name="text" binding="#epg-data/data/recom_list/[2]/video_name"></attr>
                 <attr name="img.1" binding="#epg-data/data/recom_list/[2]/video_img_h"></attr>
-                <action event="click" type="usr_cmd">openDetail</action>
+                <data name="userdata" binding="#epg-data/data/recom_list/[2]/video_id"></data>
+                <action event="click" type="usr_cmd" binding="#epg-data/data/recom_list/[2]/action"></action>
             </item>
             <item class="poster_item, focus_border" id="poster_4" type="image">
                 <attr name="x">1540</attr>
                 <attr name="y">160</attr>
                 <attr name="text" binding="#epg-data/data/recom_list/[3]/video_name"></attr>
                 <attr name="img.1" binding="#epg-data/data/recom_list/[3]/video_img_h"></attr>
-                <action event="click" type="usr_cmd">openDetail</action>
+                <data name="userdata" binding="#epg-data/data/recom_list/[3]/video_id"></data>
+                <action event="click" type="usr_cmd" binding="#epg-data/data/recom_list/[3]/action"></action>
             </item>
             <item class="poster_item, focus_border" id="poster_5" type="image">
                 <attr name="x">860</attr>
                 <attr name="y">450</attr>
                 <attr name="text" binding="#epg-data/data/recom_list/[4]/video_name"></attr>
                 <attr name="img.1" binding="#epg-data/data/recom_list/[4]/video_img_h"></attr>
-                <action event="click" type="usr_cmd">openDetail</action>
+                <data name="userdata" binding="#epg-data/data/recom_list/[4]/video_id"></data>
+                <action event="click" type="usr_cmd" binding="#epg-data/data/recom_list/[4]/action"></action>
             </item>
             <item class="poster_item, focus_border" id="poster_6" type="image">
                 <attr name="x">1200</attr>
                 <attr name="y">450</attr>
                 <attr name="text" binding="#epg-data/data/recom_list/[5]/video_name"></attr>
                 <attr name="img.1" binding="#epg-data/data/recom_list/[5]/video_img_h"></attr>
-                <action event="click" type="usr_cmd">openDetail</action>
+                <data name="userdata" binding="#epg-data/data/recom_list/[5]/video_id"></data>
+                <action event="click" type="usr_cmd" binding="#epg-data/data/recom_list/[5]/action"></action>
             </item>
             <item class="poster_item, focus_border" id="poster_7" type="image">
                 <attr name="x">1540</attr>
                 <attr name="y">450</attr>
                 <attr name="text" binding="#epg-data/data/recom_list/[6]/video_name"></attr>
                 <attr name="img.1" binding="#epg-data/data/recom_list/[6]/video_img_h"></attr>
-                <action event="click" type="usr_cmd">openDetail</action>
+                <data name="userdata" binding="#epg-data/data/recom_list/[6]/video_id"></data>
+                <action event="click" type="usr_cmd" binding="#epg-data/data/recom_list/[6]/action"></action>
             </item>
 
             <!--epg菜单-->
             <item class="epg_item, focus_border" type="image">
                 <attr name="x">70</attr>
-                <attr name="img.1" binding="[=img_default]" />
-                <data name="userdata">movie</data>
-                <action event="click" type="usr_cmd">openListPage</action>
+                <attr name="text" binding="#epg-data/data/menu_list/[0]/menu_name"></attr>
+                <attr name="img.1" binding="#epg-data/data/menu_list/[0]/img_v"></attr>
+                <data name="userdata" binding="#epg-data/data/menu_list/[0]/content_id"></data>
+                <action event="click" type="usr_cmd" binding="#epg-data/data/menu_list/[0]/action"></action>
             </item>
             <item class="epg_item, focus_border" type="image">
                 <attr name="x">370</attr>
-                <attr name="img.1" binding="[=img_default]" />
-                <data name="userdata">tvplay</data>
-                <action event="click" type="usr_cmd">openListPage</action>
+                <attr name="text" binding="#epg-data/data/menu_list/[1]/menu_name"></attr>
+                <attr name="img.1" binding="#epg-data/data/menu_list/[1]/img_v"></attr>
+                <data name="userdata" binding="#epg-data/data/menu_list/[1]/content_id"></data>
+                <action event="click" type="usr_cmd" binding="#epg-data/data/menu_list/[1]/action"></action>
             </item>
             <item class="epg_item, focus_border" type="image">
                 <attr name="x">670</attr>
-                <attr name="img.1" binding="[=img_default]" />
-                <data name="userdata">variety</data>
-                <action event="click" type="usr_cmd">openListPage</action>
+                <attr name="text" binding="#epg-data/data/menu_list/[2]/menu_name"></attr>
+                <attr name="img.1" binding="#epg-data/data/menu_list/[2]/img_v"></attr>
+                <data name="userdata" binding="#epg-data/data/menu_list/[2]/content_id"></data>
+                <action event="click" type="usr_cmd" binding="#epg-data/data/menu_list/[2]/action"></action>
             </item>
             <item class="epg_item, focus_border" type="image">
                 <attr name="x">970</attr>
-                <attr name="img.1" binding="[=img_default]" />
-                <data name="userdata">animation</data>
-                <action event="click" type="usr_cmd">openListPage</action>
+                <attr name="text" binding="#epg-data/data/menu_list/[3]/menu_name"></attr>
+                <attr name="img.1" binding="#epg-data/data/menu_list/[3]/img_v"></attr>
+                <data name="userdata" binding="#epg-data/data/menu_list/[3]/content_id"></data>
+                <action event="click" type="usr_cmd" binding="#epg-data/data/menu_list/[3]/action"></action>
             </item>
             <item class="epg_item, focus_border" type="image">
                 <attr name="x">1270</attr>
-                <attr name="img.1" binding="[=img_default]" />
-                <action event="click" type="usr_cmd">openAppList</action>
+                <attr name="text" binding="#epg-data/data/menu_list/[4]/menu_name"></attr>
+                <attr name="img.1" binding="#epg-data/data/menu_list/[4/img_v"></attr>
+                <data name="userdata" binding="#epg-data/data/menu_list/[4]/content_id"></data>
+                <action event="click" type="usr_cmd" binding="#epg-data/data/menu_list/[4]/action"></action>
             </item>
             <item class="epg_item, focus_border" type="image">
                 <attr name="x">1570</attr>

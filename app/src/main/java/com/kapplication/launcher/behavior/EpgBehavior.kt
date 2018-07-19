@@ -105,7 +105,7 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
         XulLog.i("EpgBehavior", "action = $action, type = $type, command = $command, userdata = $userdata")
         when (command) {
             "openListPage" -> openListPage(userdata as String, view?.getAttrString("text"))
-            "openDetail" -> openDetail(userdata as String)
+            "open_vod_detail_page" -> openDetail(userdata as String)
             "openAppList"  -> openAppList()
             "openSetting"  -> context.startActivity(Intent(Settings.ACTION_SETTINGS))
         }
