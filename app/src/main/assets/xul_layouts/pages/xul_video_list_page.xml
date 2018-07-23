@@ -44,6 +44,7 @@
                             <item filter="[0]" type="label" class="category_item">
                                 <focus mode="focusable" focused="true"/>
                                 <attr name="text" binding="[=name]"/>
+                                <data name="count" binding="[=video_total]"/>
                                 <data name="userdata" binding="[=id]"/>
                                 <action event="focus" type="script/javascript">
                                     //判断item是否已经是点击过的状态了

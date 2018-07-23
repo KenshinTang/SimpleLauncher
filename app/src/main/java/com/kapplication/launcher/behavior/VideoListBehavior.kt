@@ -6,6 +6,7 @@ import android.net.Uri
 import com.kapplication.launcher.UiManager
 import com.kapplication.launcher.utils.Utils
 import com.starcor.xul.Wrapper.XulMassiveAreaWrapper
+import com.starcor.xul.Wrapper.XulSliderAreaWrapper
 import com.starcor.xul.XulDataNode
 import com.starcor.xul.XulView
 import com.starcor.xulapp.XulPresenter
@@ -134,30 +135,30 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
 
                     XulLog.i("VideoListBehavior", "getAssetVideoList onResponse")
 
-//                    val ownerSlider = mVideoListView?.findParentByType("slider")
-//                    val ownerLayer = mVideoListView?.findParentByType("layer")
-//
-//                    ownerLayer?.dynamicFocus = null
-//                    XulSliderAreaWrapper.fromXulView(ownerSlider).scrollTo(0, false)
-//                    mVideoListWrapper?.clear()
-//
-//                    mVideoListView?.setStyle("display", "block")
-//                    mVideoListView?.resetRender()
-//                    mNoDataHintView?.setStyle("display", "none")
-//                    mNoDataHintView?.resetRender()
-//
-//                    val result : String = responseBody!!.string()
-//
-//                    val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
-//
-//                    var videoNode: XulDataNode? = dataNode.getChildNode("data", "list").firstChild
-//                    while (videoNode != null) {
-//                        mVideoListWrapper?.addItem(videoNode)
-//                        videoNode = videoNode.next
-//                    }
-//                    mVideoListWrapper?.syncContentView()
+                    val ownerSlider = mVideoListView?.findParentByType("slider")
+                    val ownerLayer = mVideoListView?.findParentByType("layer")
 
-//
+                    ownerLayer?.dynamicFocus = null
+                    XulSliderAreaWrapper.fromXulView(ownerSlider).scrollTo(0, false)
+                    mVideoListWrapper?.clear()
+
+                    mVideoListView?.setStyle("display", "block")
+                    mVideoListView?.resetRender()
+                    mNoDataHintView?.setStyle("display", "none")
+                    mNoDataHintView?.resetRender()
+
+                    val result : String = responseBody!!.string()
+
+                    val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
+
+                    var videoNode: XulDataNode? = dataNode.getChildNode("data", "list").firstChild
+                    while (videoNode != null) {
+                        mVideoListWrapper?.addItem(videoNode)
+                        videoNode = videoNode.next
+                    }
+                    mVideoListWrapper?.syncContentView()
+
+
 //                    mVideoCountView?.setAttr("text", dataNode.getChildNode("l", "page_ctrl", "total_rows").value + " 部")
 //                    mVideoCountView?.resetRender()
                 }
