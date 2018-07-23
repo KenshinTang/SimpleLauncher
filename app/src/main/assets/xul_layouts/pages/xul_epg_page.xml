@@ -5,6 +5,16 @@
 
 		<layout>
             <style name="background-image">file:///.assets/images/background.jpg</style>
+
+            <item id="logo_image" type="image" desc="logo">
+                <focus mode="nofocus"/>
+                <attr name="x">60</attr>
+                <attr name="y">40</attr>
+                <attr name="img.0.width">100</attr>
+                <attr name="img.0.height">100</attr>
+                <attr name="img.0">file:///.assets/images/icon_logo.png</attr>
+            </item>
+
 			<item id="clock_label" type="label" desc="时间">
 				<focus mode="nofocus"/>
 				<attr name="x">1700</attr>
