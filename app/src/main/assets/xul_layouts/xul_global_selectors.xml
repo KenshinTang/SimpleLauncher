@@ -14,5 +14,11 @@
             <style name="border">4,d82cbdd7</style>
             <attr name="marquee">500,1000,3000,50%</attr>
         </select>
+        <select class="separator_line">
+            <focus mode="nofocus"/>
+            <attr name="width">match_parent</attr>
+            <attr name="height">2</attr>
+            <style name="background-image">file:///.assets/images/line.9.png</style>
+        </select>
     </selector>
 </starcor.xul>

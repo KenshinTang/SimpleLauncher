@@ -13,7 +13,7 @@
                         <attr name="y">117</attr>
                         <attr name="width">396</attr>
                         <attr name="height">512</attr>
-                        <attr name="img.2" binding="video_img_v"/>
+                        <attr name="img.2" binding="[=video_img_v]"/>
                     </item>
 
                     <area id="area_media_detail_info">
@@ -30,7 +30,7 @@
                             <item id="item_media_title" type="label" class="pfm-txt-cls">
                                 <attr name="width">warp_content</attr>
                                 <attr name="height">match_parent</attr>
-                                <attr name="text" binding="video_name"/>
+                                <attr name="text" binding="[=video_name]"/>
                                 <style name="font-size">46</style>
                                 <style name="font-color">FFFFFFFF</style>
                                 <style name="padding">0,5,0,0</style>
@@ -51,7 +51,7 @@
                             <attr name="width">1266</attr>
                             <attr name="height">276</attr>
                             <style name="padding-left">2</style>
-                            <area type="slider" desc="导演描述" binding="related_persons">
+                            <area type="slider" desc="导演描述">
                                 <attr name="direction">horizontal</attr>
                                 <attr name="width">wrap_content</attr>
                                 <attr name="height">wrap_content</attr>
@@ -61,11 +61,11 @@
                                     <style name="margin-right">5</style>
                                 </item>
                                 <item type="label" class="label_item" >
-                                    <attr name="text" binding="video_director"/>
+                                    <attr name="text" binding="[=video_director]"/>
                                     <style name="font-color">ffcbcbcb</style>
                                 </item>
                             </area>
-                            <area type="slider" desc="演员描述" binding="related_persons">
+                            <area type="slider" desc="演员描述">
                                 <attr name="direction">horizontal</attr>
                                 <attr name="width">wrap_content</attr>
                                 <attr name="height">wrap_content</attr>
@@ -75,7 +75,7 @@
                                     <style name="margin-right">5</style>
                                 </item>
                                 <item type="label" class="label_item">
-                                    <attr name="text" binding="video_actor"/>
+                                    <attr name="text" binding="[=video_actor]"/>
                                     <style name="font-color">ffcbcbcb</style>
                                 </item>
                             </area>
@@ -93,7 +93,7 @@
                                 <item type="label" class="label_item">
                                     <attr name="width">match_parent</attr>
                                     <attr name="height">match_parent</attr>
-                                    <attr name="text" binding="summary"/>
+                                    <attr name="text" binding="[=summary]"/>
                                     <attr name="ellipsis">true</attr>
                                     <attr name="multi-line">true</attr>
                                     <attr name="auto-wrap">true</attr>
@@ -114,9 +114,10 @@
                             <attr name="y">304</attr>
                             <attr name="width">1344</attr>
 
-                            <item id="item_play_btn" type="image" class="media_btn,hide">
+                            <item id="item_play_btn" type="image" class="media_btn">
+                                <focus focused="true"/>
                                 <attr name="text">播放</attr>
-                                <attr name="img.1">file:///.assets/images/media/icon_play.png</attr>
+                                <attr name="img.1">file:///.assets/images/icon_play.png</attr>
                                 <action event="click" type="usr_cmd">onPlayButtonClick</action>
                             </item>
 
@@ -130,7 +131,7 @@
                     </area>
                 </area>
 
-                <area id="area_relative_media" binding="#media-detail/data/recom_video">
+                <area id="area_relative_media">
                     <attr name="y">655</attr>
                     <style name="padding">0,95,97,0</style>
 
@@ -146,16 +147,17 @@
                         <attr name="height">2</attr>
                     </item>
 
-                    <area id="area_relative_media_list" type="slider">
+                    <area id="area_relative_media_list" type="slider" binding="#media-detail/data">
                         <focus mode="dynamic,priority"/>
                         <attr name="y">55</attr>
                         <attr name="auto-scroll">false</attr>
 
-                        <template binding="#recommendation/item[0~6]">
+                        <template binding="recom_video/[0~6]">
                             <item type="image"
-                                  class="poster_default_bkg,focus_scale,focus_border,poster_item,marquee_animation,right_top_mark_style,pfm-temp-clsA">
-                                <attr name="text" binding="name"/>
-                                <attr name="img.2" binding="=scale:{posters/image[type=main]}"/>
+                                class="poster_default_bkg,focus_scale,focus_border,poster_item,marquee_animation,right_top_mark_style,pfm-temp-clsA">
+                                <attr name="text" binding="[=video_name]"/>
+                                <attr name="img.2" binding="[=video_img_v]"/>
+                                <data name="userdata" binding="[=video_id]"></data>
                                 <!--<attr name="img.3" binding="posters/image[type=corner-mark]"/>-->
                             </item>
                         </template>

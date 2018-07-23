@@ -67,6 +67,7 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
 
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
                     xulGetRenderContext().refreshBinding("media-detail", dataNode)
+//                    Utils.printXulDataNode(dataNode)
                 }
             }
 
