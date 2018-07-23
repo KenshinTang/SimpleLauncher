@@ -104,7 +104,7 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
     override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
         XulLog.i("EpgBehavior", "action = $action, type = $type, command = $command, userdata = $userdata")
         when (command) {
-            "open_vod_list_page" -> openListPage(userdata as String, view?.getAttrString("text"))
+            "open_vod_list_page" -> openListPage(userdata as String)
             "open_vod_detail_page" -> openDetail(userdata as String)
             "open_vod_player" -> XulLog.d("EpgBehavior", "open vod player")
             "open_live_player" -> XulLog.d("EpgBehavior", "open live player")
@@ -123,11 +123,10 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
         }
     }
 
-    private fun openListPage(packageId: String, title: String?) {
+    private fun openListPage(packageId: String) {
         XulLog.i("EpgBehavior", "openListPage($packageId)")
         val extInfo = XulDataNode.obtainDataNode("extInfo")
         extInfo.appendChild("packageId", packageId)
-        extInfo.appendChild("title", title)
         UiManager.openUiPage("VideoListPage", extInfo)
     }
 

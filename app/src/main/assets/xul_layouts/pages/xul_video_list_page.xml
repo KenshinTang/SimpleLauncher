@@ -3,7 +3,6 @@
 
     <page id="VideoListPage">
         <binding id="category-data"/>
-        <binding id="bind_label"/>
         <layout>
             <style name="background-image">file:///.assets/images/background.jpg</style>
 
@@ -15,11 +14,11 @@
                     <attr name="height">match_parent</attr>
                     <focus mode="dynamic"/>
 
-                    <item id="title" type="label">
+                    <item id="title" type="label" binding="#category-data/data/asset_info">
                         <attr name="x">50</attr>
                         <attr name="y">69</attr>
                         <attr name="width">320</attr>
-                        <attr name="text" binding="#category-data/name"/>
+                        <attr name="text" binding="[=name]"/>
                         <style name="font-size">60</style>
                         <style name="font-color">D0ffffff</style>
                     </item>
@@ -41,11 +40,11 @@
                         <attr name="height">842</attr>
                         <attr name="indicator.down">47,19,0.5,1,file:///.assets/images/icon_indicator_down.png</attr>
 
-                        <template binding="#category-data/arg_list/category_list/i">
+                        <template binding="#category-data/data/list/[0~20]">
                             <item filter="[0]" type="label" class="category_item">
                                 <focus mode="focusable" focused="true"/>
-                                <attr name="text" binding="name"/>
-                                <data name="userdata" binding="id"/>
+                                <attr name="text" binding="[=name]"/>
+                                <data name="userdata" binding="[=id]"/>
                                 <action event="focus" type="script/javascript">
                                     //判断item是否已经是点击过的状态了
                                     if(!this.hasClass("category_checked")){
@@ -58,8 +57,8 @@
                                 <action event="checked" type="usr_cmd">switchCategory</action>
                             </item>
                             <item type="label" class="category_item">
-                                <attr name="text" binding="name"/>
-                                <data name="userdata" binding="id"/>
+                                <attr name="text" binding="[=name]"/>
+                                <data name="userdata" binding="[=id]"/>
                                 <action event="focus" type="script/javascript">
                                     //判断item是否已经是点击过的状态了
                                     if(!this.hasClass("category_checked")){
@@ -132,9 +131,9 @@
 
                                 <template id="@item-template">
                                     <item type="image" class="focus_border,poster_item">
-                                        <attr name="text" binding="name"/>
-                                        <attr name="img.2" binding="img_v"/>
-                                        <data name="userdata" binding="datasource"/>
+                                        <attr name="text" binding="[=video_name]"/>
+                                        <attr name="img.2" binding="[=video_img_v]"/>
+                                        <data name="userdata" binding="[=video_id]"/>
                                         <action event="click" type="usr_cmd">openDetail</action>
                                     </item>
                                 </template>
