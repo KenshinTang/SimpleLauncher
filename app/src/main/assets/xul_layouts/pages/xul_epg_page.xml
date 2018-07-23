@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
 	<page id="EpgPage">
-
-
 		<layout>
             <style name="background-image">file:///.assets/images/background.jpg</style>
 
@@ -88,46 +86,44 @@
             <!--epg菜单-->
             <item class="epg_item, focus_border" type="image">
                 <attr name="x">70</attr>
-                <attr name="text" binding="#epg-data/data/menu_list/[0]/menu_name"></attr>
                 <attr name="img.1" binding="#epg-data/data/menu_list/[0]/img_get_focus_url"></attr>
                 <data name="userdata" binding="#epg-data/data/menu_list/[0]/content_id"></data>
                 <action event="click" type="usr_cmd" binding="#epg-data/data/menu_list/[0]/action"></action>
             </item>
             <item class="epg_item, focus_border" type="image">
                 <attr name="x">370</attr>
-                <attr name="text" binding="#epg-data/data/menu_list/[1]/menu_name"></attr>
-                <attr name="img.1" binding="#epg-data/data/menu_list/[1]/img_v"></attr>
+                <attr name="img.1" binding="#epg-data/data/menu_list/[1]/img_get_focus_url"></attr>
                 <data name="userdata" binding="#epg-data/data/menu_list/[1]/content_id"></data>
                 <action event="click" type="usr_cmd" binding="#epg-data/data/menu_list/[1]/action"></action>
             </item>
             <item class="epg_item, focus_border" type="image">
                 <attr name="x">670</attr>
-                <attr name="text" binding="#epg-data/data/menu_list/[2]/menu_name"></attr>
-                <attr name="img.1" binding="#epg-data/data/menu_list/[2]/img_v"></attr>
+                <attr name="img.1" binding="#epg-data/data/menu_list/[2]/img_get_focus_url"></attr>
                 <data name="userdata" binding="#epg-data/data/menu_list/[2]/content_id"></data>
                 <action event="click" type="usr_cmd" binding="#epg-data/data/menu_list/[2]/action"></action>
             </item>
             <item class="epg_item, focus_border" type="image">
                 <attr name="x">970</attr>
-                <attr name="text" binding="#epg-data/data/menu_list/[3]/menu_name"></attr>
-                <attr name="img.1" binding="#epg-data/data/menu_list/[3]/img_v"></attr>
+                <attr name="img.1" binding="#epg-data/data/menu_list/[3]/img_get_focus_url"></attr>
                 <data name="userdata" binding="#epg-data/data/menu_list/[3]/content_id"></data>
                 <action event="click" type="usr_cmd" binding="#epg-data/data/menu_list/[3]/action"></action>
             </item>
             <item class="epg_item, focus_border" type="image">
                 <attr name="x">1270</attr>
-                <attr name="text" binding="#epg-data/data/menu_list/[4]/menu_name"></attr>
-                <attr name="img.1" binding="#epg-data/data/menu_list/[4/img_v"></attr>
+                <attr name="img.1" binding="#epg-data/data/menu_list/[4/img_get_focus_url"></attr>
                 <data name="userdata" binding="#epg-data/data/menu_list/[4]/content_id"></data>
                 <action event="click" type="usr_cmd" binding="#epg-data/data/menu_list/[4]/action"></action>
             </item>
             <item class="epg_item, focus_border" type="image">
                 <attr name="x">1570</attr>
-                <attr name="img.1" binding="[=img_default]" />
+                <attr name="img.1">file:///.assets/images/icon_settings.png</attr>
                 <action event="click" type="usr_cmd">openSetting</action>
             </item>
 		</layout>
 		<selector>
+            <select class="epg_item" state="focused">
+                <style name="scale">1.2</style>
+            </select>
 			<select class="epg_item">
                 <attr name="y">770</attr>
                 <attr name="width">280</attr>
