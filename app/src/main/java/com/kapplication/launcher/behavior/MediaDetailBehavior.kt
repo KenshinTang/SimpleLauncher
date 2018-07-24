@@ -1,11 +1,15 @@
 package com.kapplication.launcher.behavior
 
+import android.content.Intent
+import android.net.Uri
 import com.kapplication.launcher.utils.Utils
 import com.starcor.xul.XulDataNode
 import com.starcor.xul.XulView
+import com.starcor.xulapp.XulApplication
 import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.behavior.XulBehaviorManager
 import com.starcor.xulapp.behavior.XulUiBehavior
+import com.starcor.xulapp.debug.XulDebugAdapter
 import com.starcor.xulapp.utils.XulLog
 import okhttp3.*
 import java.io.IOException
@@ -30,6 +34,8 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
         }
     }
 
+    private var mMediaId: String? = ""
+
     override fun appOnStartUp(success: Boolean) {
     }
 
@@ -37,17 +43,16 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
         super.xulOnRenderIsReady()
 
         val extraInfo = _presenter.xulGetBehaviorParams()
-        var mediaId: String? = ""
         if (extraInfo != null) {
-            mediaId = extraInfo.getString("mediaId")
-            XulLog.i("MediaDetailBehavior", "mediaId: $mediaId")
+            mMediaId = extraInfo.getString("mediaId")
+            XulLog.i("MediaDetailBehavior", "mediaId: $mMediaId")
         }
 
         val urlBuilder = HttpUrl.parse(Utils.HOST)!!.newBuilder()
                 .addQueryParameter("m", "Epg")
                 .addQueryParameter("c", "AssetCategory")
                 .addQueryParameter("a", "getVodInfo")
-                .addQueryParameter("video_id", mediaId)
+                .addQueryParameter("video_id", mMediaId)
                 .addQueryParameter("is_get_recom", "0")
 
         XulLog.i("MediaDetailBehavior", "Request url: ${urlBuilder.build()}")
@@ -79,6 +84,53 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
 
     override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
         XulLog.i("MediaDetailBehavior", "action = $action, type = $type, command = $command, userdata = $userdata")
+        when (command) {
+            "onPlayButtonClick" -> getPlayUrlAndPlay()
+        }
         super.xulDoAction(view, action, type, command, userdata)
+    }
+
+    private fun getPlayUrlAndPlay() {
+        val urlBuilder = HttpUrl.parse(Utils.HOST)!!.newBuilder()
+                .addQueryParameter("m", "Epg")
+                .addQueryParameter("c", "AssetCategory")
+                .addQueryParameter("a", "getVideoPlayUrl")
+                .addQueryParameter("video_id", mMediaId)
+                .addQueryParameter("video_index", "1")
+
+        XulLog.i("MediaDetailBehavior", "Request url: ${urlBuilder.build()}")
+        val request: Request = Request.Builder().url(urlBuilder.build()).build()
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onResponse(call: Call?, response: Response?) {
+                response!!.body().use { responseBody ->
+                    if (!response.isSuccessful) {
+                        XulLog.e("MediaDetailBehavior", "getVideoPlayUrl onResponse, but is not Successful")
+                        throw IOException("Unexpected code $response")
+                    }
+
+                    XulLog.i("MediaDetailBehavior", "getVideoPlayUrl onResponse")
+
+                    val result : String = responseBody!!.string()
+                    XulLog.json("MediaDetailBehavior", result)
+
+                    val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
+
+                    val playUrl : String = dataNode.getChildNode("data").getAttributeValue("file_url")
+                    XulLog.i("MediaDetailBehavior", "getVideoPlayUrl $playUrl")
+
+                    XulApplication.getAppInstance().postToMainLooper({
+                        val uri = Uri.parse(playUrl)
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.setDataAndType(uri, "video/mp4")
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        XulDebugAdapter.startActivity(intent)
+                    })
+                }
+            }
+
+            override fun onFailure(call: Call?, e: IOException?) {
+                XulLog.e("kenshin", "getVideoPlayUrl onFailure")
+            }
+        })
     }
 }
