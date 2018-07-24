@@ -55,6 +55,7 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call?, response: Response?) {
                 response!!.body().use { responseBody ->
+                    // 没有UI操作, 直接在子线程操作即可. refreshBinding只是刷新数据, 不会更新UI, 更新UI是数据触发的.
                     if (!response.isSuccessful) {
                         XulLog.e("MediaDetailBehavior", "getVodInfo onResponse, but is not Successful")
                         throw IOException("Unexpected code $response")
@@ -67,7 +68,6 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
 
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
                     xulGetRenderContext().refreshBinding("media-detail", dataNode)
-//                    Utils.printXulDataNode(dataNode)
                 }
             }
 

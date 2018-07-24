@@ -9,6 +9,7 @@ import com.starcor.xul.Wrapper.XulMassiveAreaWrapper
 import com.starcor.xul.Wrapper.XulSliderAreaWrapper
 import com.starcor.xul.XulDataNode
 import com.starcor.xul.XulView
+import com.starcor.xulapp.XulApplication
 import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.behavior.XulBehaviorManager
 import com.starcor.xulapp.behavior.XulUiBehavior
@@ -41,7 +42,6 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
     }
 
     private var mPackageId: String = ""
-    private var mOkHttpClient: OkHttpClient = OkHttpClient()
     private var mVideoListView: XulView? = null
     private var mNoDataHintView: XulView? = null
     private var mVideoListWrapper: XulMassiveAreaWrapper? = null
@@ -156,11 +156,14 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
                         mVideoListWrapper?.addItem(videoNode)
                         videoNode = videoNode.next
                     }
-                    mVideoListWrapper?.syncContentView()
 
+                    //update UI
+                    XulApplication.getAppInstance().postToMainLooper({
+                        mVideoCountView?.setAttr("text", """${xulGetFocus().getDataString("count")} 部""")
+                        mVideoCountView?.resetRender()
 
-//                    mVideoCountView?.setAttr("text", dataNode.getChildNode("l", "page_ctrl", "total_rows").value + " 部")
-//                    mVideoCountView?.resetRender()
+                        mVideoListWrapper?.syncContentView()
+                    })
                 }
             }
 
@@ -168,58 +171,6 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
                 XulLog.e("VideoListBehavior", "getAssetCategoryList onFailure")
             }
         })
-
-//        var fakeStream: InputStream? = null
-//        when (mPackageId) {
-//            "movie" -> fakeStream = xulGetAssets("fakeData/videolist_movie_$categoryId.xml")
-//            "tvplay" -> fakeStream = xulGetAssets("fakeData/videolist_tvplay_$categoryId.xml")
-//            "variety" -> fakeStream = xulGetAssets("fakeData/videolist_variety_$categoryId.xml")
-//            "animation" -> fakeStream = xulGetAssets("fakeData/videolist_animation_$categoryId.xml")
-////            "movie" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/videolist_movie_$categoryId.xml")
-////            "tvplay" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/videolist_tvplay_$categoryId.xml")
-////            "variety" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/videolist_variety_$categoryId.xml")
-////            "animation" -> fakeStream = xulGetFakeStreamFromSD("/mnt/usbhost/Storage01/SL/fakeData/videolist_animation_$categoryId.xml")
-//        }
-//
-//        if (fakeStream == null) {
-//            val ownerLayer = mVideoListView?.findParentByType("layer")
-//            val ownerSlider = mVideoListView?.findParentByType("slider")
-//
-//            ownerLayer?.dynamicFocus = null
-//            XulSliderAreaWrapper.fromXulView(ownerSlider).scrollTo(0, false)
-//            mVideoListWrapper?.clear()
-//
-//            mVideoListView?.setStyle("display", "none")
-//            mVideoListView?.resetRender()
-//            mNoDataHintView?.setStyle("display", "block")
-//            mNoDataHintView?.resetRender()
-//
-//            mVideoCountView?.setAttr("text", "0 部")
-//            mVideoCountView?.resetRender()
-//        } else {
-//            val ownerSlider = mVideoListView?.findParentByType("slider")
-//            val ownerLayer = mVideoListView?.findParentByType("layer")
-//
-//            ownerLayer?.dynamicFocus = null
-//            XulSliderAreaWrapper.fromXulView(ownerSlider).scrollTo(0, false)
-//            mVideoListWrapper?.clear()
-//
-//            mVideoListView?.setStyle("display", "block")
-//            mVideoListView?.resetRender()
-//            mNoDataHintView?.setStyle("display", "none")
-//            mNoDataHintView?.resetRender()
-//
-//            val dataNode: XulDataNode = XulDataNode.build(fakeStream)
-//            var videoNode: XulDataNode? = dataNode.getChildNode("l", "il").firstChild
-//            while (videoNode != null) {
-//                mVideoListWrapper?.addItem(videoNode)
-//                videoNode = videoNode.next
-//            }
-//            mVideoListWrapper?.syncContentView()
-//
-//            mVideoCountView?.setAttr("text", dataNode.getChildNode("l", "page_ctrl", "total_rows").value + " 部")
-//            mVideoCountView?.resetRender()
-//        }
     }
 
     private fun openDetail(dataSource: String) {

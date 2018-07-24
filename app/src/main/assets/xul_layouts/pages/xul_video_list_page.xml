@@ -60,6 +60,7 @@
                             <item type="label" class="category_item">
                                 <attr name="text" binding="[=name]"/>
                                 <data name="userdata" binding="[=id]"/>
+                                <data name="count" binding="[=video_total]"/>
                                 <action event="focus" type="script/javascript">
                                     //判断item是否已经是点击过的状态了
                                     if(!this.hasClass("category_checked")){
