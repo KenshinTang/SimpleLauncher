@@ -173,7 +173,9 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
 
     private fun openDetail(dataSource: String) {
         XulLog.i("VideoListBehavior", "openDetail($dataSource)")
-        UiManager.openUiPage("MediaDetailPage")
+        val extInfoNode = XulDataNode.obtainDataNode("ext_info")
+        extInfoNode.appendChild("mediaId", dataSource)
+        UiManager.openUiPage("MediaDetailPage", extInfoNode)
     }
 
     private fun openPlayer(dataSource: String) {
