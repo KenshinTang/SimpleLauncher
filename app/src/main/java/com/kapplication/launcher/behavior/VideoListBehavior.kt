@@ -134,23 +134,10 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
                     }
 
                     XulLog.i("VideoListBehavior", "getAssetVideoList onResponse")
-
-                    val ownerSlider = mVideoListView?.findParentByType("slider")
-                    val ownerLayer = mVideoListView?.findParentByType("layer")
-
-                    ownerLayer?.dynamicFocus = null
-                    XulSliderAreaWrapper.fromXulView(ownerSlider).scrollTo(0, false)
-                    mVideoListWrapper?.clear()
-
-                    mVideoListView?.setStyle("display", "block")
-                    mVideoListView?.resetRender()
-                    mNoDataHintView?.setStyle("display", "none")
-                    mNoDataHintView?.resetRender()
-
                     val result : String = responseBody!!.string()
 
+                    mVideoListWrapper?.clear()
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
-
                     var videoNode: XulDataNode? = dataNode.getChildNode("data", "list").firstChild
                     while (videoNode != null) {
                         mVideoListWrapper?.addItem(videoNode)
@@ -159,6 +146,17 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
 
                     //update UI
                     XulApplication.getAppInstance().postToMainLooper({
+                        val ownerSlider = mVideoListView?.findParentByType("slider")
+                        val ownerLayer = mVideoListView?.findParentByType("layer")
+
+                        ownerLayer?.dynamicFocus = null
+                        XulSliderAreaWrapper.fromXulView(ownerSlider).scrollTo(0, false)
+
+                        mVideoListView?.setStyle("display", "block")
+                        mVideoListView?.resetRender()
+                        mNoDataHintView?.setStyle("display", "none")
+                        mNoDataHintView?.resetRender()
+
                         mVideoCountView?.setAttr("text", """${xulGetFocus().getDataString("count")} 部""")
                         mVideoCountView?.resetRender()
 
