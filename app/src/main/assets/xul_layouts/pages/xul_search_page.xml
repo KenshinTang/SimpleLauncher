@@ -60,14 +60,14 @@
                 </item>
                 <item>
                     <key>CLEAN</key>
-                    <icon>file:///.assets/images/search/key_clean.png</icon>
+                    <icon>file:///.assets/images/key_clean.png</icon>
                 </item>
                 <item>
                     <key>0</key>
                 </item>
                 <item>
                     <key>DEL</key>
-                    <icon>file:///.assets/images/search/key_del.png</icon>
+                    <icon>file:///.assets/images/key_del.png</icon>
                 </item>
             </t9_keyboard>
         </binding>
@@ -156,11 +156,11 @@
                 </item>
                 <item>
                     <key>CLEAN</key>
-                    <icon>file:///.assets/images/search/key_clean.png</icon>
+                    <icon>file:///.assets/images/key_clean.png</icon>
                 </item>
                 <item>
                     <key>DEL</key>
-                    <icon>file:///.assets/images/search/key_del.png</icon>
+                    <icon>file:///.assets/images/key_del.png</icon>
                 </item>
             </full_letter_keyboard>
         </binding>
@@ -201,11 +201,11 @@
                 </item>
                 <item>
                     <key>CLEAN</key>
-                    <icon>file:///.assets/images/search/key_clean.png</icon>
+                    <icon>file:///.assets/images/key_clean.png</icon>
                 </item>
                 <item>
                     <key>DEL</key>
-                    <icon>file:///.assets/images/search/key_del.png</icon>
+                    <icon>file:///.assets/images/key_del.png</icon>
                 </item>
             </full_num_keyboard>
         </binding>
@@ -214,9 +214,8 @@
         <binding id="program_classify"/>
         <action event="ready" type="script/javascript">SearchPage_onReady</action>
         <layout>
-            <attr name="check-standard">pfm-temp-clsA</attr>
             <area id="area_search" class="match_parent_wh">
-                <style name="background-image">file:///.app/skins/background</style>
+                <style name="background-image">file:///.assets/images/background.jpg</style>
 
                 <area id="area_search_box" type="component">
                     <attr name="component">component_search_box</attr>
@@ -411,7 +410,7 @@
                     <attr name="y">110</attr>
                     <attr name="width">490</attr>
                     <attr name="height">1</attr>
-                    <style name="background-image">file:///.assets/images/login/line.9.png</style>
+                    <style name="background-image">file:///.assets/images/line.9.png</style>
                 </item>
             </area>
 
@@ -567,13 +566,13 @@
                         <item id="item_t9_keyboard" type="image" class="keyboard_switch_btn,keyboard_switch_btn_checked">
                             <focus priority="2" mode="focusable"/>
                             <focus mode="focusable" focused="true"/>
-                            <attr name="text" binding="#lang/search/nineLattice"/>
+                            <attr name="text">九宫格</attr>
                             <action event="click" type="usr_cmd">keyboard_nine_click</action>
                         </item>
                         <item id="item_full_keyboard" type="image" class="keyboard_switch_btn">
                             <focus priority="1" mode="focusable"/>
                             <style name="margin-left">22</style>
-                            <attr name="text" binding="#lang/search/fullKeyboard"/>
+                            <attr name="text">全键盘</attr>
                             <action event="click" type="usr_cmd">keyboard_full_click</action>
                         </item>
                     </area>
@@ -582,7 +581,7 @@
                 <item id="item_search_prompt" type="label">
                     <attr name="y">130</attr>
                     <attr name="width">match_parent</attr>
-                    <attr name="text" binding="#lang/search/itemSearchPrompt"/>
+                    <attr name="text">输入影片名首字母进行搜索</attr>
                     <style name="font-color">FFFFFFFF</style>
                     <style name="font-size">26</style>
                     <style name="font-align">0,0.5</style>
@@ -620,7 +619,7 @@
                 <style name="background-color">d82cbdd7</style>
                 <style name="font-color">FFFFFFFF</style>
                 <attr name="img.0.padding">-24,-28</attr>
-                <attr name="img.0">file:///.assets/images/poster/poster_shadow.9.png</attr>
+                <attr name="img.0">file:///.assets/images/poster_shadow.9.png</attr>
             </select>
             <select class="btn_key_expand">
                 <focus mode="focusable"/>
@@ -637,13 +636,13 @@
                 <style name="background-color">d82cbdd7</style>
                 <style name="font-color">FFFFFFFF</style>
                 <attr name="img.0.padding">-24,-28</attr>
-                <attr name="img.0">file:///.assets/images/poster/poster_shadow.9.png</attr>
+                <attr name="img.0">file:///.assets/images/poster_shadow.9.png</attr>
             </select>
             <select class="btn_shadow" state="focused">
                 <attr name="width">154</attr>
                 <attr name="height">135</attr>
                 <attr name="img.0.padding">-24,-28</attr>
-                <attr name="img.0">file:///.assets/images/poster/poster_shadow.9.png</attr>
+                <attr name="img.0">file:///.assets/images/poster_shadow.9.png</attr>
             </select>
             <select class="font_main_key">
                 <attr name="width">match_parent</attr>
@@ -669,7 +668,7 @@
                 <style name="font-align">0.5,0.87</style>
             </select>
             <select class="btn_clean">
-                <attr name="img.1">file:///.assets/images/search/key_clean.png</attr>
+                <attr name="img.1">file:///.assets/images/key_clean.png</attr>
                 <attr name="img.1.width">71</attr>
                 <attr name="img.1.height">70</attr>
                 <attr name="img.1.mode">center</attr>
@@ -677,22 +676,22 @@
                 <style name="font-size">0</style>
             </select>
             <select class="btn_clean" state="focused">
-                <attr name="img.1">file:///.assets/images/search/key_clean_normal.png</attr>
+                <attr name="img.1">file:///.assets/images/key_clean_normal.png</attr>
             </select>
             <select class="clean_image">
-                <attr name="img.1">file:///.assets/images/search/key_clean.png</attr>
+                <attr name="img.1">file:///.assets/images/key_clean.png</attr>
             </select>
             <select class="clean_image" state="focused">
-                <attr name="img.1">file:///.assets/images/search/key_clean_normal.png</attr>
+                <attr name="img.1">file:///.assets/images/key_clean_normal.png</attr>
             </select>
             <select class="del_image">
-                <attr name="img.1">file:///.assets/images/search/key_del.png</attr>
+                <attr name="img.1">file:///.assets/images/key_del.png</attr>
             </select>
             <select class="del_image" state="focused">
-                <attr name="img.1">file:///.assets/images/search/key_del_normal.png</attr>
+                <attr name="img.1">file:///.assets/images/key_del_normal.png</attr>
             </select>
             <select class="btn_del">
-                <attr name="img.1">file:///.assets/images/search/key_del.png</attr>
+                <attr name="img.1">file:///.assets/images/key_del.png</attr>
                 <attr name="img.1.width">81</attr>
                 <attr name="img.1.height">58</attr>
                 <attr name="img.1.mode">center</attr>
@@ -700,7 +699,7 @@
                 <style name="font-size">0</style>
             </select>
             <select class="btn_del" state="focused">
-                <attr name="img.1">file:///.assets/images/search/key_del_normal.png</attr>
+                <attr name="img.1">file:///.assets/images/key_del_normal.png</attr>
             </select>
             <select class="btn_expand">
                 <style name="font-color">FFFFFFFF</style>
