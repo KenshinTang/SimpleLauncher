@@ -24,7 +24,7 @@ import java.io.InputStream
 class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
 
     companion object {
-        val NAME = "VideoListBehavior"
+        const val NAME = "VideoListBehavior"
 
         fun register() {
             XulBehaviorManager.registerBehavior(NAME,

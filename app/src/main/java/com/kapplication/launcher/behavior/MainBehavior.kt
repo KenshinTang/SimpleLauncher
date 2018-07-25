@@ -24,7 +24,7 @@ class MainBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
     private val dateFormat = SimpleDateFormat("HH:mm")
 
     companion object {
-        val NAME = "MainBehavior"
+        const val NAME = "MainBehavior"
 
         fun register() {
             XulBehaviorManager.registerBehavior(NAME,

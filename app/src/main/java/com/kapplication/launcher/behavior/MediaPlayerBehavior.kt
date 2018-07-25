@@ -26,7 +26,7 @@ import java.util.*
 class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
 
     companion object {
-        val NAME = "media_player_behavior"
+        const val NAME = "media_player_behavior"
 
         fun register() {
             XulBehaviorManager.registerBehavior(NAME,

@@ -17,7 +17,7 @@ import java.io.IOException
 class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
 
     companion object {
-        val NAME = "MediaDetailBehavior"
+        const val NAME = "MediaDetailBehavior"
 
         fun register() {
             XulBehaviorManager.registerBehavior(NAME,
