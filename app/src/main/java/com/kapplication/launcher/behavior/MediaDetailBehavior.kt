@@ -2,6 +2,7 @@ package com.kapplication.launcher.behavior
 
 import android.content.Intent
 import android.net.Uri
+import com.kapplication.launcher.UiManager
 import com.kapplication.launcher.utils.Utils
 import com.starcor.xul.XulDataNode
 import com.starcor.xul.XulView
@@ -85,9 +86,17 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
     override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
         XulLog.i("MediaDetailBehavior", "action = $action, type = $type, command = $command, userdata = $userdata")
         when (command) {
-            "onPlayButtonClick" -> getPlayUrlAndPlay()
+//            "onPlayButtonClick" -> getPlayUrlAndPlay()
+            "onPlayButtonClick" -> openPlayer()
         }
         super.xulDoAction(view, action, type, command, userdata)
+    }
+
+    private fun openPlayer() {
+        XulLog.i("MediaDetailBehavior", "openPlayer($mMediaId)")
+        val extInfo = XulDataNode.obtainDataNode("extInfo")
+        extInfo.appendChild("mediaId", mMediaId)
+        UiManager.openUiPage("MediaPlayerPage", extInfo)
     }
 
     private fun getPlayUrlAndPlay() {
