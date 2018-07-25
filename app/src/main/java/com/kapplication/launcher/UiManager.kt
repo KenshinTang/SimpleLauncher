@@ -28,7 +28,6 @@ object UiManager {
         addUiPage("VideoListPage", "xul_layouts/pages/xul_video_list_page.xml", VideoListBehavior.NAME, VideoListActivity::class)
         addUiPage("MediaDetailPage", "xul_layouts/pages/xul_media_detail_page.xml", MediaDetailBehavior.NAME, MediaDetailActivity::class)
         addUiPage("MediaPlayerPage", "xul_layouts/pages/xul_media_player_page.xml", MediaPlayerBehavior.NAME, MediaPlayerActivity::class)
-        addUiPage("SearchPage", "xul_layouts/pages/xul_search_page.xml", SearchBehavior.NAME, SearchActivity::class)
     }
 
     fun addUiPage(pageId: String, xulFile: String, behavior: String) {

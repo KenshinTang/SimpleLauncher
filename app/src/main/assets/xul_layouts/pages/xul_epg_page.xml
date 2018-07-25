@@ -13,15 +13,6 @@
                 <attr name="img.0">file:///.assets/images/icon_logo.png</attr>
             </item>
 
-            <item id="search_btn" type="image" desc="搜索">
-                <attr name="x">1650</attr>
-                <attr name="y">60</attr>
-                <attr name="img.0.width">72</attr>
-                <attr name="img.0.height">72</attr>
-                <attr name="img.0">file:///.assets/images/icon_search.png</attr>
-                <action event="click" type="usr_cmd">openSearch</action>
-            </item>
-
 			<item id="clock_label" type="label" desc="时间">
 				<focus mode="nofocus"/>
 				<attr name="x">1700</attr>
