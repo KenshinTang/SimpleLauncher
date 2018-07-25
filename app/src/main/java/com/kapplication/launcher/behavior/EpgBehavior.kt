@@ -109,6 +109,7 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
             "open_vod_player" -> XulLog.d("EpgBehavior", "open vod player")
             "open_live_player" -> XulLog.d("EpgBehavior", "open live player")
             "open_special_list_page" -> XulLog.d("EpgBehavior", "open special list page")
+            "openSearch"  -> openSearch()
             "openAppList"  -> openAppList()
             "openSetting"  -> context.startActivity(Intent(Settings.ACTION_SETTINGS))
         }
@@ -135,6 +136,11 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
         val extInfoNode = XulDataNode.obtainDataNode("ext_info")
         extInfoNode.appendChild("mediaId", dataSource)
         UiManager.openUiPage("MediaDetailPage", extInfoNode)
+    }
+
+    private fun openSearch() {
+        XulLog.i("EpgBehavior", "openSearch()")
+        UiManager.openUiPage("SearchPage")
     }
 
 }
