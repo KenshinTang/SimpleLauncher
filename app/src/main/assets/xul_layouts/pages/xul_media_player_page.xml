@@ -1,0 +1,31 @@
+<?xml version="1.1" encoding="utf-8"?>
+<starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
+	<script type="script/javascript" src="file:///.assets/media_player.js"/>
+	<page id="MediaPlayerPage">
+		<action event="appEvents:toggleUi" type="script/javascript">MediaPlayer_toggleUI</action>
+		<action event="load" type="usr_cmd"/>
+		<layout>
+			<area id="title-frame" type="component" class="title-frame,player-ui-component"/>
+			<area id="control-bar" type="component" class="control-bar,player-ui-component"/>
+			<area id="player-menu" type="component" class="player-menu,player-ui-component"/>
+			<area id="player-playlist" type="component" class="player-playlist,player-ui-component"/>
+			<area id="player-playbill" type="component" class="player-playbill,player-ui-component"/>
+			<area id="tip-frame-a" type="component" class="tip-frame-a,player-ui-component"/>
+			<area id="tip-frame-b" type="component" class="tip-frame-b,player-ui-component"/>
+		</layout>
+		<selector>
+			<select type="component" class="player-ui-shown">
+				<attr name="x">0</attr>
+				<attr name="y">0</attr>
+				<attr name="enabled">true</attr>
+			</select>
+		</selector>
+	</page>
+	<selector>
+		<select class="player-ui-component">
+			<focus mode="dynamic"/>
+			<attr name="animation-moving">true</attr>
+			<attr name="enabled">false</attr>
+		</select>
+	</selector>
+</starcor.xul>
