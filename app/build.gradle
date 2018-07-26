@@ -8,7 +8,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.kapplication.launcher"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -30,10 +30,12 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    implementation ('com.shuyu:GSYVideoPlayer:5.0.1') {
+//        exclude group: 'com.squareup.okhttp3'
+        exclude group: 'com.android.support'
+    }
+    implementation ('com.squareup.okhttp3:okhttp:3.9.1')
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    compile project(path: ':xul')
-    compile project(path: ':xulApp')
+    implementation project(path: ':xul')
+    implementation project(path: ':xulApp')
 }
