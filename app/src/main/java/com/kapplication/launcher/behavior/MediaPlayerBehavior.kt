@@ -1,5 +1,6 @@
 package com.kapplication.launcher.behavior
 
+import android.app.Activity
 import android.content.Context
 import android.media.MediaPlayer
 import android.view.SurfaceHolder
@@ -52,6 +53,9 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
         mMediaPlayer!!.setOnPreparedListener({
             mMediaPlayer!!.start()
         })
+        mMediaPlayer!!.setOnCompletionListener {
+            (mContext as Activity).finish()
+        }
     }
 
     override fun appOnStartUp(success: Boolean) {
