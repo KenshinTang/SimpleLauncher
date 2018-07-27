@@ -103,12 +103,12 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
                     val playUrl : String = dataNode.getChildNode("data").getAttributeValue("file_url")
                     XulLog.i(NAME, "getVideoPlayUrl $playUrl")
 
-                    XulApplication.getAppInstance().postToMainLooper({
+                    XulApplication.getAppInstance().postToMainLooper {
                         mMediaPlayer!!.setUp(playUrl, true, "hahah")
                         mMediaPlayer!!.titleTextView.visibility = View.VISIBLE
                         mMediaPlayer!!.setIsTouchWiget(true)
                         mMediaPlayer!!.startPlayLogic()
-                    })
+                    }
                 }
             }
 

@@ -30,7 +30,7 @@
                 <attr name="height">552</attr>
                 <style name="font-size">50</style>
                 <attr name="text" binding="#epg-data/data/recom_list/[0]/video_name"></attr>
-                <attr name="img.1" binding="#epg-data/data/recom_list/[0]/video_img_h"></attr>
+                <attr name="img.1" binding="=scale:{#epg-data/data/recom_list/[0]/video_img_h}"></attr>
                 <data name="userdata" binding="#epg-data/data/recom_list/[0]/video_id"></data>
                 <action event="click" type="usr_cmd" binding="#epg-data/data/recom_list/[0]/action"></action>
             </item>
@@ -38,7 +38,7 @@
                 <attr name="x">860</attr>
                 <attr name="y">160</attr>
                 <attr name="text" binding="#epg-data/data/recom_list/[1]/video_name"></attr>
-                <attr name="img.1" binding="#epg-data/data/recom_list/[1]/video_img_h"></attr>
+                <attr name="img.1" binding="=scale:{#epg-data/data/recom_list/[1]/video_img_h}"></attr>
                 <data name="userdata" binding="#epg-data/data/recom_list/[1]/video_id"></data>
                 <action event="click" type="usr_cmd" binding="#epg-data/data/recom_list/[1]/action"></action>
             </item>
@@ -46,7 +46,7 @@
                 <attr name="x">1200</attr>
                 <attr name="y">160</attr>
                 <attr name="text" binding="#epg-data/data/recom_list/[2]/video_name"></attr>
-                <attr name="img.1" binding="#epg-data/data/recom_list/[2]/video_img_h"></attr>
+                <attr name="img.1" binding="=scale:{#epg-data/data/recom_list/[2]/video_img_h}"></attr>
                 <data name="userdata" binding="#epg-data/data/recom_list/[2]/video_id"></data>
                 <action event="click" type="usr_cmd" binding="#epg-data/data/recom_list/[2]/action"></action>
             </item>
@@ -54,7 +54,7 @@
                 <attr name="x">1540</attr>
                 <attr name="y">160</attr>
                 <attr name="text" binding="#epg-data/data/recom_list/[3]/video_name"></attr>
-                <attr name="img.1" binding="#epg-data/data/recom_list/[3]/video_img_h"></attr>
+                <attr name="img.1" binding="=scale:{#epg-data/data/recom_list/[3]/video_img_h}"></attr>
                 <data name="userdata" binding="#epg-data/data/recom_list/[3]/video_id"></data>
                 <action event="click" type="usr_cmd" binding="#epg-data/data/recom_list/[3]/action"></action>
             </item>
@@ -62,7 +62,7 @@
                 <attr name="x">860</attr>
                 <attr name="y">450</attr>
                 <attr name="text" binding="#epg-data/data/recom_list/[4]/video_name"></attr>
-                <attr name="img.1" binding="#epg-data/data/recom_list/[4]/video_img_h"></attr>
+                <attr name="img.1" binding="=scale:{#epg-data/data/recom_list/[4]/video_img_h}"></attr>
                 <data name="userdata" binding="#epg-data/data/recom_list/[4]/video_id"></data>
                 <action event="click" type="usr_cmd" binding="#epg-data/data/recom_list/[4]/action"></action>
             </item>
@@ -70,7 +70,7 @@
                 <attr name="x">1200</attr>
                 <attr name="y">450</attr>
                 <attr name="text" binding="#epg-data/data/recom_list/[5]/video_name"></attr>
-                <attr name="img.1" binding="#epg-data/data/recom_list/[5]/video_img_h"></attr>
+                <attr name="img.1" binding="=scale:{#epg-data/data/recom_list/[5]/video_img_h}"></attr>
                 <data name="userdata" binding="#epg-data/data/recom_list/[5]/video_id"></data>
                 <action event="click" type="usr_cmd" binding="#epg-data/data/recom_list/[5]/action"></action>
             </item>
@@ -78,7 +78,7 @@
                 <attr name="x">1540</attr>
                 <attr name="y">450</attr>
                 <attr name="text" binding="#epg-data/data/recom_list/[6]/video_name"></attr>
-                <attr name="img.1" binding="#epg-data/data/recom_list/[6]/video_img_h"></attr>
+                <attr name="img.1" binding="=scale:{#epg-data/data/recom_list/[6]/video_img_h}"></attr>
                 <data name="userdata" binding="#epg-data/data/recom_list/[6]/video_id"></data>
                 <action event="click" type="usr_cmd" binding="#epg-data/data/recom_list/[6]/action"></action>
             </item>
