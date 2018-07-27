@@ -56,7 +56,7 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
         val extInfo = _presenter.xulGetBehaviorParams()
         if (extInfo != null) {
             mPackageId = extInfo.getString("packageId")
-            XulLog.i("VideoListBehavior", "VideoListBehavior packageId = $mPackageId")
+            XulLog.i(NAME, "VideoListBehavior packageId = $mPackageId")
         }
 
         requestCategory(mPackageId)
@@ -76,21 +76,21 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
                 .addQueryParameter("a", "getAssetCategoryList")
                 .addQueryParameter("asset_category_id", packageId)
 
-        XulLog.i("VideoListBehavior", "Request url: ${urlBuilder.build()}")
+        XulLog.i(NAME, "Request url: ${urlBuilder.build()}")
 
         val request: Request = Request.Builder().url(urlBuilder.build()).build()
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call?, response: Response?) {
                 response!!.body().use { responseBody ->
                     if (!response.isSuccessful) {
-                        XulLog.e("VideoListBehavior", "getAssetCategoryList onResponse, but is not Successful")
+                        XulLog.e(NAME, "getAssetCategoryList onResponse, but is not Successful")
                         throw IOException("Unexpected code $response")
                     }
 
-                    XulLog.i("VideoListBehavior", "getAssetCategoryList onResponse")
+                    XulLog.i(NAME, "getAssetCategoryList onResponse")
 
                     val result : String = responseBody!!.string()
-                    XulLog.json("VideoListBehavior", result)
+                    XulLog.json(NAME, result)
 
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
                     xulGetRenderContext().refreshBinding("category-data", dataNode)
@@ -98,13 +98,13 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
             }
 
             override fun onFailure(call: Call?, e: IOException?) {
-                XulLog.e("VideoListBehavior", "getAssetCategoryList onFailure")
+                XulLog.e(NAME, "getAssetCategoryList onFailure")
             }
         })
     }
 
     override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
-        XulLog.i("VideoListBehavior", "action = $action, type = $type, command = $command, userdata = $userdata")
+        XulLog.i(NAME, "action = $action, type = $type, command = $command, userdata = $userdata")
         when (command) {
             "switchCategory" -> switchCategory(userdata as String)
             "openPlayer" -> openPlayer(userdata as String)
@@ -122,18 +122,18 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
                 .addQueryParameter("page_num", "1")
                 .addQueryParameter("page_size", "200")
 
-        XulLog.i("VideoListBehavior", "Request url: ${urlBuilder.build()}")
+        XulLog.i(NAME, "Request url: ${urlBuilder.build()}")
 
         val request: Request = Request.Builder().url(urlBuilder.build()).build()
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call?, response: Response?) {
                 response!!.body().use { responseBody ->
                     if (!response.isSuccessful) {
-                        XulLog.e("VideoListBehavior", "getAssetVideoList onResponse, but is not Successful")
+                        XulLog.e(NAME, "getAssetVideoList onResponse, but is not Successful")
                         throw IOException("Unexpected code $response")
                     }
 
-                    XulLog.i("VideoListBehavior", "getAssetVideoList onResponse")
+                    XulLog.i(NAME, "getAssetVideoList onResponse")
                     val result : String = responseBody!!.string()
 
                     mVideoListWrapper?.clear()
@@ -166,20 +166,20 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
             }
 
             override fun onFailure(call: Call?, e: IOException?) {
-                XulLog.e("VideoListBehavior", "getAssetCategoryList onFailure")
+                XulLog.e(NAME, "getAssetCategoryList onFailure")
             }
         })
     }
 
     private fun openDetail(dataSource: String) {
-        XulLog.i("VideoListBehavior", "openDetail($dataSource)")
+        XulLog.i(NAME, "openDetail($dataSource)")
         val extInfoNode = XulDataNode.obtainDataNode("ext_info")
         extInfoNode.appendChild("mediaId", dataSource)
         UiManager.openUiPage("MediaDetailPage", extInfoNode)
     }
 
     private fun openPlayer(dataSource: String) {
-        XulLog.i("VideoListBehavior", "openPlayer($dataSource)")
+        XulLog.i(NAME, "openPlayer($dataSource)")
         val uri = Uri.parse(dataSource)
         val intent = Intent(Intent.ACTION_VIEW)
         intent.setDataAndType(uri, "video/mp4")
