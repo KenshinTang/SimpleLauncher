@@ -5,6 +5,7 @@ import android.view.View
 import com.kapplication.launcher.utils.Utils
 import com.kapplication.launcher.widget.XulExt_GSYVideoPlayer
 import com.shuyu.gsyvideoplayer.GSYVideoManager
+import com.shuyu.gsyvideoplayer.utils.GSYVideoType
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.starcor.xul.IXulExternalView
 import com.starcor.xul.XulDataNode
