@@ -1,11 +1,11 @@
 package com.kapplication.launcher.behavior
 
+import android.app.Activity
 import android.content.Context
-import android.view.View
 import com.kapplication.launcher.utils.Utils
 import com.kapplication.launcher.widget.XulExt_GSYVideoPlayer
 import com.shuyu.gsyvideoplayer.GSYVideoManager
-import com.shuyu.gsyvideoplayer.utils.GSYVideoType
+import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.starcor.xul.IXulExternalView
 import com.starcor.xul.XulDataNode
@@ -39,6 +39,7 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
     }
 
     private var mMediaId: String? = ""
+    private var mMediaName: String? = ""
     private var mMediaPlayer: StandardGSYVideoPlayer? = null
     private var mContext: Context? = null
 
@@ -55,6 +56,7 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
         val extInfo = _presenter.xulGetBehaviorParams()
         if (extInfo != null) {
             mMediaId = extInfo.getString("mediaId")
+            mMediaName = extInfo.getString("mediaName")
             XulLog.i(NAME, "mediaId = $mMediaId")
         }
 
@@ -64,6 +66,12 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
 
     private fun initView() {
         mMediaPlayer = xulGetRenderContext().findItemById("player").externalView as StandardGSYVideoPlayer
+        mMediaPlayer!!.setVideoAllCallBack(object: GSYSampleCallBack() {
+            override fun onAutoComplete(url: String?, vararg objects: Any?) {
+                (mContext as Activity).finish()
+                super.onAutoComplete(url, *objects)
+            }
+        })
     }
 
     override fun xulCreateExternalView(cls: String, x: Int, y: Int, width: Int, height: Int, view: XulView): IXulExternalView? {
@@ -105,9 +113,7 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
                     XulLog.i(NAME, "getVideoPlayUrl $playUrl")
 
                     XulApplication.getAppInstance().postToMainLooper {
-                        mMediaPlayer!!.setUp(playUrl, true, "hahah")
-                        mMediaPlayer!!.titleTextView.visibility = View.VISIBLE
-                        mMediaPlayer!!.setIsTouchWiget(true)
+                        mMediaPlayer!!.setUp(playUrl, true, mMediaName)
                         mMediaPlayer!!.startPlayLogic()
                     }
                 }

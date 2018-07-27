@@ -36,6 +36,7 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
     }
 
     private var mMediaId: String? = ""
+    private var mMediaName: String? = ""
 
     override fun appOnStartUp(success: Boolean) {
     }
@@ -73,6 +74,7 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
                     XulLog.json("MediaDetailBehavior", result)
 
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
+                    mMediaName = dataNode.getChildNode("data", "video_info").getAttributeValue("video_name")
                     xulGetRenderContext().refreshBinding("media-detail", dataNode)
                 }
             }
@@ -93,9 +95,10 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
     }
 
     private fun openPlayer() {
-        XulLog.i("MediaDetailBehavior", "openPlayer($mMediaId)")
+        XulLog.i("MediaDetailBehavior", "openPlayer($mMediaId, $mMediaName)")
         val extInfo = XulDataNode.obtainDataNode("extInfo")
         extInfo.appendChild("mediaId", mMediaId)
+        extInfo.appendChild("mediaName", mMediaName)
         UiManager.openUiPage("MediaPlayerPage", extInfo)
     }
 
