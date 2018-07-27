@@ -13,7 +13,7 @@
                         <attr name="y">117</attr>
                         <attr name="width">396</attr>
                         <attr name="height">512</attr>
-                        <attr name="img.2" binding="[=video_img_v]"/>
+                        <attr name="img.2" binding="=scale:{[=video_img_v]}"/>
                     </item>
 
                     <area id="area_media_detail_info">
@@ -156,7 +156,7 @@
                             <item type="image"
                                 class="poster_default_bkg,focus_scale,focus_border,poster_item,marquee_animation,right_top_mark_style,pfm-temp-clsA">
                                 <attr name="text" binding="[=video_name]"/>
-                                <attr name="img.2" binding="[=video_img_v]"/>
+                                <attr name="img.2" binding="=scale:{[=video_img_v]}"/>
                                 <data name="userdata" binding="[=video_id]"></data>
                                 <!--<attr name="img.3" binding="posters/image[type=corner-mark]"/>-->
                             </item>

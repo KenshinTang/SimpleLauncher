@@ -2,23 +2,25 @@ package com.kapplication.launcher.behavior
 
 import android.app.Activity
 import android.content.Context
-import android.media.MediaPlayer
-import android.view.SurfaceHolder
-import android.view.SurfaceView
-import android.view.View
-import android.view.ViewGroup
-import android.widget.FrameLayout
+import android.view.KeyEvent
+import android.view.MotionEvent
 import com.kapplication.launcher.utils.Utils
+import com.kapplication.launcher.widget.XulExt_GSYVideoPlayer
+import com.shuyu.gsyvideoplayer.GSYVideoManager
+import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+import com.starcor.xul.IXulExternalView
 import com.starcor.xul.XulDataNode
+import com.starcor.xul.XulView
+import com.starcor.xulapp.XulApplication
 import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.behavior.XulBehaviorManager
 import com.starcor.xulapp.behavior.XulUiBehavior
-import com.starcor.xulapp.message.XulMessageCenter
 import com.starcor.xulapp.utils.XulLog
 import okhttp3.*
 import java.io.IOException
 
-class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter), SurfaceHolder.Callback {
+class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter){
 
     companion object {
         const val NAME = "MediaPlayerBehavior"
@@ -38,24 +40,13 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
         }
     }
 
-    private var mLocalMessageCenter: XulMessageCenter? = null
     private var mMediaId: String? = ""
-    private var mMediaPlayer: MediaPlayer? = null
+    private var mMediaName: String? = ""
+    private var mMediaPlayer: StandardGSYVideoPlayer? = null
     private var mContext: Context? = null
 
     init {
         mContext = _presenter.xulGetContext()
-
-        mLocalMessageCenter = XulMessageCenter("Media Player")
-        mLocalMessageCenter!!.register(this)
-
-        mMediaPlayer = MediaPlayer()
-        mMediaPlayer!!.setOnPreparedListener({
-            mMediaPlayer!!.start()
-        })
-        mMediaPlayer!!.setOnCompletionListener {
-            (mContext as Activity).finish()
-        }
     }
 
     override fun appOnStartUp(success: Boolean) {
@@ -67,6 +58,7 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
         val extInfo = _presenter.xulGetBehaviorParams()
         if (extInfo != null) {
             mMediaId = extInfo.getString("mediaId")
+            mMediaName = extInfo.getString("mediaName")
             XulLog.i(NAME, "mediaId = $mMediaId")
         }
 
@@ -75,6 +67,23 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
     }
 
     private fun initView() {
+        mMediaPlayer = xulGetRenderContext().findItemById("player").externalView as StandardGSYVideoPlayer
+        mMediaPlayer!!.setVideoAllCallBack(object: GSYSampleCallBack() {
+            override fun onAutoComplete(url: String?, vararg objects: Any?) {
+                (mContext as Activity).finish()
+                super.onAutoComplete(url, *objects)
+            }
+        })
+    }
+
+    override fun xulCreateExternalView(cls: String, x: Int, y: Int, width: Int, height: Int, view: XulView): IXulExternalView? {
+        if ("GSYVideoPlayer" == cls) {
+            val player = XulExt_GSYVideoPlayer(context)
+            _presenter.xulGetRenderContextView().addView(player, width, height)
+            return player
+        }
+
+        return null
     }
 
     private fun requestPlayUrl() {
@@ -105,8 +114,10 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
                     val playUrl : String = dataNode.getChildNode("data").getAttributeValue("file_url")
                     XulLog.i(NAME, "getVideoPlayUrl $playUrl")
 
-                    mMediaPlayer!!.setDataSource(playUrl)
-                    mMediaPlayer!!.prepareAsync()
+                    XulApplication.getAppInstance().postToMainLooper {
+                        mMediaPlayer!!.setUp(playUrl, true, mMediaName)
+                        mMediaPlayer!!.startPlayLogic()
+                    }
                 }
             }
 
@@ -116,32 +127,22 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
         })
     }
 
-    override fun initRenderContextView(renderContextView: View): View {
-        val viewRoot = FrameLayout(mContext)
-
-        val surfaceView = SurfaceView(mContext)
-        surfaceView.setZOrderOnTop(false)
-        surfaceView.setZOrderMediaOverlay(false)
-
-        surfaceView.holder.addCallback(this)
-        viewRoot.addView(renderContextView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        viewRoot.addView(surfaceView)
-        return viewRoot
+    override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
+        XulLog.i(NAME, "action = $action, type = $type, command = $command, userdata = $userdata")
+        super.xulDoAction(view, action, type, command, userdata)
     }
 
-    override fun surfaceCreated(holder: SurfaceHolder?) {
-        mMediaPlayer!!.setDisplay(holder)
+    override fun xulOnDispatchTouchEvent(event: MotionEvent?): Boolean {
+        // 返回false, 交给Player自己处理
+        return false
     }
 
-    override fun surfaceDestroyed(holder: SurfaceHolder?) {
-    }
-
-    override fun surfaceChanged(holder: SurfaceHolder?, format: Int, width: Int, height: Int) {
+    override fun xulOnDispatchKeyEvent(event: KeyEvent?): Boolean {
+        // 返回false, 交给Player自己处理
+        return false
     }
 
     override fun xulOnDestroy() {
-        mMediaPlayer!!.stop()
-        mMediaPlayer!!.setDisplay(null)
-        mMediaPlayer!!.release()
+        GSYVideoManager.releaseAllVideos()
     }
 }

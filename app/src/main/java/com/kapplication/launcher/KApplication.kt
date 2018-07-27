@@ -1,10 +1,8 @@
 package com.kapplication.launcher
 
 import android.text.TextUtils
-import com.kapplication.launcher.behavior.EpgBehavior
-import com.kapplication.launcher.behavior.MediaDetailBehavior
-import com.kapplication.launcher.behavior.MediaPlayerBehavior
-import com.kapplication.launcher.behavior.VideoListBehavior
+import com.kapplication.launcher.behavior.*
+import com.starcor.xul.XulWorker
 import com.starcor.xulapp.XulApplication
 import com.starcor.xulapp.debug.XulDebugServer
 import com.starcor.xulapp.message.XulMessageCenter
@@ -58,7 +56,7 @@ class KApplication : XulApplication() {
         VideoListBehavior.register()
         MediaDetailBehavior.register()
         MediaPlayerBehavior.register()
-
+        SearchBehavior.register()
     }
 
     override fun xulGetSdcardData(path: String): InputStream? {
@@ -67,6 +65,36 @@ class KApplication : XulApplication() {
         } catch (e: Exception) {
         }
         return null
+    }
+
+    override fun xulResolvePath(downloadItem: XulWorker.DownloadItem?, path: String?): String {
+        if (path!!.startsWith("scale:") && downloadItem is XulWorker.DrawableItem) {
+            val imageItem: XulWorker.DrawableItem = downloadItem
+            var url = path.substring(6)
+            if (TextUtils.isEmpty(url)) {
+                return ""
+            }
+
+            if (url.startsWith("http")) {
+                var w = 0
+                var h = 0
+                if (imageItem.target_width != 0 && imageItem.target_height != 0) {
+                    w = imageItem.target_width
+                    h = imageItem.target_height
+                } else if (imageItem.width != 0 && imageItem.height != 0) {
+                    w = imageItem.width
+                    h = imageItem.height
+                }
+
+                if (w != 0 && h != 0) {
+                    url += "?x-oss-process=image/resize,m_fixed,h_$w,h_$h"
+                }
+                return url
+            } else {
+                return url
+            }
+        }
+        return super.xulResolvePath(downloadItem, path)
     }
 
     private fun autoRegister(pkgName: String, baseClass: Class<*>?) {

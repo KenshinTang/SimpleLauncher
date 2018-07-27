@@ -26,6 +26,7 @@ object UiManager {
         addUiPage("MainPage", "xul_layouts/pages/xul_main_page.xml", MainBehavior.NAME, MainActivity::class)
         addUiPage("EpgPage", "xul_layouts/pages/xul_epg_page.xml", EpgBehavior.NAME, EpgActivity::class)
         addUiPage("VideoListPage", "xul_layouts/pages/xul_video_list_page.xml", VideoListBehavior.NAME, VideoListActivity::class)
+        addUiPage("SearchPage", "xul_layouts/pages/xul_search_page.xml", SearchBehavior.NAME, SearchActivity::class)
         addUiPage("MediaDetailPage", "xul_layouts/pages/xul_media_detail_page.xml", MediaDetailBehavior.NAME, MediaDetailActivity::class)
         addUiPage("MediaPlayerPage", "xul_layouts/pages/xul_media_player_page.xml", MediaPlayerBehavior.NAME, MediaPlayerActivity::class)
     }

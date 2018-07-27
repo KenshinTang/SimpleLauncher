@@ -36,6 +36,7 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
     }
 
     private var mMediaId: String? = ""
+    private var mMediaName: String? = ""
 
     override fun appOnStartUp(success: Boolean) {
     }
@@ -46,7 +47,7 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
         val extraInfo = _presenter.xulGetBehaviorParams()
         if (extraInfo != null) {
             mMediaId = extraInfo.getString("mediaId")
-            XulLog.i("MediaDetailBehavior", "mediaId: $mMediaId")
+            XulLog.i(NAME, "mediaId: $mMediaId")
         }
 
         val urlBuilder = HttpUrl.parse(Utils.HOST)!!.newBuilder()
@@ -56,23 +57,24 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
                 .addQueryParameter("video_id", mMediaId)
                 .addQueryParameter("is_get_recom", "0")
 
-        XulLog.i("MediaDetailBehavior", "Request url: ${urlBuilder.build()}")
+        XulLog.i(NAME, "Request url: ${urlBuilder.build()}")
         val request: Request = Request.Builder().url(urlBuilder.build()).build()
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call?, response: Response?) {
                 response!!.body().use { responseBody ->
                     // 没有UI操作, 直接在子线程操作即可. refreshBinding只是刷新数据, 不会更新UI, 更新UI是数据触发的.
                     if (!response.isSuccessful) {
-                        XulLog.e("MediaDetailBehavior", "getVodInfo onResponse, but is not Successful")
+                        XulLog.e(NAME, "getVodInfo onResponse, but is not Successful")
                         throw IOException("Unexpected code $response")
                     }
 
-                    XulLog.i("MediaDetailBehavior", "getVodInfo onResponse")
+                    XulLog.i(NAME, "getVodInfo onResponse")
 
                     val result : String = responseBody!!.string()
-                    XulLog.json("MediaDetailBehavior", result)
+                    XulLog.json(NAME, result)
 
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
+                    mMediaName = dataNode.getChildNode("data", "video_info").getAttributeValue("video_name")
                     xulGetRenderContext().refreshBinding("media-detail", dataNode)
                 }
             }
@@ -84,7 +86,7 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
     }
 
     override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
-        XulLog.i("MediaDetailBehavior", "action = $action, type = $type, command = $command, userdata = $userdata")
+        XulLog.i(NAME, "action = $action, type = $type, command = $command, userdata = $userdata")
         when (command) {
 //            "onPlayButtonClick" -> getPlayUrlAndPlay()
             "onPlayButtonClick" -> openPlayer()
@@ -93,9 +95,10 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
     }
 
     private fun openPlayer() {
-        XulLog.i("MediaDetailBehavior", "openPlayer($mMediaId)")
+        XulLog.i(NAME, "openPlayer($mMediaId, $mMediaName)")
         val extInfo = XulDataNode.obtainDataNode("extInfo")
         extInfo.appendChild("mediaId", mMediaId)
+        extInfo.appendChild("mediaName", mMediaName)
         UiManager.openUiPage("MediaPlayerPage", extInfo)
     }
 
@@ -107,33 +110,33 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
                 .addQueryParameter("video_id", mMediaId)
                 .addQueryParameter("video_index", "1")
 
-        XulLog.i("MediaDetailBehavior", "Request url: ${urlBuilder.build()}")
+        XulLog.i(NAME, "Request url: ${urlBuilder.build()}")
         val request: Request = Request.Builder().url(urlBuilder.build()).build()
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call?, response: Response?) {
                 response!!.body().use { responseBody ->
                     if (!response.isSuccessful) {
-                        XulLog.e("MediaDetailBehavior", "getVideoPlayUrl onResponse, but is not Successful")
+                        XulLog.e(NAME, "getVideoPlayUrl onResponse, but is not Successful")
                         throw IOException("Unexpected code $response")
                     }
 
-                    XulLog.i("MediaDetailBehavior", "getVideoPlayUrl onResponse")
+                    XulLog.i(NAME, "getVideoPlayUrl onResponse")
 
                     val result : String = responseBody!!.string()
-                    XulLog.json("MediaDetailBehavior", result)
+                    XulLog.json(NAME, result)
 
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
 
                     val playUrl : String = dataNode.getChildNode("data").getAttributeValue("file_url")
-                    XulLog.i("MediaDetailBehavior", "getVideoPlayUrl $playUrl")
+                    XulLog.i(NAME, "getVideoPlayUrl $playUrl")
 
-                    XulApplication.getAppInstance().postToMainLooper({
+                    XulApplication.getAppInstance().postToMainLooper {
                         val uri = Uri.parse(playUrl)
                         val intent = Intent(Intent.ACTION_VIEW)
                         intent.setDataAndType(uri, "video/mp4")
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                         XulDebugAdapter.startActivity(intent)
-                    })
+                    }
                 }
             }
 

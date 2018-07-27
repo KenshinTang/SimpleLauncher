@@ -134,7 +134,7 @@
                                 <template id="@item-template">
                                     <item type="image" class="focus_border,poster_item">
                                         <attr name="text" binding="[=video_name]"/>
-                                        <attr name="img.2" binding="[=video_img_v]"/>
+                                        <attr name="img.2" binding="=scale:{[=video_img_v]}"/>
                                         <data name="userdata" binding="[=video_id]"/>
                                         <action event="click" type="usr_cmd">openDetail</action>
                                     </item>
