@@ -2,6 +2,8 @@ package com.kapplication.launcher.behavior
 
 import android.app.Activity
 import android.content.Context
+import android.view.KeyEvent
+import android.view.MotionEvent
 import com.kapplication.launcher.utils.Utils
 import com.kapplication.launcher.widget.XulExt_GSYVideoPlayer
 import com.shuyu.gsyvideoplayer.GSYVideoManager
@@ -125,12 +127,19 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
         })
     }
 
-    override fun xulOnResume() {
-        super.xulOnResume()
+    override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
+        XulLog.i(NAME, "action = $action, type = $type, command = $command, userdata = $userdata")
+        super.xulDoAction(view, action, type, command, userdata)
     }
 
-    override fun xulOnPause() {
-        super.xulOnPause()
+    override fun xulOnDispatchTouchEvent(event: MotionEvent?): Boolean {
+        // 返回false, 交给Player自己处理
+        return false
+    }
+
+    override fun xulOnDispatchKeyEvent(event: KeyEvent?): Boolean {
+        // 返回false, 交给Player自己处理
+        return false
     }
 
     override fun xulOnDestroy() {
