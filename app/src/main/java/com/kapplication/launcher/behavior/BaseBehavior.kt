@@ -1,7 +1,11 @@
 package com.kapplication.launcher.behavior
 
 import com.kapplication.launcher.provider.BaseProvider
+import com.starcor.xul.Script.IScriptArguments
+import com.starcor.xul.Script.IScriptContext
+import com.starcor.xul.ScriptWrappr.Annotation.ScriptMethod
 import com.starcor.xul.XulDataNode
+import com.starcor.xul.XulView
 import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.behavior.XulUiBehavior
 import com.starcor.xulapp.model.XulDataCallback
@@ -30,4 +34,26 @@ abstract class BaseBehavior(xulPresenter: XulPresenter) : XulUiBehavior(xulPrese
     }
 
     protected abstract fun appOnStartUp(success: Boolean)
+
+    @ScriptMethod("refreshBindingByView")
+    fun _script_refreshBindingByView(ctx: IScriptContext, args: IScriptArguments): Boolean? {
+        if (args.size() != 2) {
+            return java.lang.Boolean.FALSE
+        }
+
+        val bindingId = args.getString(0)
+        val argView = args.getScriptableObject(1)
+        if (bindingId == null || argView == null) {
+            return java.lang.Boolean.FALSE
+        }
+
+        val xulView = argView.objectValue.unwrappedObject as XulView
+        if (xulView.bindingData != null && !xulView.bindingData!!.isEmpty()) {
+            _xulRenderContext.refreshBinding(
+                    bindingId, xulView.bindingData!![0].makeClone())
+            return java.lang.Boolean.TRUE
+        } else {
+            return java.lang.Boolean.FALSE
+        }
+    }
 }

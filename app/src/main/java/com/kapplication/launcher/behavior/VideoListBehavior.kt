@@ -145,7 +145,7 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
                     }
 
                     //update UI
-                    XulApplication.getAppInstance().postToMainLooper({
+                    XulApplication.getAppInstance().postToMainLooper {
                         val ownerSlider = mVideoListView?.findParentByType("slider")
                         val ownerLayer = mVideoListView?.findParentByType("layer")
 
@@ -161,7 +161,7 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
                         mVideoCountView?.resetRender()
 
                         mVideoListWrapper?.syncContentView()
-                    })
+                    }
                 }
             }
 
@@ -185,21 +185,5 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
         intent.setDataAndType(uri, "video/mp4")
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
-    }
-
-    private fun xulGetAssets(path: String): InputStream? {
-        try {
-            return _presenter.xulGetContext().assets.open(path, Context.MODE_PRIVATE)
-        } catch (e: IOException) {
-        }
-        return null
-    }
-
-    private fun xulGetFakeStreamFromSD(path: String): InputStream? {
-        try {
-            return FileInputStream(path)
-        } catch (e: Exception) {
-        }
-        return null
     }
 }
