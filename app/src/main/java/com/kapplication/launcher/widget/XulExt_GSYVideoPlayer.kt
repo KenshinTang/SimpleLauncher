@@ -42,7 +42,7 @@ class XulExt_GSYVideoPlayer(context: Context) : StandardGSYVideoPlayer(context),
                     onVideoPause()
                     mProgressBar.progress++
                 } else if (event.action == KeyEvent.ACTION_UP) {
-                    seekTo((duration * mProgressBar.progress / 100).toLong())
+                    seekTo((duration * mProgressBar.progress).toLong() / 100)
                     onVideoResume()
                     startProgressTimer()
                 }
@@ -53,7 +53,7 @@ class XulExt_GSYVideoPlayer(context: Context) : StandardGSYVideoPlayer(context),
                     onVideoPause()
                     mProgressBar.progress--
                 } else if (event.action == KeyEvent.ACTION_UP) {
-                    seekTo((duration * mProgressBar.progress / 100).toLong())
+                    seekTo((duration * mProgressBar.progress).toLong() / 100)
                     onVideoResume()
                     startProgressTimer()
                 }
