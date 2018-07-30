@@ -2,29 +2,12 @@ package com.kapplication.launcher.widget
 
 import android.content.Context
 import android.graphics.Rect
-import android.text.Editable
-import android.text.InputFilter
-import android.text.InputType
-import android.text.Selection
-import android.text.Spannable
-import android.text.TextUtils
-import android.text.TextWatcher
-import android.util.TypedValue
 import android.view.KeyEvent
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.FrameLayout
-import android.widget.RelativeLayout
-
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+import com.shuyu.gsyvideoplayer.video.base.GSYVideoView
 import com.starcor.xul.IXulExternalView
-import com.starcor.xul.Prop.XulAttr
-import com.starcor.xul.Prop.XulStyle
-import com.starcor.xul.Utils.XulPropParser
-import com.starcor.xul.XulLayout
-import com.starcor.xul.XulUtils
-import com.starcor.xul.XulView
 
 
 class XulExt_GSYVideoPlayer(context: Context) : StandardGSYVideoPlayer(context), IXulExternalView {
@@ -43,9 +26,39 @@ class XulExt_GSYVideoPlayer(context: Context) : StandardGSYVideoPlayer(context),
     }
 
     override fun extOnKeyEvent(event: KeyEvent): Boolean {
+//        XulLog.i("kenshin", "$event")
         val keyCode = event.keyCode
         when (keyCode) {
-            KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN -> return dispatchKeyEvent(event)
+            KeyEvent.KEYCODE_DPAD_CENTER -> {
+                if (event.action == KeyEvent.ACTION_UP)
+                    when (currentState) {
+                        GSYVideoView.CURRENT_STATE_PLAYING -> onVideoPause()
+                        GSYVideoView.CURRENT_STATE_PAUSE -> onVideoResume()
+                    }
+            }
+            KeyEvent.KEYCODE_DPAD_RIGHT -> {
+                if (event.action == KeyEvent.ACTION_DOWN) {
+                    cancelProgressTimer()
+                    onVideoPause()
+                    mProgressBar.progress++
+                } else if (event.action == KeyEvent.ACTION_UP) {
+                    seekTo((duration * mProgressBar.progress / 100).toLong())
+                    onVideoResume()
+                    startProgressTimer()
+                }
+            }
+            KeyEvent.KEYCODE_DPAD_LEFT -> {
+                if (event.action == KeyEvent.ACTION_DOWN) {
+                    cancelProgressTimer()
+                    onVideoPause()
+                    mProgressBar.progress--
+                } else if (event.action == KeyEvent.ACTION_UP) {
+                    seekTo((duration * mProgressBar.progress / 100).toLong())
+                    onVideoResume()
+                    startProgressTimer()
+                }
+            }
+            KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN -> return dispatchKeyEvent(event)
         }
         return false
     }

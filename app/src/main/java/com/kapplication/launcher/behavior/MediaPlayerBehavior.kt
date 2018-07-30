@@ -138,8 +138,8 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
     }
 
     override fun xulOnDispatchKeyEvent(event: KeyEvent?): Boolean {
-        // 返回false, 交给Player自己处理
-        return false
+        // 把事件传递给player处理
+        return xulGetRenderContext().findItemById("player").externalView.extOnKeyEvent(event)
     }
 
     override fun xulOnDestroy() {
