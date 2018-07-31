@@ -89,6 +89,12 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
 
                     XulApplication.getAppInstance().postToMainLooper {
                         xulGetRenderContext().refreshBinding("category-data", dataNode)
+                        if (dataNode.getChildNode("data", "list").size() == 0) {
+                            mVideoListView?.setStyle("display", "none")
+                            mVideoListView?.resetRender()
+                            mNoDataHintView?.setStyle("display", "block")
+                            mNoDataHintView?.resetRender()
+                        }
                     }
                 }
             }
@@ -148,9 +154,14 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
                         ownerLayer?.dynamicFocus = null
                         XulSliderAreaWrapper.fromXulView(ownerSlider).scrollTo(0, false)
 
-                        mVideoListView?.setStyle("display", "block")
+                        if (mVideoListWrapper?.itemNum()!! > 0) {
+                            mVideoListView?.setStyle("display", "block")
+                            mNoDataHintView?.setStyle("display", "none")
+                        } else {
+                            mVideoListView?.setStyle("display", "none")
+                            mNoDataHintView?.setStyle("display", "block")
+                        }
                         mVideoListView?.resetRender()
-                        mNoDataHintView?.setStyle("display", "none")
                         mNoDataHintView?.resetRender()
 
                         mVideoCountView?.setAttr("text", """${xulGetFocus().getDataString("count")} 部""")
