@@ -1,7 +1,7 @@
 package com.kapplication.launcher.behavior
 
 import android.app.Activity
-import android.content.Context
+import android.app.AlertDialog
 import android.view.KeyEvent
 import android.view.MotionEvent
 import com.kapplication.launcher.utils.Utils
@@ -43,10 +43,8 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
     private var mMediaId: String? = ""
     private var mMediaName: String? = ""
     private var mMediaPlayer: StandardGSYVideoPlayer? = null
-    private var mContext: Context? = null
 
     init {
-        mContext = _presenter.xulGetContext()
     }
 
     override fun appOnStartUp(success: Boolean) {
@@ -70,7 +68,7 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
         mMediaPlayer = xulGetRenderContext().findItemById("player").externalView as StandardGSYVideoPlayer
         mMediaPlayer!!.setVideoAllCallBack(object: GSYSampleCallBack() {
             override fun onAutoComplete(url: String?, vararg objects: Any?) {
-                (mContext as Activity).finish()
+                (context as Activity).finish()
                 super.onAutoComplete(url, *objects)
             }
         })
@@ -130,6 +128,22 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
     override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
         XulLog.i(NAME, "action = $action, type = $type, command = $command, userdata = $userdata")
         super.xulDoAction(view, action, type, command, userdata)
+    }
+
+    override fun xulOnBackPressed(): Boolean {
+        GSYVideoManager.onPause()
+        val builder = AlertDialog.Builder(context)
+        builder.setMessage("退出播放?")
+        builder.setPositiveButton("确定") { dialog, _ ->
+            dialog.dismiss()
+            (context as Activity).finish()
+        }
+        builder.setNegativeButton("取消") { dialog, _ ->
+            dialog.dismiss()
+            GSYVideoManager.onResume()
+        }
+        builder.create().show()
+        return true
     }
 
     override fun xulOnDispatchTouchEvent(event: MotionEvent?): Boolean {
