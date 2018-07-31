@@ -72,6 +72,7 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
                 super.onAutoComplete(url, *objects)
             }
         })
+        mMediaPlayer!!.setBottomProgressBarDrawable(null)
     }
 
     override fun xulCreateExternalView(cls: String, x: Int, y: Int, width: Int, height: Int, view: XulView): IXulExternalView? {
@@ -140,8 +141,8 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
         }
         builder.setNegativeButton("取消") { dialog, _ ->
             dialog.dismiss()
-            GSYVideoManager.onResume()
         }
+        builder.setOnDismissListener { GSYVideoManager.onResume() }
         builder.create().show()
         return true
     }
