@@ -1,5 +1,6 @@
 package com.kapplication.launcher.behavior
 
+import com.kapplication.launcher.provider.ProviderCacheManager
 import com.starcor.xul.XulArea
 import com.starcor.xul.XulView
 import com.starcor.xulapp.XulPresenter
@@ -47,12 +48,21 @@ class SearchBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
     private var itemFullKeyboard:XulView? = null
     private var mAreaFullLetterPad: XulArea? = null
 
+    private var mCurrentKeyboard: String = KEYBOARD_NINE
+
     override fun appOnStartUp(success: Boolean) {
 
     }
 
     override fun xulOnRenderIsReady() {
         initView()
+
+        val keyboardType = ProviderCacheManager.loadPersistentString(ProviderCacheManager.KEYBOARD_TYPE, KEYBOARD_NINE)
+        showKeyboard(keyboardType!!)
+        if (KEYBOARD_FULL == keyboardType) {
+            mAreaFullLetterPad!!.rootLayout!!.requestFocus(mAreaFullLetterPad!!.firstChild)
+            mAreaFullLetterPad!!.resetRender()
+        }
     }
 
     private fun initView() {
@@ -91,17 +101,21 @@ class SearchBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
             keyboardFullArea?.addClass("hide")
             itemT9Keyboard?.addClass("keyboard_switch_btn_checked")
             itemFullKeyboard?.removeClass("keyboard_switch_btn_checked")
-//            currKeyType = KEYBOARD_NINE
+            mCurrentKeyboard = KEYBOARD_NINE
         } else if (KEYBOARD_FULL == type) {
             keyboardT9Area?.addClass("hide")
             keyboardFullArea?.removeClass("hide")
             itemT9Keyboard?.removeClass("keyboard_switch_btn_checked")
             itemFullKeyboard?.addClass("keyboard_switch_btn_checked")
-//            currKeyType = KEYBOARD_FULL
+            mCurrentKeyboard = KEYBOARD_FULL
         }
         keyboardT9Area?.resetRender()
         keyboardFullArea?.resetRender()
         itemT9Keyboard?.resetRender()
         itemFullKeyboard?.resetRender()
+    }
+
+    override fun xulOnDestroy() {
+        ProviderCacheManager.persistentString(ProviderCacheManager.KEYBOARD_TYPE, mCurrentKeyboard)
     }
 }
