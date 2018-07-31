@@ -86,7 +86,10 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
                     XulLog.json(NAME, result)
 
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
-                    xulGetRenderContext().refreshBinding("category-data", dataNode)
+
+                    XulApplication.getAppInstance().postToMainLooper {
+                        xulGetRenderContext().refreshBinding("category-data", dataNode)
+                    }
                 }
             }
 

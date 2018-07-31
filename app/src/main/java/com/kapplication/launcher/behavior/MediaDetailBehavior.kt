@@ -3,6 +3,7 @@ package com.kapplication.launcher.behavior
 import com.kapplication.launcher.utils.Utils
 import com.starcor.xul.XulDataNode
 import com.starcor.xul.XulView
+import com.starcor.xulapp.XulApplication
 import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.behavior.XulBehaviorManager
 import com.starcor.xulapp.behavior.XulUiBehavior
@@ -70,7 +71,9 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
 
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
                     mMediaName = dataNode.getChildNode("data", "video_info").getAttributeValue("video_name")
-                    xulGetRenderContext().refreshBinding("media-detail", dataNode)
+                    XulApplication.getAppInstance().postToMainLooper {
+                        xulGetRenderContext().refreshBinding("media-detail", dataNode)
+                    }
                 }
             }
 
