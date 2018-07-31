@@ -111,7 +111,7 @@ class SearchBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
                 .addQueryParameter("c", "AssetCategory")
                 .addQueryParameter("a", "getAssetVideoList")
                 .addQueryParameter("search_val", mSearchStr)
-                .addQueryParameter("asset_category_id", "100")
+//                .addQueryParameter("asset_category_id", "100")
                 .addQueryParameter("page_num", "1")
                 .addQueryParameter("page_size", "9999")
 
@@ -137,7 +137,7 @@ class SearchBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
                             XulSliderAreaWrapper.fromXulView(mXulSearchResultSlider).scrollTo(0, false)
                             mVideoListWrapper?.clear()
                             clearResultDynamicFocus()
-                            var listNode: XulDataNode? = dataNode.getChildNode("data", "list")
+                            val listNode: XulDataNode? = dataNode.getChildNode("data", "list")
 
                             if (listNode?.size()!! <= 0) {
                                 XulPage.invokeAction(mXulSearchResultPanel, "appEvents:showEmptyTip")

@@ -135,6 +135,7 @@ class KApplication : XulApplication() {
                 .setInterval(1000 * 60 * 30)
 //                .setInterval(1000 * 10)
                 .setRepeat(Integer.MAX_VALUE)
+                .setDelay(1000 * 60 * 30)
                 .postSticky()
     }
 }
