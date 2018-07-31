@@ -3,6 +3,7 @@ package com.kapplication.launcher.behavior
 import android.content.Intent
 import android.provider.Settings
 import com.kapplication.launcher.CommonMessage
+import com.kapplication.launcher.UiManager
 import com.kapplication.launcher.utils.Utils
 import com.starcor.xul.Prop.XulPropNameCache
 import com.starcor.xul.XulDataNode
@@ -53,7 +54,9 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
     override fun xulOnRenderIsReady() {
         super.xulOnRenderIsReady()
         clockLabel = xulGetRenderContext().findItemById("clock_label")
+    }
 
+    override fun xulOnResume() {
         requestEpgData()
     }
 
@@ -70,6 +73,7 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
                 response!!.body().use { responseBody ->
                     if (!response.isSuccessful) {
                         XulLog.e(NAME, "getHomeData onResponse, but is not Successful")
+                        UiManager.openUiPage("ErrorPage")
                         throw IOException("Unexpected code $response")
                     }
 
@@ -89,6 +93,7 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
 
             override fun onFailure(call: Call?, e: IOException?) {
                 XulLog.e(NAME, "getHomeData onFailure")
+                UiManager.openUiPage("ErrorPage")
             }
         })
     }
