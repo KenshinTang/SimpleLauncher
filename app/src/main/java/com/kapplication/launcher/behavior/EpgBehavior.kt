@@ -1,12 +1,9 @@
 package com.kapplication.launcher.behavior
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.provider.Settings
 import com.kapplication.launcher.CommonMessage
-import com.kapplication.launcher.UiManager
 import com.starcor.xul.Prop.XulPropNameCache
-import com.starcor.xul.XulDataNode
 import com.starcor.xul.XulView
 import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.behavior.XulBehaviorManager
@@ -115,32 +112,4 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
         }
         super.xulDoAction(view, action, type, command, userdata)
     }
-
-    private fun openAppList() {
-        try {
-            val intent = Intent(Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS)
-            context.startActivity(intent)
-        } catch (e: ActivityNotFoundException) {
-        }
-    }
-
-    private fun openListPage(packageId: String) {
-        XulLog.i(NAME, "openListPage($packageId)")
-        val extInfo = XulDataNode.obtainDataNode("extInfo")
-        extInfo.appendChild("packageId", packageId)
-        UiManager.openUiPage("VideoListPage", extInfo)
-    }
-
-    private fun openDetail(dataSource: String?) {
-        XulLog.i(NAME, "openDetail($dataSource)")
-        val extInfoNode = XulDataNode.obtainDataNode("ext_info")
-        extInfoNode.appendChild("mediaId", dataSource)
-        UiManager.openUiPage("MediaDetailPage", extInfoNode)
-    }
-
-    private fun openSearch() {
-        XulLog.i(NAME, "openSearch()")
-        UiManager.openUiPage("SearchPage")
-    }
-
 }

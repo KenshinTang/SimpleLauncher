@@ -1,6 +1,5 @@
 package com.kapplication.launcher.behavior
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.provider.Settings
 import com.kapplication.launcher.CommonMessage
@@ -76,14 +75,6 @@ class MainBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
             "openSetting"  -> context.startActivity(Intent(Settings.ACTION_SETTINGS))
         }
         super.xulDoAction(view, action, type, command, userdata)
-    }
-
-    private fun openAppList() {
-        try {
-            val intent = Intent(Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS)
-            context.startActivity(intent)
-        } catch (e: ActivityNotFoundException) {
-        }
     }
 
     private fun openListPage(packageId: String, title: String?) {

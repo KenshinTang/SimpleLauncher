@@ -1,8 +1,6 @@
 package com.kapplication.launcher.behavior
 
-import com.kapplication.launcher.UiManager
 import com.starcor.xul.XulArea
-import com.starcor.xul.XulDataNode
 import com.starcor.xul.XulView
 import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.behavior.XulBehaviorManager
@@ -85,14 +83,6 @@ class SearchBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
             "keyboard_full_click" -> showKeyboard(KEYBOARD_FULL)
         }
         super.xulDoAction(view, action, type, command, userdata)
-    }
-
-
-    private fun openDetail(dataSource: String) {
-        XulLog.i(NAME, "openDetail($dataSource)")
-        val extInfoNode = XulDataNode.obtainDataNode("ext_info")
-        extInfoNode.appendChild("mediaId", dataSource)
-        UiManager.openUiPage("MediaDetailPage", extInfoNode)
     }
 
     private fun showKeyboard(type: String) {

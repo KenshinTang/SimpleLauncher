@@ -1,5 +1,9 @@
 package com.kapplication.launcher.behavior
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.provider.Settings
+import com.kapplication.launcher.UiManager
 import com.kapplication.launcher.provider.BaseProvider
 import com.starcor.xul.Script.IScriptArguments
 import com.starcor.xul.Script.IScriptContext
@@ -15,6 +19,10 @@ import okhttp3.OkHttpClient
 
 abstract class BaseBehavior(xulPresenter: XulPresenter) : XulUiBehavior(xulPresenter) {
     protected val okHttpClient: OkHttpClient = OkHttpClient()
+
+    companion object {
+        const val NAME = "BaseBehavior"
+    }
 
     override fun xulOnRenderIsReady() {
         super.xulOnRenderIsReady()
@@ -55,5 +63,40 @@ abstract class BaseBehavior(xulPresenter: XulPresenter) : XulUiBehavior(xulPrese
         } else {
             return java.lang.Boolean.FALSE
         }
+    }
+
+    protected fun openAppList() {
+        try {
+            val intent = Intent(Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS)
+            context.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+        }
+    }
+
+    protected fun openListPage(packageId: String?) {
+        XulLog.i(NAME, "openListPage($packageId)")
+        val extInfo = XulDataNode.obtainDataNode("extInfo")
+        extInfo.appendChild("packageId", packageId)
+        UiManager.openUiPage("VideoListPage", extInfo)
+    }
+
+    protected fun openDetail(mediaId: String?) {
+        XulLog.i(NAME, "openDetail($mediaId)")
+        val extInfoNode = XulDataNode.obtainDataNode("ext_info")
+        extInfoNode.appendChild("mediaId", mediaId)
+        UiManager.openUiPage("MediaDetailPage", extInfoNode)
+    }
+
+    protected fun openSearch() {
+        XulLog.i(NAME, "openSearch()")
+        UiManager.openUiPage("SearchPage")
+    }
+
+    protected fun openPlayer(mediaId: String?, mediaName: String?) {
+        XulLog.i(NAME, "openPlayer($mediaId, $mediaName)")
+        val extInfo = XulDataNode.obtainDataNode("extInfo")
+        extInfo.appendChild("mediaId", mediaId)
+        extInfo.appendChild("mediaName", mediaName)
+        UiManager.openUiPage("MediaPlayerPage", extInfo)
     }
 }
