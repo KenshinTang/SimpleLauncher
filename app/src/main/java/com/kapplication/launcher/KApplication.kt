@@ -128,5 +128,11 @@ class KApplication : XulApplication() {
                 .setInterval(500)
                 .setRepeat(Integer.MAX_VALUE)
                 .postSticky()
+
+        XulMessageCenter.buildMessage()
+                .setTag(CommonMessage.EVENT_HALF_HOUR)
+                .setInterval(1000 * 60 * 30)
+                .setRepeat(Integer.MAX_VALUE)
+                .postSticky()
     }
 }
