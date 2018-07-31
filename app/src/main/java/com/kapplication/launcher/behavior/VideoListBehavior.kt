@@ -116,7 +116,7 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
                 .addQueryParameter("a", "getAssetVideoList")
                 .addQueryParameter("asset_category_id", categoryId)
                 .addQueryParameter("page_num", "1")
-                .addQueryParameter("page_size", "200")
+                .addQueryParameter("page_size", "9999")
 
         XulLog.i(NAME, "Request url: ${urlBuilder.build()}")
 
@@ -134,7 +134,7 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
 
                     mVideoListWrapper?.clear()
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
-                    var videoNode: XulDataNode? = dataNode.getChildNode("data", "list").firstChild
+                    var videoNode: XulDataNode? = dataNode.getChildNode("data", "list")?.firstChild
                     while (videoNode != null) {
                         mVideoListWrapper?.addItem(videoNode)
                         videoNode = videoNode.next
