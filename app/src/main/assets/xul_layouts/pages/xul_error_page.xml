@@ -47,7 +47,7 @@
                 <style name="font-color">FFFFFFFF</style>
                 <style name="font-align">0.5,0.5</style>
                 <attr name="img.0">@color:FF2CBDD7</attr>
-                <attr name="img.1">@color:ffB0C4DE</attr>
+                <attr name="img.1">@color:ffA9A9A9</attr>
                 <attr name="img.0.visible">false</attr>
                 <attr name="img.1.visible">true</attr>
             </select>
