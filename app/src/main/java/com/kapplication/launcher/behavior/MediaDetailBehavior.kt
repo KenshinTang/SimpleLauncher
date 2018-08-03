@@ -70,9 +70,14 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
                     XulLog.json(NAME, result)
 
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
-                    mMediaName = dataNode.getChildNode("data", "video_info").getAttributeValue("video_name")
-                    XulApplication.getAppInstance().postToMainLooper {
-                        xulGetRenderContext().refreshBinding("media-detail", dataNode)
+
+                    if (handleError(dataNode)) {
+                        //TODO: 错误处理
+                    } else {
+                        mMediaName = dataNode.getChildNode("data", "video_info").getAttributeValue("video_name")
+                        XulApplication.getAppInstance().postToMainLooper {
+                            xulGetRenderContext().refreshBinding("media-detail", dataNode)
+                        }
                     }
                 }
             }

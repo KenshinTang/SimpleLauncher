@@ -99,4 +99,19 @@ abstract class BaseBehavior(xulPresenter: XulPresenter) : XulUiBehavior(xulPrese
         extInfo.appendChild("mediaName", mediaName)
         UiManager.openUiPage("MediaPlayerPage", extInfo)
     }
+
+    protected fun handleError(dataNode: XulDataNode?) : Boolean {
+        if (dataNode == null || dataNode.size() == 0) {
+            return true
+        }
+        val code = dataNode.getAttributeValue("ret")
+        val reason = dataNode.getAttributeValue("reason")
+
+        XulLog.d(NAME, "Request result:, ret=$code, reason=$reason")
+
+        if ("0" != code) {
+            return true
+        }
+        return false
+    }
 }

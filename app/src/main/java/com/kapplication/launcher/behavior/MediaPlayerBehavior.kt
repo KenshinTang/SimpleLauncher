@@ -110,12 +110,16 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
 
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
 
-                    val playUrl : String = dataNode.getChildNode("data").getAttributeValue("file_url")
-                    XulLog.i(NAME, "getVideoPlayUrl $playUrl")
+                    if (handleError(dataNode)) {
+                        //TODO: 错误处理, 弹框提示
+                    } else {
+                        val playUrl : String = dataNode.getChildNode("data").getAttributeValue("file_url")
+                        XulLog.i(NAME, "getVideoPlayUrl $playUrl")
 
-                    XulApplication.getAppInstance().postToMainLooper {
-                        mMediaPlayer!!.setUp(playUrl, true, mMediaName)
-                        mMediaPlayer!!.startPlayLogic()
+                        XulApplication.getAppInstance().postToMainLooper {
+                            mMediaPlayer!!.setUp(playUrl, true, mMediaName)
+                            mMediaPlayer!!.startPlayLogic()
+                        }
                     }
                 }
             }

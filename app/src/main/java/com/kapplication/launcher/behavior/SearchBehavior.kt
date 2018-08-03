@@ -129,35 +129,41 @@ class SearchBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
                     val result : String = responseBody!!.string()
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
 
-                    XulApplication.getAppInstance().postToMainLooper {
-                        if (TextUtils.isEmpty(mSearchStr)) {
-                            XulLog.d(NAME, "用户已经取消搜索的关键字，不在显示搜索结果。")
-                        } else {
-                            resetSearchPage()
-                            XulSliderAreaWrapper.fromXulView(mXulSearchResultSlider).scrollTo(0, false)
-                            mVideoListWrapper?.clear()
-                            clearResultDynamicFocus()
-                            val listNode: XulDataNode? = dataNode.getChildNode("data", "list")
-
-                            if (listNode?.size()!! <= 0) {
-                                XulPage.invokeAction(mXulSearchResultPanel, "appEvents:showEmptyTip")
+                    if (handleError(dataNode)) {
+                        XulApplication.getAppInstance().postToMainLooper {
+                            XulPage.invokeAction(mXulSearchResultPanel, "appEvents:showEmptyTip")
+                        }
+                    } else {
+                        XulApplication.getAppInstance().postToMainLooper {
+                            if (TextUtils.isEmpty(mSearchStr)) {
+                                XulLog.d(NAME, "用户已经取消搜索的关键字，不在显示搜索结果。")
                             } else {
-                                XulPage.invokeAction(mXulSearchResultPanel, "appEvents:showSearchResult")
-                                var videoNode: XulDataNode? = listNode.firstChild
-                                while (videoNode != null) {
-                                    mVideoListWrapper?.addItem(videoNode)
-                                    videoNode = videoNode.next
+                                resetSearchPage()
+                                XulSliderAreaWrapper.fromXulView(mXulSearchResultSlider).scrollTo(0, false)
+                                mVideoListWrapper?.clear()
+                                clearResultDynamicFocus()
+                                val listNode: XulDataNode? = dataNode.getChildNode("data", "list")
+
+                                if (listNode?.size()!! <= 0) {
+                                    XulPage.invokeAction(mXulSearchResultPanel, "appEvents:showEmptyTip")
+                                } else {
+                                    XulPage.invokeAction(mXulSearchResultPanel, "appEvents:showSearchResult")
+                                    var videoNode: XulDataNode? = listNode.firstChild
+                                    while (videoNode != null) {
+                                        mVideoListWrapper?.addItem(videoNode)
+                                        videoNode = videoNode.next
+                                    }
+
+                                    mVideoListWrapper?.syncContentView()
+
+                                    val count = dataNode.getChildNode("data").getAttributeValue("total")
+                                    mXulSearchResultCount?.setAttr("text", "${count}部")
+                                    mXulSearchResultCount?.resetRender()
+
+                                    val firstView = (mXulSearchResult as XulArea).getChild(0)
+                                    (mXulSearchResult as XulArea).dynamicFocus = firstView
+                                    (mXulSearchResultPanel as XulArea).dynamicFocus = firstView
                                 }
-
-                                mVideoListWrapper?.syncContentView()
-
-                                val count = dataNode.getChildNode("data").getAttributeValue("total")
-                                mXulSearchResultCount?.setAttr("text", "${count}部")
-                                mXulSearchResultCount?.resetRender()
-
-                                val firstView = (mXulSearchResult as XulArea).getChild(0)
-                                (mXulSearchResult as XulArea).dynamicFocus = firstView
-                                (mXulSearchResultPanel as XulArea).dynamicFocus = firstView
                             }
                         }
                     }
@@ -166,6 +172,9 @@ class SearchBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
 
             override fun onFailure(call: Call?, e: IOException?) {
                 XulLog.e(NAME, "getAssetCategoryList onFailure")
+                XulApplication.getAppInstance().postToMainLooper {
+                    XulPage.invokeAction(mXulSearchResultPanel, "appEvents:showEmptyTip")
+                }
             }
         })
     }

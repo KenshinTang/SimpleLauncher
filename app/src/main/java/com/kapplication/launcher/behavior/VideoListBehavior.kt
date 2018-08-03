@@ -87,13 +87,16 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
 
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
 
-                    XulApplication.getAppInstance().postToMainLooper {
-                        xulGetRenderContext().refreshBinding("category-data", dataNode)
-                        if (dataNode.getChildNode("data", "list").size() == 0) {
-                            mVideoListView?.setStyle("display", "none")
-                            mVideoListView?.resetRender()
-                            mNoDataHintView?.setStyle("display", "block")
-                            mNoDataHintView?.resetRender()
+                    if (handleError(dataNode)) {
+                        XulApplication.getAppInstance().postToMainLooper {
+                            showEmptyTips()
+                        }
+                    } else {
+                        XulApplication.getAppInstance().postToMainLooper {
+                            xulGetRenderContext().refreshBinding("category-data", dataNode)
+                            if (dataNode.getChildNode("data", "list").size() == 0) {
+                                showEmptyTips()
+                            }
                         }
                     }
                 }
@@ -101,8 +104,18 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
 
             override fun onFailure(call: Call?, e: IOException?) {
                 XulLog.e(NAME, "getAssetCategoryList onFailure")
+                XulApplication.getAppInstance().postToMainLooper {
+                    showEmptyTips()
+                }
             }
         })
+    }
+
+    private fun showEmptyTips() {
+        mVideoListView?.setStyle("display", "none")
+        mVideoListView?.resetRender()
+        mNoDataHintView?.setStyle("display", "block")
+        mNoDataHintView?.resetRender()
     }
 
     override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
@@ -140,40 +153,49 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
 
                     mVideoListWrapper?.clear()
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
-                    var videoNode: XulDataNode? = dataNode.getChildNode("data", "list")?.firstChild
-                    while (videoNode != null) {
-                        mVideoListWrapper?.addItem(videoNode)
-                        videoNode = videoNode.next
-                    }
-
-                    //update UI
-                    XulApplication.getAppInstance().postToMainLooper {
-                        val ownerSlider = mVideoListView?.findParentByType("slider")
-                        val ownerLayer = mVideoListView?.findParentByType("layer")
-
-                        ownerLayer?.dynamicFocus = null
-                        XulSliderAreaWrapper.fromXulView(ownerSlider).scrollTo(0, false)
-
-                        if (mVideoListWrapper?.itemNum()!! > 0) {
-                            mVideoListView?.setStyle("display", "block")
-                            mNoDataHintView?.setStyle("display", "none")
-                        } else {
-                            mVideoListView?.setStyle("display", "none")
-                            mNoDataHintView?.setStyle("display", "block")
+                    if (handleError(dataNode)) {
+                        XulApplication.getAppInstance().postToMainLooper {
+                            showEmptyTips()
                         }
-                        mVideoListView?.resetRender()
-                        mNoDataHintView?.resetRender()
+                    } else {
+                        var videoNode: XulDataNode? = dataNode.getChildNode("data", "list")?.firstChild
+                        while (videoNode != null) {
+                            mVideoListWrapper?.addItem(videoNode)
+                            videoNode = videoNode.next
+                        }
 
-                        mVideoCountView?.setAttr("text", """${xulGetFocus().getDataString("count")} 部""")
-                        mVideoCountView?.resetRender()
+                        //update UI
+                        XulApplication.getAppInstance().postToMainLooper {
+                            val ownerSlider = mVideoListView?.findParentByType("slider")
+                            val ownerLayer = mVideoListView?.findParentByType("layer")
 
-                        mVideoListWrapper?.syncContentView()
+                            ownerLayer?.dynamicFocus = null
+                            XulSliderAreaWrapper.fromXulView(ownerSlider).scrollTo(0, false)
+
+                            if (mVideoListWrapper?.itemNum()!! > 0) {
+                                mVideoListView?.setStyle("display", "block")
+                                mNoDataHintView?.setStyle("display", "none")
+                            } else {
+                                mVideoListView?.setStyle("display", "none")
+                                mNoDataHintView?.setStyle("display", "block")
+                            }
+                            mVideoListView?.resetRender()
+                            mNoDataHintView?.resetRender()
+
+                            mVideoCountView?.setAttr("text", """${xulGetFocus().getDataString("count")} 部""")
+                            mVideoCountView?.resetRender()
+
+                            mVideoListWrapper?.syncContentView()
+                        }
                     }
                 }
             }
 
             override fun onFailure(call: Call?, e: IOException?) {
                 XulLog.e(NAME, "getAssetCategoryList onFailure")
+                XulApplication.getAppInstance().postToMainLooper {
+                    showEmptyTips()
+                }
             }
         })
     }
