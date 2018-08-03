@@ -231,7 +231,7 @@
                             <attr name="x">110</attr>
                             <attr name="y">70</attr>
                             <style name="font-color">FFFFFFFF</style>
-                            <style name="font-size">48</style>
+                            <style name="font-size">60</style>
                             <attr name="text">搜索结果</attr>
                         </item>
 
