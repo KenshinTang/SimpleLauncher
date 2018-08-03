@@ -117,7 +117,7 @@ class SearchBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
 
         XulLog.i(NAME, "Request url: ${urlBuilder.build()}")
 
-        val request: Request = Request.Builder().url(urlBuilder.build()).build()
+        val request: Request = Request.Builder().cacheControl(cacheControl).url(urlBuilder.build()).build()
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call?, response: Response?) {
                 response!!.body().use { responseBody ->

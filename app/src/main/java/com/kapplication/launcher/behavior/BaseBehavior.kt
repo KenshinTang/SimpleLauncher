@@ -1,6 +1,7 @@
 package com.kapplication.launcher.behavior
 
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.provider.Settings
 import com.kapplication.launcher.UiManager
@@ -10,15 +11,24 @@ import com.starcor.xul.Script.IScriptContext
 import com.starcor.xul.ScriptWrappr.Annotation.ScriptMethod
 import com.starcor.xul.XulDataNode
 import com.starcor.xul.XulView
+import com.starcor.xulapp.XulApplication
 import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.behavior.XulUiBehavior
 import com.starcor.xulapp.model.XulDataCallback
 import com.starcor.xulapp.model.XulDataService
 import com.starcor.xulapp.utils.XulLog
+import okhttp3.Cache
+import okhttp3.CacheControl
 import okhttp3.OkHttpClient
+import java.util.concurrent.TimeUnit
 
 abstract class BaseBehavior(xulPresenter: XulPresenter) : XulUiBehavior(xulPresenter) {
-    protected val okHttpClient: OkHttpClient = OkHttpClient()
+    protected val okHttpClient: OkHttpClient = OkHttpClient.Builder()
+            .cache(Cache(XulApplication.getAppContext().getDir("okhttpCache", Context.MODE_PRIVATE), 5*1024*1024))
+            .build()
+    protected val cacheControl: CacheControl = CacheControl.Builder()
+            .maxAge(5, TimeUnit.MINUTES)
+            .build()
 
     companion object {
         const val NAME = "BaseBehavior"
