@@ -37,6 +37,7 @@ dependencies {
 //        exclude group: 'com.squareup.okhttp3'
         exclude group: 'com.android.support'
     }
+    implementation 'com.tencent.bugly:crashreport:latest.release'
     implementation ('com.squareup.okhttp3:okhttp:3.9.1')
     testImplementation 'junit:junit:4.12'
     implementation project(path: ':xul')

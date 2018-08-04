@@ -9,6 +9,7 @@ import com.starcor.xulapp.message.XulMessageCenter
 import com.starcor.xulapp.utils.XulLog
 import com.starcor.xulapp.utils.XulSystemUtil
 import com.starcor.xulapp.utils.XulTime
+import com.tencent.bugly.crashreport.CrashReport
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
@@ -26,6 +27,7 @@ class KApplication : XulApplication() {
     override fun onCreate() {
         XulLog.i("kenshin", "KApplication, onCreate.")
         XulDebugServer.startUp()
+        CrashReport.initCrashReport(applicationContext, "b177a7e860", true)
         super.onCreate()
         XulTime.setTimeZoneOffset(8)
         startCommonMessage()
