@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
+
+    <page id="ErrorPage">
+        <layout>
+            <area id="area_setting" class="match_parent_wh">
+                <!--<style name="background-image">file:///.app/skins/background</style>-->
+                <style name="background-image">file:///.assets/images/network_error.jpg</style>
+                <item id="item_content" type="label">
+                    <attr name="x">837</attr>
+                    <attr name="y">455</attr>
+                    <attr name="height">45</attr>
+                    <style name="font-size">40</style>
+                    <style name="font-color">FFD5D72C</style>
+                    <style name="font-align">0,0</style>
+                    <style name="font-weight">2</style>
+                    <attr name="text"/>
+                </item>
+                <item id="item_mac_name" type="label">
+                    <attr name="x">841</attr>
+                    <attr name="y">525</attr>
+                    <style name="font-size">30</style>
+                    <style name="font-color">CCFEFEFE</style>
+                    <style name="font-align">0,0</style>
+                    <attr name="text">网络出现问题, 请检查网络后再试</attr>
+                </item>
+                <item id="btn_retry" type="image" class="class_splash_button">
+                    <focus mode="focusable" focused="true"/>
+                    <action event="click" type="usr_cmd">onRetryButtonClick</action>
+                    <attr name="x">840</attr>
+                    <attr name="y">602</attr>
+                    <attr name="text">重试</attr>
+                </item>
+                <item id="btn_retry" type="image" class="class_splash_button">
+                    <action event="click" type="usr_cmd">openSetting</action>
+                    <attr name="x">1100</attr>
+                    <attr name="y">602</attr>
+                    <attr name="text">网络设置</attr>
+                </item>
+            </area>
+        </layout>
+        <selector>
+            <select class="class_splash_button">
+                <attr name="width">232</attr>
+                <attr name="height">90</attr>
+                <style name="font-size">34</style>
+                <style name="font-color">FFFFFFFF</style>
+                <style name="font-align">0.5,0.5</style>
+                <attr name="img.0">@color:FF2CBDD7</attr>
+                <attr name="img.1">@color:ffA9A9A9</attr>
+                <attr name="img.0.visible">false</attr>
+                <attr name="img.1.visible">true</attr>
+            </select>
+            <select class="class_splash_button" state="focused">
+                <attr name="img.0.visible">true</attr>
+                <attr name="img.1.visible">false</attr>
+            </select>
+        </selector>
+    </page>
+
+
+</starcor.xul>

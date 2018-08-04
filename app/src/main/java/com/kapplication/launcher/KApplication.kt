@@ -57,6 +57,7 @@ class KApplication : XulApplication() {
         MediaDetailBehavior.register()
         MediaPlayerBehavior.register()
         SearchBehavior.register()
+        ErrorBehavior.register()
     }
 
     override fun xulGetSdcardData(path: String): InputStream? {
@@ -127,6 +128,14 @@ class KApplication : XulApplication() {
                 .setTag(CommonMessage.EVENT_HALF_SECOND)
                 .setInterval(500)
                 .setRepeat(Integer.MAX_VALUE)
+                .postSticky()
+
+        XulMessageCenter.buildMessage()
+                .setTag(CommonMessage.EVENT_HALF_HOUR)
+                .setInterval(1000 * 60 * 30)
+//                .setInterval(1000 * 10)
+                .setRepeat(Integer.MAX_VALUE)
+                .setDelay(1000 * 60 * 30)
                 .postSticky()
     }
 }

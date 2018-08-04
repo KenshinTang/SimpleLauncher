@@ -1,9 +1,5 @@
 package com.kapplication.launcher.behavior
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import com.kapplication.launcher.UiManager
 import com.kapplication.launcher.utils.Utils
 import com.starcor.xul.Wrapper.XulMassiveAreaWrapper
 import com.starcor.xul.Wrapper.XulSliderAreaWrapper
@@ -13,12 +9,9 @@ import com.starcor.xulapp.XulApplication
 import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.behavior.XulBehaviorManager
 import com.starcor.xulapp.behavior.XulUiBehavior
-import com.starcor.xulapp.debug.XulDebugAdapter.startActivity
 import com.starcor.xulapp.utils.XulLog
 import okhttp3.*
-import java.io.FileInputStream
 import java.io.IOException
-import java.io.InputStream
 
 
 class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
@@ -78,7 +71,7 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
 
         XulLog.i(NAME, "Request url: ${urlBuilder.build()}")
 
-        val request: Request = Request.Builder().url(urlBuilder.build()).build()
+        val request: Request = Request.Builder().cacheControl(cacheControl).url(urlBuilder.build()).build()
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call?, response: Response?) {
                 response!!.body().use { responseBody ->
@@ -93,21 +86,43 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
                     XulLog.json(NAME, result)
 
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
-                    xulGetRenderContext().refreshBinding("category-data", dataNode)
+
+                    if (handleError(dataNode)) {
+                        XulApplication.getAppInstance().postToMainLooper {
+                            showEmptyTips()
+                        }
+                    } else {
+                        XulApplication.getAppInstance().postToMainLooper {
+                            xulGetRenderContext().refreshBinding("category-data", dataNode)
+                            if (dataNode.getChildNode("data", "list").size() == 0) {
+                                showEmptyTips()
+                            }
+                        }
+                    }
                 }
             }
 
             override fun onFailure(call: Call?, e: IOException?) {
                 XulLog.e(NAME, "getAssetCategoryList onFailure")
+                XulApplication.getAppInstance().postToMainLooper {
+                    showEmptyTips()
+                }
             }
         })
+    }
+
+    private fun showEmptyTips() {
+        mVideoListView?.setStyle("display", "none")
+        mVideoListView?.resetRender()
+        mNoDataHintView?.setStyle("display", "block")
+        mNoDataHintView?.resetRender()
     }
 
     override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
         XulLog.i(NAME, "action = $action, type = $type, command = $command, userdata = $userdata")
         when (command) {
             "switchCategory" -> switchCategory(userdata as String)
-            "openPlayer" -> openPlayer(userdata as String)
+            "openPlayer" -> openPlayer(userdata as String, "")
             "openDetail" -> openDetail(userdata as String)
         }
         super.xulDoAction(view, action, type, command, userdata)
@@ -120,11 +135,11 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
                 .addQueryParameter("a", "getAssetVideoList")
                 .addQueryParameter("asset_category_id", categoryId)
                 .addQueryParameter("page_num", "1")
-                .addQueryParameter("page_size", "200")
+                .addQueryParameter("page_size", "9999")
 
         XulLog.i(NAME, "Request url: ${urlBuilder.build()}")
 
-        val request: Request = Request.Builder().url(urlBuilder.build()).build()
+        val request: Request = Request.Builder().cacheControl(cacheControl).url(urlBuilder.build()).build()
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call?, response: Response?) {
                 response!!.body().use { responseBody ->
@@ -138,52 +153,50 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
 
                     mVideoListWrapper?.clear()
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
-                    var videoNode: XulDataNode? = dataNode.getChildNode("data", "list").firstChild
-                    while (videoNode != null) {
-                        mVideoListWrapper?.addItem(videoNode)
-                        videoNode = videoNode.next
-                    }
+                    if (handleError(dataNode)) {
+                        XulApplication.getAppInstance().postToMainLooper {
+                            showEmptyTips()
+                        }
+                    } else {
+                        var videoNode: XulDataNode? = dataNode.getChildNode("data", "list")?.firstChild
+                        while (videoNode != null) {
+                            mVideoListWrapper?.addItem(videoNode)
+                            videoNode = videoNode.next
+                        }
 
-                    //update UI
-                    XulApplication.getAppInstance().postToMainLooper {
-                        val ownerSlider = mVideoListView?.findParentByType("slider")
-                        val ownerLayer = mVideoListView?.findParentByType("layer")
+                        //update UI
+                        XulApplication.getAppInstance().postToMainLooper {
+                            val ownerSlider = mVideoListView?.findParentByType("slider")
+                            val ownerLayer = mVideoListView?.findParentByType("layer")
 
-                        ownerLayer?.dynamicFocus = null
-                        XulSliderAreaWrapper.fromXulView(ownerSlider).scrollTo(0, false)
+                            ownerLayer?.dynamicFocus = null
+                            XulSliderAreaWrapper.fromXulView(ownerSlider).scrollTo(0, false)
 
-                        mVideoListView?.setStyle("display", "block")
-                        mVideoListView?.resetRender()
-                        mNoDataHintView?.setStyle("display", "none")
-                        mNoDataHintView?.resetRender()
+                            if (mVideoListWrapper?.itemNum()!! > 0) {
+                                mVideoListView?.setStyle("display", "block")
+                                mNoDataHintView?.setStyle("display", "none")
+                            } else {
+                                mVideoListView?.setStyle("display", "none")
+                                mNoDataHintView?.setStyle("display", "block")
+                            }
+                            mVideoListView?.resetRender()
+                            mNoDataHintView?.resetRender()
 
-                        mVideoCountView?.setAttr("text", """${xulGetFocus().getDataString("count")} 部""")
-                        mVideoCountView?.resetRender()
+                            mVideoCountView?.setAttr("text", """${xulGetFocus().getDataString("count")} 部""")
+                            mVideoCountView?.resetRender()
 
-                        mVideoListWrapper?.syncContentView()
+                            mVideoListWrapper?.syncContentView()
+                        }
                     }
                 }
             }
 
             override fun onFailure(call: Call?, e: IOException?) {
                 XulLog.e(NAME, "getAssetCategoryList onFailure")
+                XulApplication.getAppInstance().postToMainLooper {
+                    showEmptyTips()
+                }
             }
         })
-    }
-
-    private fun openDetail(dataSource: String) {
-        XulLog.i(NAME, "openDetail($dataSource)")
-        val extInfoNode = XulDataNode.obtainDataNode("ext_info")
-        extInfoNode.appendChild("mediaId", dataSource)
-        UiManager.openUiPage("MediaDetailPage", extInfoNode)
-    }
-
-    private fun openPlayer(dataSource: String) {
-        XulLog.i(NAME, "openPlayer($dataSource)")
-        val uri = Uri.parse(dataSource)
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.setDataAndType(uri, "video/mp4")
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
     }
 }

@@ -1,7 +1,7 @@
 package com.kapplication.launcher.behavior
 
 import android.app.Activity
-import android.content.Context
+import android.app.AlertDialog
 import android.view.KeyEvent
 import android.view.MotionEvent
 import com.kapplication.launcher.utils.Utils
@@ -43,10 +43,8 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
     private var mMediaId: String? = ""
     private var mMediaName: String? = ""
     private var mMediaPlayer: StandardGSYVideoPlayer? = null
-    private var mContext: Context? = null
 
     init {
-        mContext = _presenter.xulGetContext()
     }
 
     override fun appOnStartUp(success: Boolean) {
@@ -70,10 +68,11 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
         mMediaPlayer = xulGetRenderContext().findItemById("player").externalView as StandardGSYVideoPlayer
         mMediaPlayer!!.setVideoAllCallBack(object: GSYSampleCallBack() {
             override fun onAutoComplete(url: String?, vararg objects: Any?) {
-                (mContext as Activity).finish()
+                (context as Activity).finish()
                 super.onAutoComplete(url, *objects)
             }
         })
+        mMediaPlayer!!.setBottomProgressBarDrawable(null)
     }
 
     override fun xulCreateExternalView(cls: String, x: Int, y: Int, width: Int, height: Int, view: XulView): IXulExternalView? {
@@ -111,12 +110,16 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
 
                     val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
 
-                    val playUrl : String = dataNode.getChildNode("data").getAttributeValue("file_url")
-                    XulLog.i(NAME, "getVideoPlayUrl $playUrl")
+                    if (handleError(dataNode)) {
+                        //TODO: 错误处理, 弹框提示
+                    } else {
+                        val playUrl : String = dataNode.getChildNode("data").getAttributeValue("file_url")
+                        XulLog.i(NAME, "getVideoPlayUrl $playUrl")
 
-                    XulApplication.getAppInstance().postToMainLooper {
-                        mMediaPlayer!!.setUp(playUrl, true, mMediaName)
-                        mMediaPlayer!!.startPlayLogic()
+                        XulApplication.getAppInstance().postToMainLooper {
+                            mMediaPlayer!!.setUp(playUrl, true, mMediaName)
+                            mMediaPlayer!!.startPlayLogic()
+                        }
                     }
                 }
             }
@@ -132,14 +135,30 @@ class MediaPlayerBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
         super.xulDoAction(view, action, type, command, userdata)
     }
 
+    override fun xulOnBackPressed(): Boolean {
+        GSYVideoManager.onPause()
+        val builder = AlertDialog.Builder(context)
+        builder.setMessage("退出播放?")
+        builder.setPositiveButton("确定") { dialog, _ ->
+            dialog.dismiss()
+            (context as Activity).finish()
+        }
+        builder.setNegativeButton("取消") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.setOnDismissListener { GSYVideoManager.onResume() }
+        builder.create().show()
+        return true
+    }
+
     override fun xulOnDispatchTouchEvent(event: MotionEvent?): Boolean {
         // 返回false, 交给Player自己处理
         return false
     }
 
     override fun xulOnDispatchKeyEvent(event: KeyEvent?): Boolean {
-        // 返回false, 交给Player自己处理
-        return false
+        // 把事件传递给player处理
+        return xulGetRenderContext().findItemById("player").externalView.extOnKeyEvent(event)
     }
 
     override fun xulOnDestroy() {

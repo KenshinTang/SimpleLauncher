@@ -225,14 +225,14 @@
                 <area id="area_search_content" class="match_parent_wh">
                     <attr name="x">600</attr>
 
-                    <area id="area_hot_search" class="match_parent_wh">
+                    <area id="area_hot_search" class="match_parent_wh,hide">
                         <item id="item_hot_search_title" type="label">
                             <focus mode="nofocus"/>
                             <attr name="x">110</attr>
                             <attr name="y">70</attr>
                             <style name="font-color">FFFFFFFF</style>
-                            <style name="font-size">48</style>
-                            <attr name="text" binding="#lang/search/searchRankings"/>
+                            <style name="font-size">60</style>
+                            <attr name="text">搜索结果</attr>
                         </item>
 
                         <item>
@@ -284,7 +284,7 @@
                         </area>
                     </area>
 
-                    <area id="area_search_result" class="match_parent_wh,hide">
+                    <area id="area_search_result" class="match_parent_wh">
                         <action event="appEvents:showEmptyTip" type="script/javascript">
                             var area_result = this.findItemById("area_result");
                             area_result.addClass("hide");
@@ -797,20 +797,12 @@
                     <attr name="img.1">file:///.assets/images/login/down_indicator.png</attr>
                     <attr name="img.2"></attr>
                 </item>
-                <item id="item_page_index" type="label">
-                    <attr name="text">1</attr>
+                <item id="item_count" type="label">
                     <attr name="height">match_parent</attr>
                     <style name="font-color">FFFFFFFF</style>
                     <style name="font-size">32</style>
                     <style name="font-align">0.5,0.5</style>
                     <style name="margin-left">31</style>
-                </item>
-                <item id="item_page_count" type="label">
-                    <attr name="text">/100</attr>
-                    <attr name="height">match_parent</attr>
-                    <style name="font-color">66FDFDFD</style>
-                    <style name="font-size">32</style>
-                    <style name="font-align">0.5,0.5</style>
                 </item>
             </area>
 
@@ -837,23 +829,10 @@
                     <!--<style name="padding">0,100</style>-->
                     <template id="@item-template">
                         <item type="image" class="poster_default_bkg,poster_scale,focus_border,poster_item,marquee_animation,right_top_mark_style">
-                            <attr name="text" binding="name"/>
-                            <attr name="max-layers">8</attr>
-                            <attr name="img.2" binding="=scale:{posters/image[type=main]}"/>
-                            <data name="cp_id" binding="cp_id"/>
-                            <data name="video_id" binding="video_id"/>
-                            <data name="original_id" binding="original_id"/>
-                            <data name="channel_name" binding="channel_name"/>
-                            <data name="channel_num" binding="channel_num"/>
-                            <data name="playbill_name" binding="playbill_name"/>
-                            <data name="category_id" binding="categoryId"/>
-                            <attr name="img.3" binding="cp_url"/>
-                            <attr name="img.3.mode">center</attr>
-                            <attr name="img.3.align">0.97,0.03</attr>
-                            <attr name="img.4" binding="posters/image[type=mark_tl]"/>
-                            <attr name="img.5" binding="posters/image[type=mark_tr]"/>
-                            <attr name="img.6" binding="posters/image[type=mark_bl]"/>
-                            <attr name="img.7" binding="posters/image[type=mark_br]"/>
+                            <attr name="text" binding="[=video_name]"/>
+                            <attr name="img.2" binding="=scale:{[=video_img_v]}"/>
+                            <data name="userdata" binding="[=video_id]"/>
+                            <action event="click" type="usr_cmd">openDetail</action>
                         </item>
                     </template>
 
@@ -864,14 +843,14 @@
             <focus mode="nofocus"></focus>
             <attr name="x">300</attr>
             <attr name="y">400</attr>
-            <attr name="img.1">file:///.assets/images/icons/no_data.png</attr>
+            <attr name="img.1">file:///.assets/images/icon_no_data.png</attr>
             <attr name="img.1.mode">center</attr>
             <attr name="img.1.width">64</attr>
             <attr name="img.1.height">64</attr>
             <attr name="img.1.align">0,0.4</attr>
-            <attr name="text" binding="#lang/search/itemErrorPrompt"/>
+            <attr name="text">对不起，没有与搜索相符合的结果！</attr>
             <style name="font-color">B2FFFFFF</style>
-            <style name="font-size">32</style>
+            <style name="font-size">40</style>
             <style name="font-align">0,0.5</style>
             <style name="padding-left">84</style>
         </item>

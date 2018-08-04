@@ -209,7 +209,7 @@
                 <style name="font-align">0.5,1</style>
                 <style name="padding-bottom">-48</style>
                 <style name="margin">0,0,64,48</style>
-                <action event="click" type="usr_cmd">open_detail_page</action>
+                <action event="click" type="usr_cmd">openDetail</action>
             </select>
             <select class="poster_item" state="focused">
                 <style name="font-color">FFFFFFFF</style>
