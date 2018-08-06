@@ -93,7 +93,7 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
         when (command) {
 //            "onPlayButtonClick" -> getPlayUrlAndPlay()
             "onPlayButtonClick" -> openPlayer(mMediaId, mMediaName)
-            "openDetail" -> openDetail(userdata as String)
+            "openDetail" -> openDetailPage(userdata as String)
         }
         super.xulDoAction(view, action, type, command, userdata)
     }

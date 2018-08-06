@@ -123,7 +123,7 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
         when (command) {
             "switchCategory" -> switchCategory(userdata as String)
             "openPlayer" -> openPlayer(userdata as String, "")
-            "openDetail" -> openDetail(userdata as String)
+            "openDetail" -> openDetailPage(userdata as String)
         }
         super.xulDoAction(view, action, type, command, userdata)
     }

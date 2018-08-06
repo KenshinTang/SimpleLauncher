@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
-	<page id="MainPage">
+	<page id="SpecialListPage">
 		<layout>
             <style name="background-image">file:///.assets/images/background.jpg</style>
-			<item id="clock_label" type="label">
-				<focus mode="nofocus"/>
-				<attr name="x">1600</attr>
-				<attr name="y">80</attr>
-				<style name="font-size">48</style>
-				<style name="font-color">FFFFFFFF</style>
-                <action event="click" type="usr_cmd">openListPage</action>
-			</item>
 			<item id="poster_1" class="poster" type="image">
                 <focus mode="focusable" focused="true"/>
 				<attr name="x">166</attr>

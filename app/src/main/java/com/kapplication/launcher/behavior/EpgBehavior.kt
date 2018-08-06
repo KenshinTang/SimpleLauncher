@@ -137,13 +137,13 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
     override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
         XulLog.i(NAME, "action = $action, type = $type, command = $command, userdata = $userdata")
         when (command) {
-            "open_vod_list_page" -> openListPage(userdata as String)
-            "open_vod_detail_page" -> openDetail(userdata as String)
+            "open_vod_list_page" -> openVideoListPage(userdata as String)
+            "open_vod_detail_page" -> openDetailPage(userdata as String)
             "open_vod_player" -> XulLog.d(NAME, "open vod player")
             "open_live_player" -> XulLog.d(NAME, "open live player")
-            "open_special_list_page" -> XulLog.d(NAME, "open special list page")
-            "openSearch"  -> openSearch()
-            "openAppList"  -> openAppList()
+            "open_special_list_page" -> openSpecialListPage()
+            "openSearch"  -> openSearchPage()
+            "openAppListPage"  -> openAppListPage()
             "openSetting"  -> context.startActivity(Intent(Settings.ACTION_SETTINGS))
         }
         super.xulDoAction(view, action, type, command, userdata)

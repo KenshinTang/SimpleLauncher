@@ -91,7 +91,7 @@ class SearchBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
     override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
         XulLog.i(NAME, "action = $action, type = $type, command = $command, userdata = $userdata")
         when (command) {
-            "openDetail" -> openDetail(userdata as String)
+            "openDetail" -> openDetailPage(userdata as String)
             "keyboard_nine_click" -> showKeyboard(KEYBOARD_NINE)
             "keyboard_full_click" -> showKeyboard(KEYBOARD_FULL)
             "doSearch" -> doSearch()

@@ -75,7 +75,7 @@ abstract class BaseBehavior(xulPresenter: XulPresenter) : XulUiBehavior(xulPrese
         }
     }
 
-    protected fun openAppList() {
+    protected fun openAppListPage() {
         try {
             val intent = Intent(Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS)
             context.startActivity(intent)
@@ -83,22 +83,27 @@ abstract class BaseBehavior(xulPresenter: XulPresenter) : XulUiBehavior(xulPrese
         }
     }
 
-    protected fun openListPage(packageId: String?) {
-        XulLog.i(NAME, "openListPage($packageId)")
+    protected fun openVideoListPage(packageId: String?) {
+        XulLog.i(NAME, "openVideoListPage($packageId)")
         val extInfo = XulDataNode.obtainDataNode("extInfo")
         extInfo.appendChild("packageId", packageId)
         UiManager.openUiPage("VideoListPage", extInfo)
     }
 
-    protected fun openDetail(mediaId: String?) {
-        XulLog.i(NAME, "openDetail($mediaId)")
+    protected fun openSpecialListPage() {
+        XulLog.i(NAME, "openSpecialListPage()")
+        UiManager.openUiPage("SpecialListPage")
+    }
+
+    protected fun openDetailPage(mediaId: String?) {
+        XulLog.i(NAME, "openDetailPage($mediaId)")
         val extInfoNode = XulDataNode.obtainDataNode("ext_info")
         extInfoNode.appendChild("mediaId", mediaId)
         UiManager.openUiPage("MediaDetailPage", extInfoNode)
     }
 
-    protected fun openSearch() {
-        XulLog.i(NAME, "openSearch()")
+    protected fun openSearchPage() {
+        XulLog.i(NAME, "openSearchPage()")
         UiManager.openUiPage("SearchPage")
     }
 

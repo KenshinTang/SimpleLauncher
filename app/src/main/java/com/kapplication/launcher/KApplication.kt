@@ -53,9 +53,9 @@ class KApplication : XulApplication() {
 //        val behaviorPkgName = appPkgName + ".behavior"
 //        autoRegister(behaviorPkgName, XulUiBehavior::class.java)
 
-//        MainBehavior.register()
         EpgBehavior.register()
         VideoListBehavior.register()
+        SpecialListBehavior.register()
         MediaDetailBehavior.register()
         MediaPlayerBehavior.register()
         SearchBehavior.register()
