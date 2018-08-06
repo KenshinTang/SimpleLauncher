@@ -1,78 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
-	<page id="SpecialListPage">
-		<layout>
+    <page id="SpecialListPage">
+        <binding id="special_list"/>
+        <layout>
             <style name="background-image">file:///.assets/images/background.jpg</style>
-			<item id="poster_1" class="poster" type="image">
-                <focus mode="focusable" focused="true"/>
-				<attr name="x">166</attr>
-				<attr name="text">电影</attr>
-				<attr name="img.0">file:///.assets/images/bg_movie.png</attr>
-				<attr name="img.1">file:///.assets/images/icon_movie.png</attr>
-                <attr name="img.1.width">100</attr>
-                <attr name="img.1.height">100</attr>
-                <data name="userdata">movie</data>
-                <action event="click" type="usr_cmd">openListPage</action>
-			</item>
-            <item id="poster_2" class="poster" type="image">
-                <attr name="x">435</attr>
-                <attr name="text">电视剧</attr>
-                <attr name="img.0">file:///.assets/images/bg_tvplay.png</attr>
-                <attr name="img.1">file:///.assets/images/icon_tvplay.png</attr>
-                <data name="userdata">tvplay</data>
-                <action event="click" type="usr_cmd">openListPage</action>
+            <item type="label" class="page_title_class">
+                <attr name="x">50</attr>
+                <attr name="y">76</attr>
+                <attr name="text">专题总汇</attr>
+                <style name="font-size">50</style>
+                <style name="font-color">FFFFFFFF</style>
             </item>
-            <item id="poster_3" class="poster" type="image">
-                <attr name="x">705</attr>
-                <attr name="text">综艺</attr>
-                <attr name="img.0">file:///.assets/images/bg_variety.png</attr>
-                <attr name="img.1">file:///.assets/images/icon_variety.png</attr>
-                <data name="userdata">variety</data>
-                <action event="click" type="usr_cmd">openListPage</action>
-            </item>
-            <item id="poster_4" class="poster" type="image">
-                <attr name="x">975</attr>
-                <attr name="text">动漫</attr>
-                <attr name="img.0">file:///.assets/images/bg_anim.png</attr>
-                <attr name="img.1">file:///.assets/images/icon_anim.png</attr>
-                <data name="userdata">animation</data>
-                <action event="click" type="usr_cmd">openListPage</action>
-            </item>
-            <item id="poster_5" class="poster" type="image">
-                <attr name="x">1245</attr>
-                <attr name="text">应用</attr>
-                <attr name="img.0">file:///.assets/images/bg_apps.png</attr>
-                <attr name="img.1">file:///.assets/images/icon_apps.png</attr>
-                <action event="click" type="usr_cmd">openAppList</action>
-            </item>
-            <item id="poster_6" class="poster" type="image">
-                <attr name="x">1515</attr>
-                <attr name="text">设置</attr>
-                <attr name="img.0">file:///.assets/images/bg_setting.png</attr>
-                <attr name="img.1">file:///.assets/images/icon_setting.png</attr>
-                <action event="click" type="usr_cmd">openSetting</action>
-            </item>
-		</layout>
-		<selector>
-			<select class="poster">
-				<attr name="y">248</attr>
-				<attr name="width">240</attr>
-				<attr name="height">580</attr>
-                <attr name="img.0.width">240</attr>
-                <attr name="img.0.height">580</attr>
-                <attr name="img.0.round-rect">2</attr>
-                <attr name="img.1.mode">center</attr>
-                <attr name="img.1.width">120</attr>
-                <attr name="img.1.height">120</attr>
-                <attr name="img.1.align">0.5, 0.15</attr>
-				<style name="font-size">36</style>
-				<style name="font-align">0.5, 0.8</style>
-				<style name="font-color">FFFFFFFF</style>
-			</select>
-            <select class="poster" state="focused">
+            <area id="area_no_data" desc="无数据提示">
+                <style name="display">none</style>
+                <focus mode="nofocus"/>
+                <item type="label">
+                    <attr name="x">860</attr>
+                    <attr name="y">475</attr>
+                    <attr name="text">暂无相关数据</attr>
+                    <style name="font-size">26</style>
+                    <style name="font-color">FF8181AB</style>
+                </item>
+            </area>
+
+            <area type="slider">
+                <focus mode="nofocus"/>
+                <attr name="x">50</attr>
+                <attr name="y">168</attr>
+                <attr name="direction">vertical</attr>
+                <attr name="width">match_parent</attr>
+                <attr name="height">match_parent</attr>
+                <style name="preferred-focus-padding">5,0,0,5</style>
+                <style name="clip-children">false</style>
+                <style name="clip-focus">false</style>
+                <area id="area_special_list" type="massive">
+                    <focus mode="nofocus"/>
+                    <attr name="width">1746</attr>
+                    <attr name="direction">horizontal</attr>
+                    <attr name="arrangement">grid-fixed</attr>
+                    <style name="clip-focus">false</style>
+                    <style name="margin-top">5</style>
+                    <focus mode="dynamic"/>
+                    <template id="@item-template">
+                        <item type="image" filter="[0]" class="focus_border,special_item">
+                            <!--<attr name="text" binding="[=video_name]"/>-->
+                            <attr name="img.2" binding="=scale:{[=special_img_h]}"/>
+                            <data name="userdata" binding="[=id]"/>
+                            <action event="bindingFinished" type="script/javascript">
+                                this.requestFocus();
+                            </action>
+                        </item>
+                        <item type="image" class="focus_border,special_item">
+                            <attr name="img.2" binding="=scale:{[=special_img_h]}"/>
+                            <data name="userdata" binding="[=id]"/>
+                        </item>
+                    </template>
+                </area>
+            </area>
+        </layout>
+
+        <selector>
+            <select class="special_item">
+                <attr name="width">532</attr>
+                <attr name="height">300</attr>
+                <attr name="img.2.width">532</attr>
+                <attr name="img.2.height">300</attr>
+                <style name="margin-right">50</style>
+                <style name="margin-bottom">53</style>
+                <action event="click" type="usr_cmd">openSpecial</action>
+            </select>
+            <select class="special_item" state="focused">
                 <style name="scale">1.1</style>
             </select>
-		</selector>
-	</page>
-
+        </selector>
+    </page>
 </starcor.xul>
