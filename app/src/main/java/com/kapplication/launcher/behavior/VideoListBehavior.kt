@@ -58,7 +58,7 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
     private fun initView() {
         mVideoListView = _xulRenderContext.findItemById("area_video_list")
         mVideoListWrapper =  XulMassiveAreaWrapper.fromXulView(mVideoListView)
-        mNoDataHintView = _xulRenderContext.findItemById("poster_no_data")
+        mNoDataHintView = _xulRenderContext.findItemById("area_no_data")
         mVideoCountView = _xulRenderContext.findItemById("filmsNumber")
     }
 

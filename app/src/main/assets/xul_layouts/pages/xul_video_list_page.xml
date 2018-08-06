@@ -90,7 +90,7 @@
                 <area class="match_parent_wh">
                     <attr name="x">324</attr>
 
-                    <area id="poster_no_data">
+                    <area id="area_no_data">
                         <attr name="x">440</attr>
                         <attr name="y">480</attr>
                         <attr name="width">700</attr>
@@ -119,7 +119,7 @@
                         <area type="slider" class="match_parent_wh">
                             <attr name="direction">vertical</attr>
                             <style name="clip-children">true</style>
-                            <style name="clip-focus">true</style>
+                            <style name="clip-focus">false</style>
                             <!--<style name="keep-focus-visible">true</style>-->
                             <attr name="y">131</attr>
                             <attr name="height">900</attr>
@@ -208,6 +208,9 @@
                 <style name="font-align">0,1</style>
                 <style name="padding-bottom">-60</style>
                 <style name="margin">40,64,64,104</style>
+            </select>
+            <select class="poster_item" state="focused">
+                <style name="scale">1.1</style>
             </select>
             <select class="content-layer" state="disabled">
                 <style name="lighting-color-filter">FF808080</style>
