@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
-    <page id="SpecialListPage">
+    <page id="SpecialPage">
+        <binding id="special_list"/>
         <layout>
             <style name="background-image">file:///.assets/images/background.jpg</style>
             <item type="label" class="page_title_class">

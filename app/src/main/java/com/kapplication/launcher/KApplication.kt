@@ -56,6 +56,7 @@ class KApplication : XulApplication() {
         EpgBehavior.register()
         VideoListBehavior.register()
         SpecialListBehavior.register()
+        SpecialBehavior.register()
         MediaDetailBehavior.register()
         MediaPlayerBehavior.register()
         SearchBehavior.register()

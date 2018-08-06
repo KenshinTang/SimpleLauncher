@@ -72,6 +72,7 @@
             android:name=".MediaPlayerActivity"
             android:screenOrientation="landscape"
             android:clearTaskOnLaunch="true"
+            android:launchMode="singleInstance"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -93,7 +94,16 @@
             android:name=".SpecialListActivity"
             android:screenOrientation="landscape"
             android:clearTaskOnLaunch="true"
-            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".SpecialActivity"
+            android:screenOrientation="landscape"
+            android:clearTaskOnLaunch="true"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
