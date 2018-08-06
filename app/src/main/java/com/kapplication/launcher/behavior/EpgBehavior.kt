@@ -82,16 +82,20 @@ class EpgBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter) {
                     val result : String = responseBody!!.string()
 //                    XulLog.json(NAME, result)
 
-                    val dataNode : XulDataNode = XulDataNode.buildFromJson(result)
-                    if (handleError(dataNode)) {
-                        XulApplication.getAppInstance().postToMainLooper {
-                            UiManager.openUiPage("ErrorPage")
+                    try {
+                        val dataNode: XulDataNode = XulDataNode.buildFromJson(result)
+                        if (handleError(dataNode)) {
+                            XulApplication.getAppInstance().postToMainLooper {
+                                UiManager.openUiPage("ErrorPage")
+                            }
+                        } else {
+                            XulApplication.getAppInstance().postToMainLooper {
+                                xulGetRenderContext().refreshBinding("epg-data", dataNode)
+                                XulLog.i(NAME, "refresh epg data!")
+                            }
                         }
-                    } else {
-                        XulApplication.getAppInstance().postToMainLooper {
-                            xulGetRenderContext().refreshBinding("epg-data", dataNode)
-                            XulLog.i(NAME, "refresh epg data!")
-                        }
+                    } catch (e: Exception) {
+                        UiManager.openUiPage("ErrorPage")
                     }
                 }
             }
