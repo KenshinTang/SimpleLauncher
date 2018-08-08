@@ -2,10 +2,12 @@
 播放记录
 关于
 友盟上报
+友盟推送
 详情页, 播放器接口错误后, 提示框
 升级/版本号
 广告
 
+#友盟上报, 只实现了页面统计
 #专题
 #Bugly
 #接口缓存
@@ -18,3 +20,5 @@
 
 
 http://dev.yusihuo.com/assetsmanager.php  admin/admin
+https://bugly.qq.com/v2/workbench/apps  qq
+http://mobile.umeng.com/apps?spm=a211g2.211692.1125219.1.21c21183Okx1qM qqmail/f

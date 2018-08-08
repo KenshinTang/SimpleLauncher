@@ -10,6 +10,7 @@ import com.starcor.xulapp.utils.XulLog
 import com.starcor.xulapp.utils.XulSystemUtil
 import com.starcor.xulapp.utils.XulTime
 import com.tencent.bugly.crashreport.CrashReport
+import com.umeng.commonsdk.UMConfigure
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
@@ -26,8 +27,15 @@ class KApplication : XulApplication() {
 
     override fun onCreate() {
         XulLog.i("kenshin", "KApplication, onCreate.")
+
+        // xul debug
         XulDebugServer.startUp()
+
+        // qq bugly
         CrashReport.initCrashReport(applicationContext, "b177a7e860", true)
+
+        // umeng
+        UMConfigure.init(applicationContext, "5b6a870af43e487fa900029b", "", UMConfigure.DEVICE_TYPE_BOX, "")
         super.onCreate()
         XulTime.setTimeZoneOffset(8)
         startCommonMessage()

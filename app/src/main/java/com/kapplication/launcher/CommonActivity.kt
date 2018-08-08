@@ -8,6 +8,7 @@ import com.starcor.xul.XulView
 import com.starcor.xulapp.XulBaseActivity
 import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.message.XulMessageCenter
+import com.umeng.analytics.MobclickAgent
 import java.lang.ref.WeakReference
 
 open class CommonActivity : XulBaseActivity() {
@@ -47,7 +48,13 @@ open class CommonActivity : XulBaseActivity() {
                 .setTag(CommonMessage.EVENT_ACTIVITY_RESUMED)
                 .setData(PageEventInfo.obtain(this))
                 .post()
+        MobclickAgent.onResume(this)
         super.onResume()
+    }
+
+    override fun onPause() {
+        MobclickAgent.onPause(this)
+        super.onPause()
     }
 
     override fun onStop() {
