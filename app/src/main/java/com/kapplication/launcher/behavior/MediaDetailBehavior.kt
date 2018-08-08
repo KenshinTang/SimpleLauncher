@@ -1,5 +1,7 @@
 package com.kapplication.launcher.behavior
 
+import com.kapplication.launcher.report.ReportEvent
+import com.kapplication.launcher.report.ReportUtils
 import com.kapplication.launcher.utils.Utils
 import com.starcor.xul.XulDataNode
 import com.starcor.xul.XulView
@@ -91,8 +93,12 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
     override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
         XulLog.i(NAME, "action = $action, type = $type, command = $command, userdata = $userdata")
         when (command) {
-//            "onPlayButtonClick" -> getPlayUrlAndPlay()
-            "onPlayButtonClick" -> openPlayer(mMediaId, mMediaName)
+            "onPlayButtonClick" -> {
+                openPlayer(mMediaId, mMediaName)
+                ReportUtils.instance.addProperty("video_id", mMediaId!!)
+                                    .addProperty("video_name", "")
+                                    .onEvent(ReportEvent.EVENT_CLICK_DETAIL_PLAY)
+            }
             "openDetail" -> openDetailPage(userdata as String)
         }
         super.xulDoAction(view, action, type, command, userdata)
