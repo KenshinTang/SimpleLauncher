@@ -20,5 +20,27 @@
             <attr name="height">2</attr>
             <style name="background-image">file:///.assets/images/line.9.png</style>
         </select>
+        <select class="focus_scale">
+            <action event="focus" type="script/javascript">
+                this.blinkClass("keep_topmost_focused");
+            </action>
+            <action event="blur" type="script/javascript">
+                this.blinkClass("keep_topmost");
+            </action>
+        </select>
+        <select class="focus_scale" state="focused">
+            <style name="z-index">10</style>
+            <style name="scale">1.1</style>
+        </select>
+        <select class="focus_border" state="focused">
+            <attr name="img.0.padding">-24,-28</attr>
+            <attr name="img.0">file:///.assets/images/poster_shadow.9.png</attr>
+            <style name="border">4,d82cbdd7</style>
+        </select>
+        <select class="focus_border_bold" state="focused">
+            <attr name="img.0.padding">-24,-28</attr>
+            <attr name="img.0">file:///.assets/images/poster_shadow.9.png</attr>
+            <style name="border">5,d82cbdd7</style>
+        </select>
     </selector>
 </starcor.xul>

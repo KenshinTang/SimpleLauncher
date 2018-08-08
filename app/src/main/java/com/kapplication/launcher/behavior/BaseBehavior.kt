@@ -95,6 +95,13 @@ abstract class BaseBehavior(xulPresenter: XulPresenter) : XulUiBehavior(xulPrese
         UiManager.openUiPage("SpecialListPage")
     }
 
+    protected fun openSpecialPage(specialId: String?) {
+        XulLog.i(NAME, "openSpecialPage($specialId)")
+        val extInfo = XulDataNode.obtainDataNode("extInfo")
+        extInfo.appendChild("specialId", specialId)
+        UiManager.openUiPage("SpecialPage", extInfo)
+    }
+
     protected fun openDetailPage(mediaId: String?) {
         XulLog.i(NAME, "openDetailPage($mediaId)")
         val extInfoNode = XulDataNode.obtainDataNode("ext_info")

@@ -1,5 +1,6 @@
 package com.kapplication.launcher.behavior
 
+import android.text.TextUtils
 import com.kapplication.launcher.utils.Utils
 import com.starcor.xul.Wrapper.XulMassiveAreaWrapper
 import com.starcor.xul.Wrapper.XulSliderAreaWrapper
@@ -50,6 +51,12 @@ class VideoListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresenter)
         if (extInfo != null) {
             mPackageId = extInfo.getString("packageId")
             XulLog.i(NAME, "VideoListBehavior packageId = $mPackageId")
+        }
+
+        if (TextUtils.isEmpty(mPackageId)) {
+            showEmptyTips()
+            XulLog.i(NAME, "package id is null, show EmptyTips")
+            return
         }
 
         requestCategory(mPackageId)

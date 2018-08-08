@@ -99,7 +99,7 @@ class SpecialListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
             }
 
             override fun onFailure(call: Call?, e: IOException?) {
-                XulLog.e(NAME, "getAssetCategoryList onFailure")
+                XulLog.e(NAME, "getSpecialList onFailure")
                 XulApplication.getAppInstance().postToMainLooper {
                     showEmptyTips()
                 }
@@ -116,7 +116,7 @@ class SpecialListBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
     override fun xulDoAction(view: XulView?, action: String?, type: String?, command: String?, userdata: Any?) {
         XulLog.i(NAME, "action = $action, type = $type, command = $command, userdata = $userdata")
         when (command) {
-            "openSpecial" -> XulLog.i(NAME, "openSpecial")
+            "openSpecial" -> openSpecialPage(userdata as String)
         }
         super.xulDoAction(view, action, type, command, userdata)
     }

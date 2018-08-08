@@ -1,77 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
+
     <page id="SpecialPage">
-        <binding id="special_list"/>
+        <binding id="special-data"/>
         <layout>
             <style name="background-image">file:///.assets/images/background.jpg</style>
-            <item type="label" class="page_title_class">
-                <attr name="x">50</attr>
-                <attr name="y">76</attr>
-                <attr name="text">专题总汇</attr>
-                <style name="font-size">50</style>
-                <style name="font-color">FFFFFFFF</style>
-            </item>
-            <area id="area_no_data" desc="无数据提示">
-                <style name="display">none</style>
-                <focus mode="nofocus"/>
-                <item type="label">
-                    <attr name="x">860</attr>
-                    <attr name="y">475</attr>
-                    <attr name="text">暂无相关数据</attr>
-                    <style name="font-size">26</style>
-                    <style name="font-color">FF8181AB</style>
-                </item>
-            </area>
-
-            <area type="slider">
-                <focus mode="nofocus"/>
-                <attr name="x">50</attr>
-                <attr name="y">168</attr>
-                <attr name="direction">vertical</attr>
-                <attr name="width">match_parent</attr>
-                <attr name="height">match_parent</attr>
-                <style name="preferred-focus-padding">5,0,0,5</style>
-                <style name="clip-children">false</style>
-                <style name="clip-focus">false</style>
-                <area id="area_special_list" type="massive">
+            <area id="area_special" class="match_parent_wh" binding="#special-data/data/special_info">
+                <!--根据后台配置设置背景图片-->
+                <item type="image" class="match_parent_wh">
+                    <action event="loadImageSuccess" type="script/javascript">
+                        this.dispatchEvent("loadBackgroundSuccess", "", "");
+                    </action>
                     <focus mode="nofocus"/>
-                    <attr name="width">1746</attr>
-                    <attr name="direction">horizontal</attr>
-                    <attr name="arrangement">grid-fixed</attr>
-                    <style name="clip-focus">false</style>
-                    <style name="margin-top">5</style>
-                    <focus mode="dynamic"/>
-                    <template id="@item-template">
-                        <item type="image" filter="[0]" class="focus_border,special_item">
-                            <!--<attr name="text" binding="[=video_name]"/>-->
-                            <attr name="img.2" binding="=scale:{[=special_img_h]}"/>
-                            <data name="userdata" binding="[=id]"/>
-                            <action event="bindingFinished" type="script/javascript">
-                                this.requestFocus();
-                            </action>
-                        </item>
-                        <item type="image" class="focus_border,special_item">
-                            <attr name="img.2" binding="=scale:{[=special_img_h]}"/>
-                            <data name="userdata" binding="[=id]"/>
-                        </item>
-                    </template>
+                    <attr name="img.0" binding="[=img_background]"/>
+                    <attr name="img.0.mode">stretch</attr>
+                </item>
+                <area type="slider">
+                    <attr name="x">119</attr>
+                    <attr name="y">46</attr>
+                    <attr name="width">match_parent</attr>
+                    <attr name="height">100</attr>
+                    <item id="special_name" type="label" class="special_name_class" desc="专题名称">
+                        <attr name="text" binding="[=name]"/>
+                    </item>
+                    <item id="page_number" type="spanned_label" class="special_number_class">
+                    </item>
+                </area>
+
+                <area id="area_special_list_slider" type="slider">
+                    <focus mode="dynamic,priority"/>
+                    <attr name="y">520</attr>
+                    <attr name="width">match_parent</attr>
+                    <style name="padding">40,200</style>
+                    <style name="clip-children">false</style>
+                    <style name="keep-focus-visible">true</style>
+
+                    <area id="area_special_list" type="massive">
+                        <attr name="arrangement">linear-fixed</attr>
+                        <attr name="direction">horizontal</attr>
+                        <attr name="minimum-item">12</attr>
+                        <attr name="cache-pages">1</attr>
+
+                        <template id="@item-template">
+                            <item filter="[0]" type="image"
+                                class="poster_default_bkg,focus_scale,focus_border,poster_item,marquee_animation">
+                                <data name="index" binding="[=index]"/>
+                                <data name="video_name" binding="[=video_name]"/>
+                                <data name="userdata" binding="[=video_id]"/>
+                                <attr name="img.2" binding="=scale:{[=video_img_v]}"/>
+                                <action event="focus" type="script/javascript">
+                                    this.setAttr("text",this.getData("video_name"));
+                                    this.dispatchEvent("focus", "usr_cmd", "posterFocus");
+                                </action>
+                                <action event="blur" type="script/javascript">
+                                    this.setAttr("text","");
+                                </action>
+                                <action event="click" type="usr_cmd">openDetail</action>
+                                <action event="bindingFinished" type="script/javascript">
+                                    this.requestFocus();
+                                </action>
+                            </item>
+                            <item type="image"
+                                class="poster_default_bkg,focus_scale,focus_border,poster_item,marquee_animation">
+                                <data name="index" binding="[=index]"/>
+                                <data name="video_name" binding="[=video_name]"/>
+                                <data name="userdata" binding="[=video_id]"/>
+                                <attr name="img.2" binding="=scale:{[=video_img_v]}"/>
+                                <action event="focus" type="script/javascript">
+                                    this.setAttr("text",this.getData("video_name"));
+                                    this.dispatchEvent("focus", "usr_cmd", "posterFocus");
+                                </action>
+                                <action event="blur" type="script/javascript">
+                                    this.setAttr("text","");
+                                </action>
+                                <action event="click" type="usr_cmd">openDetail</action>
+                            </item>
+                        </template>
+                    </area>
                 </area>
             </area>
         </layout>
-
         <selector>
-            <select class="special_item">
-                <attr name="width">532</attr>
-                <attr name="height">300</attr>
-                <attr name="img.2.width">532</attr>
-                <attr name="img.2.height">300</attr>
-                <style name="margin-right">50</style>
-                <style name="margin-bottom">53</style>
-                <action event="click" type="usr_cmd">openSpecial</action>
+            <select class="special_name_class">
+                <style name="font-color">ffffffff</style>
+                <style name="font-size">50</style>
+                <style name="max-width">800</style>
+                <attr name="ellipsis">true</attr>
+                <style name="fix-half-char">true</style>
             </select>
-            <select class="special_item" state="focused">
-                <style name="scale">1.1</style>
+            <select class="special_number_class">
+                <attr name="y">21</attr>
+                <style name="margin-left">41</style>
+                <style name="font-color">ffffffff</style>
+                <style name="font-size">35</style>
+            </select>
+            <select class="poster_item">
+                <focus priority="1" focused="true"/>
+                <attr name="width">242</attr>
+                <attr name="height">348</attr>
+                <attr name="img.0.auto-hide">below</attr>
+                <attr name="img.2.mode">stretch</attr>
+                <style name="font-color">80FFFFFF</style>
+                <style name="font-size">36</style>
+                <style name="font-align">0.5,1</style>
+                <style name="padding-bottom">-60</style>
+                <style name="margin">40,64,64,104</style>
+            </select>
+            <select class="poster_item" state="focused">
+                <style name="font-color">FFFFFFFF</style>
             </select>
         </selector>
     </page>
+
 </starcor.xul>
