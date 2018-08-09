@@ -96,11 +96,15 @@ class MediaDetailBehavior(xulPresenter: XulPresenter) : BaseBehavior(xulPresente
             "onPlayButtonClick" -> {
                 openPlayer(mMediaId, mMediaName)
                 ReportUtils.instance.addProperty("video_id", mMediaId!!)
-                                    .addProperty("video_name", "")
+                                    .addProperty("video_name", getVideoName())
                                     .onEvent(ReportEvent.EVENT_CLICK_DETAIL_PLAY)
             }
             "openDetail" -> openDetailPage(userdata as String)
         }
         super.xulDoAction(view, action, type, command, userdata)
+    }
+
+    private fun getVideoName() : String {
+        return _xulRenderContext.findItemById("item_media_title").getAttrString("text")
     }
 }
