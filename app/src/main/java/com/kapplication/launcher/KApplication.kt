@@ -1,5 +1,6 @@
 package com.kapplication.launcher
 
+import android.os.Environment
 import android.text.TextUtils
 import com.kapplication.launcher.behavior.*
 import com.kapplication.launcher.report.ReportUtils
@@ -40,6 +41,8 @@ class KApplication : XulApplication() {
         super.onCreate()
         XulTime.setTimeZoneOffset(8)
         startCommonMessage()
+
+        XulLog.i("kenshin", Environment.getExternalStorageDirectory().absolutePath)
     }
 
     override fun onLoadXul() {
@@ -140,6 +143,13 @@ class KApplication : XulApplication() {
                 .setTag(CommonMessage.EVENT_HALF_SECOND)
                 .setInterval(500)
                 .setRepeat(Integer.MAX_VALUE)
+                .postSticky()
+
+        XulMessageCenter.buildMessage()
+                .setTag(CommonMessage.EVENT_TEN_MINUTES)
+                .setInterval(1000 * 60 * 10)
+                .setRepeat(Integer.MAX_VALUE)
+                .setDelay(1000 * 60 * 1)
                 .postSticky()
 
         XulMessageCenter.buildMessage()

@@ -4,8 +4,10 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.provider.Settings
+import com.kapplication.launcher.CommonMessage
 import com.kapplication.launcher.UiManager
 import com.kapplication.launcher.provider.BaseProvider
+import com.kapplication.launcher.upgrade.UpgradeUtils
 import com.starcor.xul.Script.IScriptArguments
 import com.starcor.xul.Script.IScriptContext
 import com.starcor.xul.ScriptWrappr.Annotation.ScriptMethod
@@ -14,6 +16,7 @@ import com.starcor.xul.XulView
 import com.starcor.xulapp.XulApplication
 import com.starcor.xulapp.XulPresenter
 import com.starcor.xulapp.behavior.XulUiBehavior
+import com.starcor.xulapp.message.XulSubscriber
 import com.starcor.xulapp.model.XulDataCallback
 import com.starcor.xulapp.model.XulDataService
 import com.starcor.xulapp.utils.XulLog
@@ -135,5 +138,10 @@ abstract class BaseBehavior(xulPresenter: XulPresenter) : XulUiBehavior(xulPrese
             return true
         }
         return false
+    }
+
+    @XulSubscriber(tag = CommonMessage.EVENT_TEN_MINUTES)
+    private fun on10MinutesPassed(dummy: Any) {
+        UpgradeUtils.instance.checkUpgrade(okHttpClient)
     }
 }

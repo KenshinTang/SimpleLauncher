@@ -14,6 +14,7 @@ object CommonMessage {
 
     const val EVENT_HALF_SECOND = 0x1001
     const val EVENT_HALF_HOUR = 0x1002
+    const val EVENT_TEN_MINUTES = 0x1003
 
     @Synchronized
     fun GENERAGE_UNIQUE_MSG_ID(): Int {
