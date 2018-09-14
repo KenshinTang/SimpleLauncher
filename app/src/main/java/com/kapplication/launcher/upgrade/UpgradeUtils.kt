@@ -28,9 +28,14 @@ class UpgradeUtils {
     }
 
     private var mAPKUrl: String = ""
+    private var mVersionName: String? = ""
     private var mDownloadId: Long = -1
+    private var mAllowedToUpgrade = true
 
-    fun checkUpgrade(okHttpClient: OkHttpClient) {
+    fun startCheckUpgrade(okHttpClient: OkHttpClient) {
+        if (!mAllowedToUpgrade) {
+            return
+        }
         val urlBuilder = HttpUrl.parse(Utils.HOST)!!.newBuilder()
                 .addQueryParameter("m", "Terminal")
                 .addQueryParameter("c", "Version")
@@ -55,6 +60,7 @@ class UpgradeUtils {
                     val dataNode: XulDataNode = XulDataNode.buildFromJson(result)
                     if (!handleError(dataNode)) {
                         mAPKUrl = dataNode.getChildNode("data").getAttributeValue("new_version_url")
+                        mVersionName = dataNode.getChildNode("data").getAttributeValue("new_version")
                         XulLog.i(NAME, "new apk url is: $mAPKUrl")
                         mDownloadId = downloadAPK(mAPKUrl)
                     }
@@ -65,6 +71,14 @@ class UpgradeUtils {
                 XulLog.e(NAME, "Check upgrade onFailure")
             }
         })
+    }
+
+    fun stopCheckUpgrade() {
+        mAllowedToUpgrade = false
+    }
+
+    fun restartCheckUpgrade() {
+        mAllowedToUpgrade = true
     }
 
     private fun downloadAPK(url: String) : Long {
@@ -86,6 +100,13 @@ class UpgradeUtils {
 
     fun getDownloadId() : Long {
         return mDownloadId
+    }
+
+    fun getNewVersionName() : String {
+        if (mVersionName == null) {
+            return ""
+        }
+        return mVersionName as String
     }
 
     fun doUpgrade() {

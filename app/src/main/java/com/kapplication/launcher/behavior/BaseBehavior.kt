@@ -2,11 +2,13 @@ package com.kapplication.launcher.behavior
 
 import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.provider.Settings
 import com.kapplication.launcher.CommonMessage
 import com.kapplication.launcher.UiManager
 import com.kapplication.launcher.provider.BaseProvider
+import com.kapplication.launcher.upgrade.UpgradeDialog
 import com.kapplication.launcher.upgrade.UpgradeUtils
 import com.starcor.xul.Script.IScriptArguments
 import com.starcor.xul.Script.IScriptContext
@@ -142,6 +144,35 @@ abstract class BaseBehavior(xulPresenter: XulPresenter) : XulUiBehavior(xulPrese
 
     @XulSubscriber(tag = CommonMessage.EVENT_TEN_MINUTES)
     private fun on10MinutesPassed(dummy: Any) {
-        UpgradeUtils.instance.checkUpgrade(okHttpClient)
+        UpgradeUtils.instance.startCheckUpgrade(okHttpClient)
+    }
+
+    @XulSubscriber(tag = CommonMessage.EVENT_SHOW_UPGRADE)
+    private fun onShowUpgradeDialog(dummy: Any) {
+        XulLog.d("UpgradeUtils", "onShowUpgradeDialog: " + this)
+        val xulRenderContext = xulGetRenderContext()
+        if (xulRenderContext == null
+                || xulRenderContext.isDestroyed
+                || xulRenderContext.isSuspended) {
+            XulLog.w("UpgradeUtils", this.toString() + " :xulRenderContext is invalid.")
+            return
+        }
+        if (this is MediaPlayerBehavior) {
+            XulLog.d("UpgradeUtils", "skip this upgrade. because of" + this)
+            return
+        }
+
+        val mUpgradeDialog = UpgradeDialog(_presenter.xulGetContext(), "page_upgrade_dialog")
+        mUpgradeDialog.setOkBtnClickListener(DialogInterface.OnClickListener { _, _ -> UpgradeUtils.instance.doUpgrade() })
+        // 对话框显示的时候停止检测升级
+        mUpgradeDialog.setOnShowListener(DialogInterface.OnShowListener { UpgradeUtils.instance.stopCheckUpgrade() })
+        // 对话框取消了重新开始检测.
+        mUpgradeDialog.setOnDismissListener(DialogInterface.OnDismissListener { UpgradeUtils.instance.restartCheckUpgrade() })
+
+        if (mUpgradeDialog.isShowing) {
+            XulLog.w("UpgradeUtils", "Upgrade dialog is already showing. just refresh the data!")
+            return
+        }
+        mUpgradeDialog.show()
     }
 }

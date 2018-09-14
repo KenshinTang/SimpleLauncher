@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<starcor.xul xmlns="http://www.starcor.cn/XUL" screen="1920x1080">
+    <page id="page_upgrade_dialog">
+        <binding id="upgrade_info">
+            <data>
+                <item>
+                    <index>1. </index>
+                    <desc>新功能增加, 提升用户体验</desc>
+                </item>
+                <item>
+                    <index>2. </index>
+                    <desc>修复已知Bug</desc>
+                </item>
+            </data>
+        </binding>
+        <layout>
+        <!--    <style name="background-color">E6000000</st-->yle>
+            <item type="image" desc="对话框背景阴影">
+                <attr name="x">372</attr>
+                <attr name="y">162</attr>
+                <attr name="width">1194</attr>
+                <attr name="height">713</attr>
+                <attr name="img.0.padding">-30,-34</attr>
+                <attr name="img.0">file:///.assets/images/dialog_shadow.9.png</attr>
+                <focus mode="nofocus"/>
+            </item>
+            <area id="area_upgrade">
+                <attr name="x">372</attr>
+                <attr name="y">162</attr>
+                <attr name="width">1194</attr>
+                <attr name="height">713</attr>
+                <style name="background-image">file:///.assets/images/background.jpg</style>
+
+                <item type="label">
+                    <attr name="text">您有新的版本可用, 是否升级?</attr>
+                    <attr name="y">58</attr>
+                    <attr name="width">match_parent</attr>
+                    <style name="font-size">48</style>
+                    <style name="font-color">FFFFFFFF</style>
+                    <style name="font-align">0.5,0.5</style>
+                </item>
+
+                <item type="label" id="version_name">
+                    <attr name="text"></attr>
+                    <attr name="y">142</attr>
+                    <attr name="width">match_parent</attr>
+                    <style name="font-size">36</style>
+                    <style name="font-color">FFFFFFFF</style>
+                    <style name="font-align">0.5,0.5</style>
+                </item>
+
+                <area id="area_upgrade_desces" type="slider">
+                    <attr name="x">84</attr>
+                    <attr name="y">207</attr>
+                    <attr name="width">match_parent</attr>
+                    <attr name="height">339</attr>
+                    <attr name="direction">vertical</attr>
+                    <style name="padding">20,80,80,20</style>
+
+                    <template binding="#upgrade_info/item">
+                        <area type="slider">
+                            <item type="label" class="upgrade_desc_item">
+                                <style name="display">none</style>
+                                <attr name="width">auto</attr>
+                                <attr name="text" binding="index"/>
+                            </item>
+                            <item type="label" class="upgrade_desc_item">
+                                <attr name="text" binding="desc"/>
+                            </item>
+                        </area>
+                    </template>
+                </area>
+
+                <area id="area_upgrade_btn" type="slider">
+                    <focus mode="dynamic"/>
+                    <attr name="x">396</attr>
+                    <attr name="y">560</attr>
+                    <item id="item_upgrade_btn" type="label" class="upgrade_btn">
+                        <focus mode="focusable" focused="true"/>
+                        <attr name="text">立即升级</attr>
+                        <action event="click" type="usr_cmd">upgrade_immediately</action>
+                    </item>
+                    <item id="cancel_upgrade_btn" type="label" class="upgrade_btn">
+                        <focus mode="focusable"/>
+                        <style name="margin-left">30</style>
+                        <attr name="text">下次再说</attr>
+                        <action event="click" type="usr_cmd">upgrade_next</action>
+                    </item>
+                </area>
+            </area>
+
+            <area id="area_upgrade_process" class="hide">
+                <attr name="x">494</attr>
+                <attr name="y">419</attr>
+                <attr name="width">932</attr>
+                <attr name="height">243</attr>
+                <style name="background-color">EE324459</style>
+                <style name="border">8,FF98AFDC,16,16</style>
+                <style name="padding">40,60</style>
+
+                <item id="item_upgrade_process" type="image" class="match_parent_wh">
+                    <attr name="text" binding="#lang/xulglobaldialogs/systemUpdating"/>
+                    <style name="font-color">FFFCFCFE</style>
+                    <style name="font-size">34</style>
+                    <style name="font-align">0,0</style>
+                    <attr name="img.1">file:///.assets/images/tw_upgrade/progress_bg.png</attr>
+                    <attr name="img.1.width">match_parent</attr>
+                    <attr name="img.1.height">38</attr>
+                    <attr name="img.1.mode">center</attr>
+                    <attr name="img.1.align">0,1</attr>
+                    <attr name="img.2">file:///.assets/images/tw_upgrade/progress.png</attr>
+                    <attr name="img.2.width">85</attr>
+                    <attr name="img.2.height">24</attr>
+                    <attr name="img.2.mode">center</attr>
+                    <attr name="img.2.align">0.012,0.961</attr>
+                </item>
+            </area>
+        </layout>
+        <selector>
+            <select class="upgrade_desc_item">
+                <attr name="width">match_parent</attr>
+                <attr name="multi-line">true</attr>
+                <attr name="auto-wrap">true</attr>
+                <style name="font-color">FFFFFFFF</style>
+                <style name="font-size">32</style>
+                <style name="margin-bottom">3</style>
+                <style name="line-height">1.1</style>
+            </select>
+            <select class="upgrade_btn">
+                <attr name="width">200</attr>
+                <attr name="height">80</attr>
+                <style name="font-size">35</style>
+                <style name="font-color">FFFFFFFF</style>
+                <style name="font-align">0.5,0.5</style>
+                <style name="background-color">34FFFFFF</style>
+                <action event="click" type="usr_cmd">onUpgrade</action>
+            </select>
+            <select class="upgrade_btn" state="focused">
+                <style name="background-color">ff0f6dec</style>
+            </select>
+        </selector>
+    </page>
+</starcor.xul>

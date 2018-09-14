@@ -1,6 +1,5 @@
 package com.kapplication.launcher
 
-import android.os.Environment
 import android.text.TextUtils
 import com.kapplication.launcher.behavior.*
 import com.kapplication.launcher.report.ReportUtils
@@ -25,6 +24,7 @@ class KApplication : XulApplication() {
     private val XUL_FIRST_PAGE = "xul_layouts/pages/xul_epg_page.xml"
     private val XUL_GLOBAL_BINDINGS = "xul_layouts/xul_global_bindings.xml"
     private val XUL_GLOBAL_SELECTORS = "xul_layouts/xul_global_selectors.xml"
+    private val XUL_GLOBAL_DIALOGS = "xul_layouts/pages/xul_global_dialogs.xml"
 
     override fun onCreate() {
         XulLog.i("kenshin", "KApplication, onCreate.")
@@ -42,13 +42,13 @@ class KApplication : XulApplication() {
         XulTime.setTimeZoneOffset(8)
         startCommonMessage()
 
-        XulLog.i("kenshin", Environment.getExternalStorageDirectory().absolutePath)
     }
 
     override fun onLoadXul() {
         xulLoadLayouts(XUL_FIRST_PAGE)
         xulLoadLayouts(XUL_GLOBAL_BINDINGS)
         xulLoadLayouts(XUL_GLOBAL_SELECTORS)
+        xulLoadLayouts(XUL_GLOBAL_DIALOGS)
     }
 
     override fun onRegisterXulBehaviors() {
