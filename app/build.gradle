@@ -33,7 +33,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation ('com.shuyu:GSYVideoPlayer:5.0.1') {
+//    implementation ('com.shuyu:GSYVideoPlayer:5.0.1') {
+    implementation ('com.shuyu:GSYVideoPlayer:6.0.0-beta') {
 //        exclude group: 'com.squareup.okhttp3'
         exclude group: 'com.android.support'
     }
